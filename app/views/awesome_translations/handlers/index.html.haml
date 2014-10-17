@@ -1,0 +1,13 @@
+%h1 Handlers
+
+%table
+  %thead
+    %tr
+      %th Handler
+  %tbody
+    - @handlers.each do |handler|
+      %tr
+        %td= link_to handler.name, handler_path(handler)
+    - if @handlers.empty?
+      %tr
+        %td.error{colspan: 1} No handlers were found.
