@@ -4,4 +4,27 @@
 
 # AwesomeTranslations
 
+## Install
+
+```ruby
+gem 'awesome_translations', group: :development
+```
+
+Then run the following:
+```
+bundle exec rake awesome_translations:install
+```
+
+Insert this into your "routes.rb" file:
+```ruby
+mount AwesomeTranslations::Engine => "/awesome_translations" if Rails.env.development?
+```
+
+## Translating your application
+
+Start a Rails server for your project and go to the namespace called something like "http://localhost:3000/awesome_translations". Start translating your app through the webinterface.
+
+
+# License
+
 This project rocks and uses MIT-LICENSE.
