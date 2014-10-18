@@ -19,11 +19,19 @@ class AwesomeTranslations::Handler
     @data[:id]
   end
 
+  def to_param
+    id
+  end
+
   def name
     @data[:name]
   end
 
+  def const
+    AwesomeTranslations::Handlers.const_get(@data[:const_name])
+  end
+
   def translations
-    raise "stub!"
+    const.new.translations
   end
 end

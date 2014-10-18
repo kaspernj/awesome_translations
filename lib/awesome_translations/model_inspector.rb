@@ -1,4 +1,9 @@
-class GettextSimpleRails::ModelInspector
+class AwesomeTranslations::ModelInspector
+  autoload :Attribute, "#{File.dirname(__FILE__)}/model_inspector/attribute"
+
+  attr_reader :clazz
+
+  # Yields a model-inspector for each model found in the application.
   def self.model_classes
     clazzes = []
     ::Rails.application.eager_load!
@@ -7,11 +12,9 @@ class GettextSimpleRails::ModelInspector
       clazz = clazz.to_s.constantize
       next unless clazz.class == Class
       next unless clazz < ActiveRecord::Base
-      yield ::GettextSimpleRails::ModelInspector.new(clazz)
+      yield ::AwesomeTranslations::ModelInspector.new(clazz)
     end
   end
-
-  attr_reader :clazz
 
   def initialize(clazz)
     @clazz = clazz
@@ -19,14 +22,14 @@ class GettextSimpleRails::ModelInspector
 
   def attributes
     @clazz.attribute_names.each do |attribute_name|
-      yield ::GettextSimpleRails::ModelInspector::Attribute.new(self, attribute_name)
+      yield ::AwesomeTranslations::ModelInspector::Attribute.new(self, attribute_name)
     end
   end
 
   def paperclip_attachments
     return [] unless ::Kernel.const_defined?("Paperclip")
     Paperclip::AttachmentRegistry.names_for(@clazz).each do |name|
-      yield(name)
+      yield name
     end
   end
 
@@ -35,7 +38,7 @@ class GettextSimpleRails::ModelInspector
   end
 
   def gettext_key
-    return "models.name.#{snake_name}"
+    return "activerecord.models.#{snake_name}"
   end
 
   def gettext_key_one
@@ -54,19 +57,6 @@ class GettextSimpleRails::ModelInspector
   end
 
   def i18n_key name
-    return "models.attributes.#{snake_name}.#{name}"
-  end
-
-  class Attribute
-    attr_reader :name
-
-    def initialize(clazz_inspector, name)
-      @clazz_inspector = clazz_inspector
-      @name = name
-    end
-
-    def i18n_key
-      return "models.attributes.#{@clazz_inspector.snake_name}.#{@name}"
-    end
+    return "activerecord.attributes.#{snake_name}.#{name}"
   end
 end
