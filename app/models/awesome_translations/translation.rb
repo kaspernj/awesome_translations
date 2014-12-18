@@ -1,6 +1,9 @@
 class AwesomeTranslations::Translation
-  def initialize data
+  attr_reader :dir, :key
+
+  def initialize(data)
     @data = data
+    @dir, @key = data[:dir], data[:key]
   end
 
   def id
@@ -11,23 +14,15 @@ class AwesomeTranslations::Translation
     id
   end
 
-  def key
-    @data[:key]
-  end
-
   def name
     key
-  end
-
-  def dir
-    @data[:dir]
   end
 
   def translated_values
     result = []
 
     I18n.available_locales.each do |locale|
-      next unless value_for? locale
+      next unless value_for?(locale)
 
       translated_value = AwesomeTranslations::TranslatedValue.new(
         file: "#{dir}/#{locale}.yml",
@@ -40,11 +35,20 @@ class AwesomeTranslations::Translation
     return result
   end
 
-  def value_for? locale
+  def translated_value_for_locale(locale)
+    AwesomeTranslations::TranslatedValue.new(
+      file: "#{dir}/#{locale}.yml",
+      key: key,
+      locale: locale,
+      value: value_for?(locale) ? value(locale: locale) : ""
+    )
+  end
+
+  def value_for?(locale)
     I18n.exists?(key, locale: locale)
   end
 
-  def value args = {}
+  def value(args = {})
     locale = args[:locale] || I18n.locale || I18n.default_locale
 
     return nil unless value_for?(locale)

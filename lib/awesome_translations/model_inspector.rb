@@ -12,6 +12,7 @@ class AwesomeTranslations::ModelInspector
       clazz = clazz.to_s.constantize
       next unless clazz.class == Class
       next unless clazz < ActiveRecord::Base
+
       yield ::AwesomeTranslations::ModelInspector.new(clazz)
     end
   end
@@ -58,5 +59,13 @@ class AwesomeTranslations::ModelInspector
 
   def i18n_key name
     return "activerecord.attributes.#{snake_name}.#{name}"
+  end
+
+  def to_s
+    "<AwesomeTranslations::ModelInspector class-name: \"#{@clazz.name}\">"
+  end
+
+  def inspect
+    to_s
   end
 end
