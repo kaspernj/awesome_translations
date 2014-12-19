@@ -10,7 +10,7 @@
       = link_to _("Awesome Translations"), try(:awesome_translations_path)
 
     .language
-      = link_to _("English"), locales_path(locale: :en), method: :post
+      = link_to t(".english"), locales_path(locale: :en), method: :post
       = link_to _("Danish"), locales_path(locale: :da), method: :post
 
     .current-language

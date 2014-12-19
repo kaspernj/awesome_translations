@@ -4,6 +4,8 @@ class AwesomeTranslations::Translation
   def initialize(data)
     @data = data
     @dir, @key = data[:dir], data[:key]
+
+    raise "Dir wasn't valid: '#{@dir}'." unless @dir.present?
   end
 
   def id
@@ -53,5 +55,13 @@ class AwesomeTranslations::Translation
 
     return nil unless value_for?(locale)
     I18n.t(key, locale: locale)
+  end
+
+  def to_s
+    "<AwesomeTranslations::Translation key=\"#{@key}\" dir=\"#{@dir}\">"
+  end
+
+  def inspect
+    to_s
   end
 end
