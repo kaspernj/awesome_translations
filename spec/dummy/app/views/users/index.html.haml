@@ -1,0 +1,17 @@
+%h1= User.model_name.human(count: 2)
+
+.hello-world-i18n= t(".hello_world_from_i18n")
+.hello-world-custom= _("Hello world from custom")
+
+%h2= _("List of users")
+%table
+  %thead
+    %tr
+      %th= User.human_attribute_name(:id)
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= link_to user.id, user_path(user)
+    - unless @users.any?
+      %tr
+        %td{colspan: 1}= _("No users was found.")

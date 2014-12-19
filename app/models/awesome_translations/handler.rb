@@ -3,15 +3,15 @@ class AwesomeTranslations::Handler
     AwesomeTranslations::Handlers.list
   end
 
-  def self.find id
+  def self.find(id)
     AwesomeTranslations::Handlers.list.each do |handler|
       return handler if handler.id == id.to_s
     end
 
-    raise ActiveRecord::RecordNotFound, "Handlers not found: '#{handler}'."
+    raise ActiveRecord::RecordNotFound, "Handlers not found: '#{id}'."
   end
 
-  def initialize data
+  def initialize(data)
     @data = data
   end
 
@@ -20,6 +20,10 @@ class AwesomeTranslations::Handler
   end
 
   def to_param
+    id
+  end
+
+  def param_key
     id
   end
 

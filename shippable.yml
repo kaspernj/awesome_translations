@@ -1,7 +1,10 @@
 language: ruby
+cache: bundler
+archive: true
 rvm:
   - 2.1.2
 script:
+  - bundle exec rake db:migrate
   - CODECLIMATE_REPO_TOKEN=6ce9528867413dd59d35477770932ca5dd37de1688c07a1f46458fc645df3fac bundle exec rspec
 notifications:
    email: false

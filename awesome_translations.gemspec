@@ -13,12 +13,15 @@ Gem::Specification.new do |s|
   s.summary     = "Semi-automatic maintenance of most translations in a Rails app."
   s.description = "Semi-automatic maintenance of most translations in a Rails app."
 
-  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
+  s.test_files = Dir["spec/**/*"]
 
-  s.add_dependency "rails", "~> 4.0.10"
-  s.add_dependency "haml"
+  s.add_dependency "rails", ">= 4.0.0"
   s.add_dependency "string-cases"
+  s.add_dependency "jquery-rails"
+  s.add_dependency "haml"
 
+  s.add_development_dependency "haml-rails"
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "forgery"

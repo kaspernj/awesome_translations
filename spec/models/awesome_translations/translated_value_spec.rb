@@ -14,11 +14,13 @@ describe AwesomeTranslations::TranslatedValue do
 
   before do
     test_translations = {
-      activerecord: {
-        attributes: {
-          test_model: {
-            test: "test",
-            other_translation: "En anden"
+      "da" => {
+        "activerecord" => {
+          "attributes" => {
+            "test_model" => {
+              "test" => "test",
+              "other_translation" => "En anden"
+            }
           }
         }
       }
@@ -34,7 +36,8 @@ describe AwesomeTranslations::TranslatedValue do
     translated_value.save!
 
     translations = YAML.load(File.read(test_file_path))
-    translations[:activerecord][:attributes][:test_model][:test].should eq "new test"
-    translations[:activerecord][:attributes][:test_model][:other_translation].should eq "En anden"
+
+    translations["da"]["activerecord"]["attributes"]["test_model"]["test"].should eq "new test"
+    translations["da"]["activerecord"]["attributes"]["test_model"]["other_translation"].should eq "En anden"
   end
 end

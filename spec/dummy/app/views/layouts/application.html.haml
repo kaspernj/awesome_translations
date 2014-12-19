@@ -1,0 +1,19 @@
+!!! 5
+%html
+  %head
+    %title Dummy
+    = stylesheet_link_tag "application", media: "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body
+    .awesome-translations
+      = link_to _("Awesome Translations"), try(:awesome_translations_path)
+
+    .language
+      = link_to t(".english"), locales_path(locale: :en), method: :post
+      = link_to _("Danish"), locales_path(locale: :da), method: :post
+
+    .current-language
+      = _("The current language is: %{locale}", locale: I18n.locale)
+
+    = yield

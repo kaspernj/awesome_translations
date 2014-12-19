@@ -14,19 +14,17 @@ class AwesomeTranslations::Handlers::ModelHandler < AwesomeTranslations::Handler
 
 private
 
-  def dir_path model_inspector
-    unless @dir_path
-      class_name = model_inspector.clazz.name
-      class_name = class_name.gsub("::", "_")
-      class_name = StringCases.camel_to_snake(class_name)
+  def dir_path(model_inspector)
+    class_name = model_inspector.clazz.name
+    class_name = class_name.gsub("::", "_")
+    class_name = StringCases.camel_to_snake(class_name)
 
-      @dir_path = "#{Rails.root}/config/locales/awesome_translations/models/#{class_name}"
-    end
+    dir_path = "#{Rails.root}/config/locales/awesome_translations/models/#{class_name}"
 
-    return @dir_path
+    return dir_path
   end
 
-  def active_record_attributes model_inspector
+  def active_record_attributes(model_inspector)
     result = []
 
     model_inspector.attributes do |attribute|
@@ -45,7 +43,7 @@ private
     return result
   end
 
-  def paperclip_attachments model_inspector
+  def paperclip_attachments(model_inspector)
     result = []
 
     model_inspector.paperclip_attachments do |name|
@@ -58,7 +56,7 @@ private
     return result
   end
 
-  def model_names model_inspector
+  def model_names(model_inspector)
     result = []
     result << AwesomeTranslations::Translation.new(
       key: model_inspector.gettext_key_one,
@@ -72,7 +70,7 @@ private
     return result
   end
 
-  def relationships model_inspector
+  def relationships(model_inspector)
     result = []
 
     model_inspector.relationships do |key, reflection|
