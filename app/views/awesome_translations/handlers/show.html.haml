@@ -1,22 +1,12 @@
 %h1= "Show handler: #{@handler.name}"
 
-= form_for :handler, url: handler_path(@handler), method: :put do |f|
-  %table
-    %thead
-      %th Key
-      %th Dir
-      - I18n.available_locales.each do |locale|
-        %th= locale
-    %tbody
-      - @translations.each do |translation|
-        %tr
-          %td= translation.key
-          %td= translation.dir.gsub("#{Rails.root.to_s}/", "")
-          - I18n.available_locales.each do |locale|
-            %td
-              = text_field "t", "#{translation.key}[#{locale}]", value: translation.value(locale: locale)
-      - if @translations.empty?
-        %tr
-          %td.error{colspan: 2} No translations were found.
-
-  = f.submit "Save"
+%table
+  %thead
+    %th Group
+  %tbody
+    - @groups.each do |group|
+      %tr
+        %td= link_to group.name, handler_group_path(@handler, group)
+    - if @groups.empty?
+      %tr
+        %td.error{colspan: 2} No groups were found.

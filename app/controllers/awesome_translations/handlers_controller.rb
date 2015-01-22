@@ -6,22 +6,7 @@ class AwesomeTranslations::HandlersController < AwesomeTranslations::Application
   end
 
   def show
-    @translations = @handler.translations
-  end
-
-  def update
-    @handler.translations.each do |translation|
-      next unless params[:t].key?(translation.key)
-
-      values = params[:t][translation.key]
-      values.each do |locale, value|
-        translated_value = translation.translated_value_for_locale(locale)
-        translated_value.value = value
-        translated_value.save!
-      end
-    end
-
-    render nothing: true
+    @groups = @handler.groups
   end
 
 private

@@ -26,6 +26,45 @@ class AwesomeTranslations::Handlers::ErbHandler < AwesomeTranslations::Handlers:
     return translations
   end
 
+  def groups
+    ArrayEnumerator.new do |y|
+      views_path = "#{Rails.root}/app/views"
+
+      Dir.foreach(views_path) do |file|
+        next if file == "." || file == ".."
+        full_path = "#{views_path}/#{file}"
+
+        if File.directory?(full_path)
+          group = AwesomeTranslations::Group.new(
+            id: file,
+            handler: self,
+            data: {
+              grouped: file
+            }
+          )
+          y << group
+        end
+      end
+    end
+  end
+
+  def translations_for_group(group)
+    ArrayEnumerator.new do |y|
+      files("#{Rails.root}/app/views/#{group.data[:grouped]}") do |file_path|
+        translations = []
+
+        controller_file = "#{Rails.root}/app/controllers/#{group.data[:grouped]}_controller.rb"
+
+        parse_file_path(controller_file, translations) if File.exists?(controller_file)
+        parse_file_path(file_path, translations)
+
+        translations.each do |translation|
+          y << translation
+        end
+      end
+    end
+  end
+
 private
 
   # Opens a file, reads the content while keeping track of line-numbers and saves found translations.
