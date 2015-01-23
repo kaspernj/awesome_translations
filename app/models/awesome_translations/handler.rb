@@ -38,4 +38,8 @@ class AwesomeTranslations::Handler
   def translations
     const.new.translations
   end
+
+  def groups
+    const.new.groups
+  end
 end

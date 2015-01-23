@@ -11,6 +11,16 @@ class UsersController < ApplicationController
   def new
   end
 
+  def create
+    if @user.save
+      flash[:notice] = t(".user_was_created")
+      redirect_to user_path(@user)
+    else
+      flash[:error] = @user.errors.full_messages.join(". ")
+      render :new
+    end
+  end
+
   def edit
   end
 

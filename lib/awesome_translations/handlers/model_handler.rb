@@ -12,6 +12,31 @@ class AwesomeTranslations::Handlers::ModelHandler < AwesomeTranslations::Handler
     return result
   end
 
+  def groups
+    ArrayEnumerator.new do |y|
+      AwesomeTranslations::ModelInspector.model_classes do |model_inspector|
+        group = AwesomeTranslations::Group.new(
+          id: model_inspector.clazz.name,
+          handler: self
+        )
+        y << group
+      end
+    end
+  end
+
+  def translations_for_group(group)
+    ArrayEnumerator.new do |y|
+      AwesomeTranslations::ModelInspector.model_classes do |model_inspector|
+        next unless model_inspector.clazz.name == group.name
+
+        model_names(model_inspector).each { |translation| y << translation }
+        active_record_attributes(model_inspector).each { |translation| y << translation }
+        paperclip_attachments(model_inspector).each { |translation| y << translation }
+        relationships(model_inspector).each { |translation| y << translation }
+      end
+    end
+  end
+
 private
 
   def dir_path(model_inspector)
