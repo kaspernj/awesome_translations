@@ -1,6 +1,7 @@
 require "awesome_translations/engine"
 require "haml"
 require "string-cases"
+require "array_enumerator"
 
 module AwesomeTranslations
   autoload :Handlers, "#{File.dirname(__FILE__)}/awesome_translations/handlers"
@@ -8,4 +9,4 @@ module AwesomeTranslations
   autoload :ModelInspector, "awesome_translations/model_inspector"
 end
 
-Object.include AwesomeTranslations::ObjectExtensions
+Object.__send__(:include, AwesomeTranslations::ObjectExtensions)

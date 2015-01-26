@@ -5,7 +5,7 @@ PATH
       array_enumerator (~> 0.0.6)
       haml
       jquery-rails
-      rails (>= 4.0.0)
+      rails (>= 3.1.2)
       string-cases
 
 GEM

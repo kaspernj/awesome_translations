@@ -32,7 +32,11 @@ class AwesomeTranslations::TranslatedValue
       key_part = key_part.to_s
 
       if index == last_index
-        current[key_part] = value
+        if @value.empty?
+          current.delete(key_part)
+        else
+          current[key_part] = value
+        end
       else
         current[key_part] ||= {}
         current = current[key_part]

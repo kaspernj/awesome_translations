@@ -19,6 +19,11 @@ describe AwesomeTranslations::Handlers::ErbHandler do
     danish_translations.length.should eq 1
   end
 
+  it "doesnt include _ in partial keys" do
+    partial_test = translations.select { |t| t.key == "views.users.partial_test.partial_test" }
+    partial_test.length.should eq 1
+  end
+
   it "removes special characters when using the custom method" do
     current_language_translation = translations.select { |t| t.key == "views.layouts.application.the_current_language_is" }
     current_language_translation.length.should eq 1
