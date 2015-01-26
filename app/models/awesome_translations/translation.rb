@@ -28,7 +28,7 @@ class AwesomeTranslations::Translation
 
       translated_value = AwesomeTranslations::TranslatedValue.new(
         file: "#{dir}/#{locale}.yml",
-        key: key,
+        key: @key,
         locale: locale,
         value: value(locale: locale)
       )
@@ -40,21 +40,21 @@ class AwesomeTranslations::Translation
   def translated_value_for_locale(locale)
     AwesomeTranslations::TranslatedValue.new(
       file: "#{dir}/#{locale}.yml",
-      key: key,
+      key: @key,
       locale: locale,
       value: value_for?(locale) ? value(locale: locale) : ""
     )
   end
 
   def value_for?(locale)
-    I18n.exists?(key, locale: locale)
+    I18n.with_locale(locale) { return I18n.exists?(@key) }
   end
 
   def value(args = {})
-    locale = args[:locale] || I18n.locale || I18n.default_locale
+    locale = (args[:locale] || I18n.locale || I18n.default_locale).to_sym
 
     return nil unless value_for?(locale)
-    I18n.t(key, locale: locale)
+    I18n.with_locale(locale) { return I18n.t(@key) }
   end
 
   def to_s

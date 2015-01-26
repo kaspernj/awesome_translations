@@ -23,6 +23,8 @@ class AwesomeTranslations::Handlers::ErbHandler < AwesomeTranslations::Handlers:
       parse_file_path(file_path, translations)
     end
 
+    translations.sort! { |translation1, translation2| translation1.key <=> translation2.key }
+
     return translations
   end
 
@@ -50,17 +52,18 @@ class AwesomeTranslations::Handlers::ErbHandler < AwesomeTranslations::Handlers:
 
   def translations_for_group(group)
     ArrayEnumerator.new do |y|
-      files("#{Rails.root}/app/views/#{group.data[:grouped]}") do |file_path|
-        translations = []
+      translations = []
 
+      files("#{Rails.root}/app/views/#{group.data[:grouped]}") do |file_path|
         controller_file = "#{Rails.root}/app/controllers/#{group.data[:grouped]}_controller.rb"
 
         parse_file_path(controller_file, translations) if File.exists?(controller_file)
         parse_file_path(file_path, translations)
+      end
 
-        translations.each do |translation|
-          y << translation
-        end
+      translations.sort! { |translation1, translation2| translation1.key <=> translation2.key }
+      translations.each do |translation|
+        y << translation
       end
     end
   end
@@ -137,11 +140,13 @@ private
   end
 
   def translation_with_key_exists?(translations, translation_key)
-    translations.select { |t| t.key == translation_key }.length > 0
+    translations.select { |t| t.key == translation_key }.any?
   end
 
   def translation_key_from_dir_file_and_key(dir, file, key)
     return key unless key.starts_with?(".")
+
+    file = file.gsub(/\A_/, "") # Remove partial indicator.
 
     translation_key = dir
     translation_key = translation_key.gsub(/\Aapp\//, "")

@@ -9,7 +9,12 @@ class AwesomeTranslations::ModelInspector
     ::Rails.application.eager_load!
 
     ::Object.constants.each do |clazz|
-      clazz = clazz.to_s.constantize
+      begin
+        clazz = clazz.to_s.constantize
+      rescue NameError
+        next # Ignore and continue to next class.
+      end
+
       next unless clazz.class == Class
       next unless clazz < ActiveRecord::Base
 

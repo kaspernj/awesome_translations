@@ -21,7 +21,9 @@ class AwesomeTranslations::GroupsController < AwesomeTranslations::ApplicationCo
       end
     end
 
-    render nothing: true
+    I18n.backend.reload!
+
+    redirect_to handler_group_path(@handler, @group)
   end
 
 private
