@@ -26,7 +26,11 @@ class AwesomeTranslations::Group
   end
 
   def name
-    id
+    if @data && @data[:name].present?
+      return @data[:name].presence
+    end
+
+    return id
   end
 
   def to_s

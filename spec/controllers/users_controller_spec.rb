@@ -18,7 +18,7 @@ describe UsersController do
   end
 
   it "should find translations" do
-    users_group = erb_handler.groups.select { |group| group.name == "users" }.first
+    users_group = erb_handler.groups.select { |group| group.name == "views/users" }.first
 
     user_created_translation = users_group.translations.select { |translation| translation.key == "controllers.users_controller.user_was_created" }.first
     user_created_translation.should_not eq nil

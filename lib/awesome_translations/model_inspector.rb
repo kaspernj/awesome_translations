@@ -4,21 +4,14 @@ class AwesomeTranslations::ModelInspector
   attr_reader :clazz
 
   # Yields a model-inspector for each model found in the application.
-  def self.model_classes
-    clazzes = []
-    ::Rails.application.eager_load!
+  def self.model_classes(&blk)
+    # Make sure all models are loaded.
+    load_models
 
-    ::Object.constants.each do |clazz|
-      begin
-        clazz = clazz.to_s.constantize
-      rescue NameError
-        next # Ignore and continue to next class.
-      end
-
-      next unless clazz.class == Class
-      next unless clazz < ActiveRecord::Base
-
-      yield ::AwesomeTranslations::ModelInspector.new(clazz)
+    @scanned = {}
+    constants = Module.constants + Object.constants + Kernel.constants
+    constants.sort.each do |constant_name|
+      scan_for_models(::Object, constant_name, &blk)
     end
   end
 
@@ -40,7 +33,7 @@ class AwesomeTranslations::ModelInspector
   end
 
   def snake_name
-    return ::StringCases.camel_to_snake(clazz.name)
+    clazz.name.gsub("::", "/").split("/").map { |part| ::StringCases.camel_to_snake(part) }.join("/")
   end
 
   def gettext_key
@@ -72,5 +65,64 @@ class AwesomeTranslations::ModelInspector
 
   def inspect
     to_s
+  end
+
+private
+
+  # Loads all models for Rails app and all engines.
+  def self.load_models
+    load_models_for(Rails.root)
+    Rails.application.railties.engines.each do |r|
+      load_models_for(r.root)
+    end
+  end
+
+  # Loads models for the given app-directory (Rails-root or engine).
+  def self.load_models_for(root)
+    Dir.glob("#{root}/app/models/**/*.rb") do |model_path|
+      require model_path
+    end
+  end
+
+  def self.scan_for_models(parent_clazz, constant_name, &blk)
+    return unless parent_clazz.const_defined?(constant_name)
+
+    begin
+      clazz = parent_clazz.const_get(constant_name)
+    rescue
+      return
+    end
+
+    return if !clazz.respond_to?(:name) || !clazz.name || !clazz.respond_to?(:constants)
+    return if clazz.name == "ActiveRecord::SchemaMigration"
+    return if clazz.name.end_with?("::Translation")
+
+    clazz.constants.sort.each do |clazz_sym|
+      begin
+        class_current = clazz.const_get(clazz_sym)
+      rescue
+        next
+      rescue RuntimeError, LoadError
+        next
+      end
+
+      if @scanned[class_current]
+        next
+      else
+        @scanned[class_current] = true
+      end
+
+      next if !class_current.is_a?(Class) && !class_current.is_a?(Module)
+
+      scan_for_models(clazz, clazz_sym, &blk)
+    end
+
+    begin
+      return unless clazz < ActiveRecord::Base
+    rescue
+      return
+    end
+
+    blk.call ::AwesomeTranslations::ModelInspector.new(clazz)
   end
 end

@@ -8,17 +8,16 @@ class AwesomeTranslations::TranslatedValue
     @file, @locale, @key, @value = @data[:file], @data[:locale], @data[:key], @data[:value]
   end
 
+  def to_s
+    "<AwesomeTranslations::TranslatedValue file=\"#{@file}\" locale=\"#{@locale}\" key=\"#{@key}\" value=\"#{@value}\">"
+  end
+
+  alias inspect to_s
+
   def save!
     dir = File.dirname(@file)
-    unless File.exists?(dir)
-      FileUtils.mkdir_p(dir)
-    end
-
-    unless File.exists?(@file)
-      File.open(@data[:file], "w") do |fp|
-        fp.write("#{@locale}:\n")
-      end
-    end
+    FileUtils.mkdir_p(dir) unless File.exists?(dir)
+    File.open(@data[:file], "w") { |fp| fp.write("#{@locale}:\n") } unless File.exists?(@file)
 
     translations = YAML.load(File.read(@file))
     translations ||= {}

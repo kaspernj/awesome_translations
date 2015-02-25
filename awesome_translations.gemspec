@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", ">= 3.1.2"
   s.add_dependency "string-cases"
   s.add_dependency "jquery-rails"
+  s.add_dependency "sass-rails"
   s.add_dependency "haml"
   s.add_dependency "array_enumerator", "~> 0.0.6"
 
