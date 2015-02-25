@@ -11,7 +11,9 @@ class AwesomeTranslations::GroupsController < AwesomeTranslations::ApplicationCo
 
   def update
     @handler.translations.each do |translation|
-      next unless params[:t].key?(translation.key)
+      unless params[:t].key?(translation.key)
+        next
+      end
 
       values = params[:t][translation.key]
       values.each do |locale, value|

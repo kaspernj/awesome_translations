@@ -2,16 +2,27 @@ class AwesomeTranslations::Handlers::ErbHandler < AwesomeTranslations::Handlers:
   METHOD_NAMES = ["_", "t"]
   VALID_BEGINNING = '(^|\s+|\(|\{|<%=\s*)'
 
-  def files(dir = Rails.root, &blk)
-    Dir.foreach(dir) do |file|
-      next if file == "." || file == ".."
+  def files(dirs = nil, root_path = nil, &blk)
+    if dirs == nil
+      dirs = AwesomeTranslations.config.paths_to_translate
+      is_root = true
+    elsif dirs.is_a?(String)
+      dirs = [dirs]
+    end
 
-      file_path = "#{dir}/#{file}"
+    dirs.each do |path|
+      root_path = path if root_path == nil && is_root
 
-      if File.directory?(file_path)
-        files(file_path, &blk)
-      elsif file.include?(".erb") || file.include?(".haml")
-        blk.call(file_path)
+      Dir.foreach(path) do |file|
+        next if file == "." || file == ".."
+
+        file_path = "#{path}/#{file}"
+
+        if File.directory?(file_path)
+          files(file_path, root_path, &blk)
+        elsif file.include?(".erb") || file.include?(".haml")
+          blk.call(file_path, root_path)
+        end
       end
     end
   end
@@ -19,8 +30,8 @@ class AwesomeTranslations::Handlers::ErbHandler < AwesomeTranslations::Handlers:
   def translations
     translations = []
 
-    files do |file_path|
-      parse_file_path(file_path, translations)
+    files do |file_path, root_path|
+      parse_file_path(root_path, file_path, translations)
     end
 
     translations.sort! { |translation1, translation2| translation1.key <=> translation2.key }
@@ -29,77 +40,110 @@ class AwesomeTranslations::Handlers::ErbHandler < AwesomeTranslations::Handlers:
   end
 
   def groups
-    ArrayEnumerator.new do |y|
-      views_path = "#{Rails.root}/app/views"
-
-      Dir.foreach(views_path) do |file|
-        next if file == "." || file == ".."
-        full_path = "#{views_path}/#{file}"
-
-        if File.directory?(full_path)
-          group = AwesomeTranslations::Group.new(
-            id: file,
-            handler: self,
-            data: {
-              grouped: file
-            }
-          )
-          y << group
-        end
+    ArrayEnumerator.new do |yielder|
+      AwesomeTranslations.config.paths_to_translate.each do |path|
+        views_path = "app/views"
+        scan_folder_for_groups(path, views_path, yielder)
       end
     end
   end
 
   def translations_for_group(group)
-    ArrayEnumerator.new do |y|
+    ArrayEnumerator.new do |yielder|
       translations = []
 
-      files("#{Rails.root}/app/views/#{group.data[:grouped]}") do |file_path|
-        controller_file = "#{Rails.root}/app/controllers/#{group.data[:grouped]}_controller.rb"
+      # Parse controller file for translations.
+      if name_match = group.data[:name].match(/\Aviews\/(.+)\Z/)
+        resources_name = name_match[1]
+        controller_file = "#{group.data[:root_path]}/app/controllers/#{resources_name}_controller.rb"
 
-        parse_file_path(controller_file, translations) if File.exists?(controller_file)
-        parse_file_path(file_path, translations)
+        parse_file_path(group.data[:root_path], controller_file, translations) if File.exists?(controller_file)
       end
 
+      # Parse views for translations.
+      files(group.data[:full_path]) do |file_path|
+        parse_file_path(group.data[:root_path], file_path, translations)
+      end
+
+      # Sort translations and yield them back.
       translations.sort! { |translation1, translation2| translation1.key <=> translation2.key }
       translations.each do |translation|
-        y << translation
+        yielder << translation
       end
     end
   end
 
 private
 
+  def scan_folder_for_groups(root_path, folder_path, yielder)
+    Dir.foreach("#{root_path}/#{folder_path}") do |file|
+      next if file == "." || file == ".."
+
+      full_path = "#{folder_path}/#{file}"
+      real_full_path = "#{root_path}/#{full_path}"
+
+      if File.directory?(real_full_path)
+        if folder_contain_view_files?(real_full_path)
+          name = full_path.gsub(/\Aapp\//, "")
+
+          group = AwesomeTranslations::Group.new(
+            id: Base64.urlsafe_encode64(real_full_path),
+            handler: self,
+            data: {
+              name: name,
+              root_path: root_path,
+              full_path: real_full_path
+            }
+          )
+          yielder << group
+        end
+
+        scan_folder_for_groups(root_path, full_path, yielder)
+      end
+    end
+  end
+
+  def folder_contain_view_files?(folder_path)
+    Dir.foreach(folder_path) do |file|
+      next if file == "." || file == ".."
+
+      ext = File.extname(file)
+      return true if ext == ".erb" || ext == ".haml"
+    end
+
+    return false
+  end
+
   # Opens a file, reads the content while keeping track of line-numbers and saves found translations.
-  def parse_file_path(file_path, translations)
+  def parse_file_path(root_path, file_path, translations)
     File.open(file_path, "r") do |fp|
       line_no = 0
       fp.each_line do |line|
         line_no += 1
         next if should_skip_line(file_path, line_no, line)
-        parse_content(file_path, translations, line_no, line)
+        parse_content(root_path, file_path, translations, line_no, line)
       end
     end
   end
 
   # Scans content for translations and saves them.
-  def parse_content(file_path, translations, line_no, content)
+  def parse_content(root_path, file_path, translations, line_no, content)
     METHOD_NAMES.each do |method_name|
       # Scan for the various valid formats.
       content.scan(/#{VALID_BEGINNING}(#{Regexp.escape(method_name)})\s*\("(.+?)"/) do |match|
-        add_translation(file_path, translations, line_no, match[1], match[2])
+        add_translation(root_path, file_path, translations, line_no, match[1], match[2])
       end
 
       content.scan(/#{VALID_BEGINNING}(#{Regexp.escape(method_name)})\s*"(.+?)"/) do |match|
-        add_translation(file_path, translations, line_no, match[1], match[2])
+        add_translation(root_path, file_path, translations, line_no, match[1], match[2])
       end
 
       content.scan(/#{VALID_BEGINNING}(#{Regexp.escape(method_name)})\s*\('(.+?)'/) do |match|
-        add_translation(file_path, translations, line_no, match[1], match[2])
+        add_translation(root_path, file_path, translations, line_no, match[1], match[2])
       end
 
       content.scan(/#{VALID_BEGINNING}(#{Regexp.escape(method_name)})\s*'(.+?)'/) do |match|
-        add_translation(file_path, translations, line_no, match[1], match[2])
+        add_translation(root_path, file_path, translations, line_no, match[1], match[2])
       end
     end
   end
@@ -110,10 +154,10 @@ private
     return false
   end
 
-  def add_translation(file_path, translations, line_no, method_name, translation)
+  def add_translation(root_path, file_path, translations, line_no, method_name, translation)
     key = key_from_method(translation, method_name)
 
-    sane_path = file_path.gsub("#{Rails.root}/", "")
+    sane_path = file_path.gsub("#{root_path}/", "")
 
     translation_key = key
 
@@ -128,11 +172,14 @@ private
     translation_dir = translation_dir.gsub(/\Aapp\//, "")
 
     translation_key = translation_key_from_dir_file_and_key(dir, file, key)
+    translation_key.gsub!(/\Aviews./, "") if translation_key.start_with?("views.")
 
     unless translation_with_key_exists?(translations, translation_key)
       translation = AwesomeTranslations::Translation.new(
         key: translation_key,
-        dir: translation_dir
+        dir: "#{root_path}/config/locales/awesome_translations/#{translation_dir}",
+        file_path: file_path,
+        line_no: line_no
       )
 
       translations << translation

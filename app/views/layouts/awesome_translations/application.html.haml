@@ -5,7 +5,7 @@
   = stylesheet_link_tag    "awesome_translations/application", media: "all"
   = javascript_include_tag "awesome_translations/application"
   = csrf_meta_tags
-%body
+%body{class: ["controller_#{controller_name}", "action_#{action_name}"]}
   %table.main-table
     %tr
       %td.main-logo Awesome Translations

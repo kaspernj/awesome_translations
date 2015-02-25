@@ -3,7 +3,7 @@ class AwesomeTranslations::Translation
 
   def initialize(data)
     @data = data
-    @dir, @key = data[:dir], data[:key]
+    @dir, @key, @file_path, @line_no = data[:dir], data[:key], data[:file_path], data[:line_no]
 
     raise "Dir wasn't valid: '#{@dir}'." unless @dir.present?
   end
@@ -55,6 +55,27 @@ class AwesomeTranslations::Translation
 
     return nil unless value_for?(locale)
     I18n.with_locale(locale) { return I18n.t(@key) }
+  end
+
+  def file_line_content?
+    if @file_path && @line_no
+      return true
+    else
+      return false
+    end
+  end
+
+  def file_line_content
+    count = 0
+
+    File.open(@file_path, "r") do |fp|
+      fp.each_line do |line|
+        count += 1
+        return line if count == @line_no
+      end
+    end
+
+    raise "Could not find line #{@line_no}. Read #{count}"
   end
 
   def to_s

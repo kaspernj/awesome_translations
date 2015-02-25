@@ -4,17 +4,22 @@
   %table
     %thead
       %th Key
-      %th Dir
       - I18n.available_locales.each do |locale|
         %th= locale
     %tbody
       - @translations.each do |translation|
         %tr
           %td= translation.key
-          %td= translation.dir.gsub("#{Rails.root.to_s}/", "")
           - I18n.available_locales.each do |locale|
             %td
               = text_field "t", "#{translation.key}[#{locale}]", value: translation.value(locale: locale)
+
+        - if translation.file_line_content?
+          %tr.line-content-row
+            %td.line-content{colspan: 1 + I18n.available_locales.length}
+              = simple_format translation.file_line_content, nil, wrapper_tag: "div"
+          %tr
+            %td.line-spacer{colspan: 1 + I18n.available_locales.length}
       - if @translations.empty?
         %tr
           %td.error{colspan: 2} No translations were found.
