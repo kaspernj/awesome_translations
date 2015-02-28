@@ -1,9 +1,31 @@
 class AwesomeTranslations::Handlers::GlobalHandler < AwesomeTranslations::Handlers::BaseHandler
   def groups
-    raise "stub!"
+    ArrayEnumerator.new do |yielder|
+      yielder << AwesomeTranslations::Group.new(
+        id: "global",
+        handler: self,
+        data: {
+          name: "Global translations"
+        }
+      )
+    end
   end
 
   def translations_for_group(group)
-    raise "stub!"
+    ArrayEnumerator.new do |yielder|
+      translations_found = {}
+
+      erb_inspector = AwesomeTranslations::ErbInspector.new
+      erb_inspector.files.each do |file|
+        file.translations.each do |translation|
+          next if translation.key.start_with?(".")
+
+          unless translations_found.key?(translation.full_key)
+            translations_found[translation.full_key] = true
+            yielder << translation.model
+          end
+        end
+      end
+    end
   end
 end
