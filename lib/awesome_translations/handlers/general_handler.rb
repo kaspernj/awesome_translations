@@ -32,15 +32,11 @@ private
         extname = File.extname(real_full_path)
 
         if extname == ".rb"
-          puts "Found: #{real_full_path}"
-
           translations = []
           translations_double_helper = {}
           parse_file_path(root_path, full_path, translations, translations_double_helper)
 
           if translations.any?
-            puts "Found translations in: #{real_full_path}"
-
             yielder << AwesomeTranslations::Group.new(
               id: Base64.urlsafe_encode64(real_full_path),
               handler: self,
@@ -50,8 +46,6 @@ private
                 full_path: full_path
               }
             )
-          else
-            puts "No translations in: #{real_full_path}"
           end
         end
       end
