@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     awesome_translations (0.0.1)
-      array_enumerator (~> 0.0.6)
+      array_enumerator (~> 0.0.7)
       haml
       jquery-rails
       rails (>= 3.1.2)
@@ -37,7 +37,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     arel (4.0.2)
-    array_enumerator (0.0.6)
+    array_enumerator (0.0.7)
     builder (3.1.4)
     codeclimate-test-reporter (0.4.1)
       simplecov (>= 0.7.1, < 1.0.0)

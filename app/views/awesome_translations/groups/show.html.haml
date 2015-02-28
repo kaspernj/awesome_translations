@@ -10,6 +10,7 @@
       - @translations.each do |translation|
         %tr
           %td= translation.key
+
           - I18n.available_locales.each do |locale|
             %td
               = text_field "t", "#{translation.key}[#{locale}]", value: translation.value(locale: locale)
@@ -17,7 +18,7 @@
         - if translation.file_line_content?
           %tr.line-content-row
             %td.line-content{colspan: 1 + I18n.available_locales.length}
-              = simple_format translation.file_line_content, nil, wrapper_tag: "div"
+              %pre= translation.file_line_content
           %tr
             %td.line-spacer{colspan: 1 + I18n.available_locales.length}
       - if @translations.empty?

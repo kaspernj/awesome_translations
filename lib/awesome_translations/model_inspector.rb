@@ -4,14 +4,20 @@ class AwesomeTranslations::ModelInspector
   attr_reader :clazz
 
   # Yields a model-inspector for each model found in the application.
-  def self.model_classes(&blk)
+  def self.model_classes
     # Make sure all models are loaded.
     load_models
 
     @scanned = {}
-    constants = Module.constants + Object.constants + Kernel.constants
-    constants.sort.each do |constant_name|
-      scan_for_models(::Object, constant_name, &blk)
+    @yielded = {}
+
+    Enumerator.new do |yielder|
+      constants = Module.constants + Object.constants + Kernel.constants
+      constants.sort.each do |constant_name|
+        scan_for_models(::Object, constant_name) do |model_inspector|
+          yielder << model_inspector
+        end
+      end
     end
   end
 
@@ -123,6 +129,9 @@ private
       return
     end
 
-    blk.call ::AwesomeTranslations::ModelInspector.new(clazz)
+    unless @yielded[clazz]
+      @yielded[clazz] = true
+      blk.call ::AwesomeTranslations::ModelInspector.new(clazz)
+    end
   end
 end

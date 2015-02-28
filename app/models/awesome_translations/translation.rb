@@ -1,9 +1,9 @@
 class AwesomeTranslations::Translation
-  attr_reader :dir, :key
+  attr_reader :dir, :key, :file_path, :line_no
 
   def initialize(data)
     @data = data
-    @dir, @key, @file_path, @line_no = data[:dir], data[:key], data[:file_path], data[:line_no]
+    @dir, @key, @file_path, @full_path, @line_no = data[:dir], data[:key], data[:file_path], data[:full_path], data[:line_no]
 
     raise "Dir wasn't valid: '#{@dir}'." unless @dir.present?
   end
@@ -58,7 +58,7 @@ class AwesomeTranslations::Translation
   end
 
   def file_line_content?
-    if @file_path && @line_no
+    if @full_path && @line_no && File.exists?(@full_path)
       return true
     else
       return false
@@ -68,7 +68,7 @@ class AwesomeTranslations::Translation
   def file_line_content
     count = 0
 
-    File.open(@file_path, "r") do |fp|
+    File.open(@full_path, "r") do |fp|
       fp.each_line do |line|
         count += 1
         return line if count == @line_no

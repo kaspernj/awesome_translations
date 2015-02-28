@@ -2,16 +2,23 @@
 %html
 %head
   %title AwesomeTranslations
-  = stylesheet_link_tag    "awesome_translations/application", media: "all"
+
+  = stylesheet_link_tag "awesome_translations/application", media: "all"
+  = stylesheet_link_tag "http://fonts.googleapis.com/css?family=Open+Sans:400"
+  = stylesheet_link_tag "http://fonts.googleapis.com/css?family=Raleway:400"
+
   = javascript_include_tag "awesome_translations/application"
+
   = csrf_meta_tags
+
 %body{class: ["controller_#{controller_name}", "action_#{action_name}"]}
   %table.main-table
-    %tr
-      %td.main-logo Awesome Translations
-    %tr
-      %td.main-menu
-        .menu-item= link_to "Handlers", handlers_path
-    %tr
-      %td.main-content
-        = yield
+    %tbody
+      %tr
+        %td.main-logo Awesome Translations
+      %tr
+        %td.main-menu
+          .menu-item= link_to "Handlers", handlers_path
+      %tr
+        %td.main-content
+          = yield
