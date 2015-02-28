@@ -55,23 +55,12 @@ private
   end
 
   def add_translation(line_no, method, key, translations_found, yielder)
-    sane_path = file_path.gsub("#{@root_path}/", "")
-
-    dir = File.dirname(sane_path)
-    file = File.basename(sane_path)
-
-    if match = file.match(/(.+?)\./)
-      file = match[1]
-    end
-
     translation_inspector = AwesomeTranslations::ErbInspector::TranslationInspector.new(
-      dir: "#{Rails.root}/config/locales/awesome_translations/#{dir}",
-      full_path: "#{@root_path}/#{file_path}",
-      file_path: file_path,
+      root_path: @root_path,
+      file_path: @file_path,
       line_no: line_no,
       method: method,
-      key: key,
-      translation_dir: dir
+      key: key
     )
 
     unless translation_with_key_exists?(translations_found, translation_inspector.key)

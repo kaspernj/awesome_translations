@@ -27,4 +27,9 @@ describe AwesomeTranslations::Handlers::ErbHandler do
     current_language_translation = layout_translations.select { |t| t.key == "layouts.application.the_current_language_is" }
     current_language_translation.length.should eq 1
   end
+
+  it "sets the correct translation path" do
+    danish_translation = layout_translations.select { |t| t.key == "layouts.application.danish" }.first
+    danish_translation.dir.should eq "#{Rails.root}/config/locales/awesome_translations/app/views/layouts"
+  end
 end

@@ -16,4 +16,8 @@ describe AwesomeTranslations::ErbInspector::TranslationInspector do
   it "#full_key" do
     hello_world_translation.full_key.should eq "users.index.hello_world"
   end
+
+  it "#full_path" do
+    hello_world_translation.full_path.should eq "#{Rails.root}/app/views/users/index.html.haml"
+  end
 end
