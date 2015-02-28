@@ -6,7 +6,7 @@ describe UsersController do
   render_views
 
   before do
-    I18n.locale = :da
+    I18n.locale = :en
   end
 
   it "#index" do
