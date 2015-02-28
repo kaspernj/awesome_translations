@@ -1,9 +1,8 @@
 %h1= User.model_name.human(count: 2)
 
-.hello-world-i18n= t(".hello_world_from_i18n")
-.hello-world-custom= _("Hello world from custom")
+.hello-world-i18n= t(".hello_world")
 
-%h2= _("List of users")
+%h2= t(".list_of_users")
 %table
   %thead
     %tr
@@ -14,4 +13,4 @@
         %td= link_to user.id, user_path(user)
     - unless @users.any?
       %tr
-        %td{colspan: 1}= _("No users was found.")
+        %td{colspan: 1}= t(".no_users_was_found")

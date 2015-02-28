@@ -2,7 +2,7 @@ class AwesomeTranslations::Handlers::ModelHandler < AwesomeTranslations::Handler
   def translations
     result = []
 
-    AwesomeTranslations::ModelInspector.model_classes do |model_inspector|
+    AwesomeTranslations::ModelInspector.model_classes.each do |model_inspector|
       result += model_names(model_inspector)
       result += active_record_attributes(model_inspector)
       result += paperclip_attachments(model_inspector)
@@ -13,27 +13,31 @@ class AwesomeTranslations::Handlers::ModelHandler < AwesomeTranslations::Handler
   end
 
   def groups
-    ArrayEnumerator.new do |y|
-      AwesomeTranslations::ModelInspector.model_classes do |model_inspector|
-        group = AwesomeTranslations::Group.new(
+    ArrayEnumerator.new do |yielder|
+      classes_found = {}
+
+      AwesomeTranslations::ModelInspector.model_classes.each do |model_inspector|
+        next if classes_found.key?(model_inspector.clazz)
+
+        classes_found[model_inspector.clazz] = true
+
+        yielder << AwesomeTranslations::Group.new(
           id: model_inspector.clazz.name,
           handler: self
         )
-        y << group
       end
     end
   end
 
   def translations_for_group(group)
-    ArrayEnumerator.new do |y|
-      AwesomeTranslations::ModelInspector.model_classes do |model_inspector|
-        next unless model_inspector.clazz.name == group.name
+    ArrayEnumerator.new do |yielder|
+      model_inspector = AwesomeTranslations::ModelInspector.model_classes.select { |model_inspector| model_inspector.clazz.name == group.name }.first
+      raise "No group by that name: #{group.name}" unless group
 
-        model_names(model_inspector).each { |translation| y << translation }
-        active_record_attributes(model_inspector).each { |translation| y << translation }
-        paperclip_attachments(model_inspector).each { |translation| y << translation }
-        relationships(model_inspector).each { |translation| y << translation }
-      end
+      model_names(model_inspector).each { |translation| yielder << translation }
+      active_record_attributes(model_inspector).each { |translation| yielder << translation }
+      paperclip_attachments(model_inspector).each { |translation| yielder << translation }
+      relationships(model_inspector).each { |translation| yielder << translation }
     end
   end
 

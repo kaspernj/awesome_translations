@@ -3,9 +3,8 @@ require "fileutils"
 class AwesomeTranslations::TranslatedValue
   attr_accessor :file, :locale, :key, :value
 
-  def initialize data
-    @data = data
-    @file, @locale, @key, @value = @data[:file], @data[:locale], @data[:key], @data[:value]
+  def initialize(data)
+    @file, @locale, @key, @value = data[:file], data[:locale], data[:key], data[:value]
   end
 
   def to_s
@@ -17,7 +16,7 @@ class AwesomeTranslations::TranslatedValue
   def save!
     dir = File.dirname(@file)
     FileUtils.mkdir_p(dir) unless File.exists?(dir)
-    File.open(@data[:file], "w") { |fp| fp.write("#{@locale}:\n") } unless File.exists?(@file)
+    File.open(@file, "w") { |fp| fp.write("#{@locale}:\n") } unless File.exists?(@file)
 
     translations = YAML.load(File.read(@file))
     translations ||= {}
@@ -42,8 +41,7 @@ class AwesomeTranslations::TranslatedValue
       end
     end
 
-    File.open(file, "w") do |fp|
-      fp.write(YAML.dump(translations))
-    end
+    I18n.load_path << file unless I18n.load_path.include?(file)
+    File.open(file, "w") { |fp| fp.write(YAML.dump(translations)) }
   end
 end
