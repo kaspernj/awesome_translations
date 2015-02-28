@@ -1,10 +1,9 @@
 class AwesomeTranslations::ErbInspector::TranslationInspector
-  attr_reader :dir, :file_path, :line_no, :method, :key, :full_key, :root_path
+  attr_reader :dir, :file_path, :line_no, :method, :key, :full_key, :full_path, :root_path
 
   def initialize(args)
     @dir, @file_path, @full_path, @line_no = args[:dir], args[:file_path], args[:full_path], args[:line_no]
-    @method, @key = args[:method], args[:key]
-    @root_path
+    @method, @key, @root_path = args[:method], args[:key], args[:root_path]
 
     @full_path = "#{@root_path}/#{@file_path}"
 
