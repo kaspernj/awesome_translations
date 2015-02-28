@@ -1,26 +1,7 @@
 class AwesomeTranslations::Handlers::ModelHandler < AwesomeTranslations::Handlers::BaseHandler
-  def translations
-    result = []
-
-    AwesomeTranslations::ModelInspector.model_classes.each do |model_inspector|
-      result += model_names(model_inspector)
-      result += active_record_attributes(model_inspector)
-      result += paperclip_attachments(model_inspector)
-      result += relationships(model_inspector)
-    end
-
-    return result
-  end
-
   def groups
     ArrayEnumerator.new do |yielder|
-      classes_found = {}
-
       AwesomeTranslations::ModelInspector.model_classes.each do |model_inspector|
-        next if classes_found.key?(model_inspector.clazz)
-
-        classes_found[model_inspector.clazz] = true
-
         yielder << AwesomeTranslations::Group.new(
           id: model_inspector.clazz.name,
           handler: self
@@ -32,7 +13,7 @@ class AwesomeTranslations::Handlers::ModelHandler < AwesomeTranslations::Handler
   def translations_for_group(group)
     ArrayEnumerator.new do |yielder|
       model_inspector = AwesomeTranslations::ModelInspector.model_classes.select { |model_inspector| model_inspector.clazz.name == group.name }.first
-      raise "No group by that name: #{group.name}" unless group
+      raise "No inspector by that name: #{model_inspector.clazz.name}" unless model_inspector
 
       model_names(model_inspector).each { |translation| yielder << translation }
       active_record_attributes(model_inspector).each { |translation| yielder << translation }
