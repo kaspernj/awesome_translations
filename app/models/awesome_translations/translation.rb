@@ -26,7 +26,7 @@ class AwesomeTranslations::Translation
     I18n.available_locales.each do |locale|
       next unless value_for?(locale)
 
-      translated_value = AwesomeTranslations::TranslatedValue.new(
+      result << AwesomeTranslations::TranslatedValue.new(
         file: "#{dir}/#{locale}.yml",
         key: @key,
         locale: locale,
@@ -35,6 +35,19 @@ class AwesomeTranslations::Translation
     end
 
     return result
+  end
+
+  def finished?
+    I18n.available_locales.each do |locale|
+      next if value_for?(locale)
+      return false
+    end
+
+    return true
+  end
+
+  def unfinished?
+    !finished?
   end
 
   def translated_value_for_locale(locale)

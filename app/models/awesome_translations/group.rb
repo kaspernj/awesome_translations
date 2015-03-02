@@ -13,8 +13,26 @@ class AwesomeTranslations::Group
     @handler, @id, @data = args[:handler], args[:id], args[:data]
   end
 
-  def translations
-    @handler.translations_for_group(self)
+  def translations(args = {})
+    translations_list = @handler.translations_for_group(self)
+
+    args.each do |key, value|
+      if key == :finished
+        translations_list = translations_list.select { |translation| translation.finished? } if value
+      elsif key == :unfinished
+        translations_list = translations_list.select { |translation| translation.unfinished? } if value
+      else
+        raise "Unknown key: #{key}"
+      end
+    end
+
+    return translations_list
+  end
+
+  def translations_count(args = {})
+    count = 0
+    translations(args).each { count += 1 }
+    return count
   end
 
   def to_param
