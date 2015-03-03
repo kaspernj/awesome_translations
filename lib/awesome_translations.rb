@@ -1,10 +1,10 @@
-require "awesome_translations/engine"
 require "haml"
 require "string-cases"
 require "array_enumerator"
 
 module AwesomeTranslations
   autoload :Config, "#{File.dirname(__FILE__)}/awesome_translations/config"
+  autoload :Engine, "#{File.dirname(__FILE__)}/awesome_translations/engine"
   autoload :ErbInspector, "#{File.dirname(__FILE__)}/awesome_translations/erb_inspector"
   autoload :Handlers, "#{File.dirname(__FILE__)}/awesome_translations/handlers"
   autoload :ObjectExtensions, "awesome_translations/object_extensions"
