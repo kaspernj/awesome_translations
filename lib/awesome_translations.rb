@@ -3,6 +3,7 @@ require "string-cases"
 require "array_enumerator"
 
 module AwesomeTranslations
+  autoload :CacheDatabaseGenerator, "#{File.dirname(__FILE__)}/awesome_translations/cache_database_generator"
   autoload :Config, "#{File.dirname(__FILE__)}/awesome_translations/config"
   autoload :ErbInspector, "#{File.dirname(__FILE__)}/awesome_translations/erb_inspector"
   autoload :Handlers, "#{File.dirname(__FILE__)}/awesome_translations/handlers"

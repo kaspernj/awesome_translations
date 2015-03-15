@@ -22,9 +22,10 @@ Gem::Specification.new do |s|
   s.add_dependency "sass-rails"
   s.add_dependency "haml"
   s.add_dependency "array_enumerator", "~> 0.0.7"
+  s.add_dependency "baza"
+  s.add_dependency "sqlite3"
 
   s.add_development_dependency "haml-rails"
-  s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "forgery"
   s.add_development_dependency "factory_girl_rails"
