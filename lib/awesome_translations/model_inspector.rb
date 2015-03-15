@@ -10,13 +10,12 @@ class AwesomeTranslations::ModelInspector
 
     @scanned = {}
     @yielded = {}
+    @skip = [ActiveRecord::SchemaMigration]
 
-    Enumerator.new do |yielder|
-      constants = Module.constants + Object.constants + Kernel.constants
-      constants.sort.each do |constant_name|
-        scan_for_models(::Object, constant_name) do |model_inspector|
-          yielder << model_inspector
-        end
+    ArrayEnumerator.new do |yielder|
+      find_subclasses(ActiveRecord::Base) do |model_inspector|
+        next if @skip.include? model_inspector.clazz
+        yielder << model_inspector
       end
     end
   end
@@ -26,8 +25,10 @@ class AwesomeTranslations::ModelInspector
   end
 
   def attributes
-    @clazz.attribute_names.each do |attribute_name|
-      yield ::AwesomeTranslations::ModelInspector::Attribute.new(self, attribute_name)
+    ArrayEnumerator.new do |yielder|
+      @clazz.attribute_names.each do |attribute_name|
+        yielder << ::AwesomeTranslations::ModelInspector::Attribute.new(self, attribute_name)
+      end
     end
   end
 
@@ -42,16 +43,16 @@ class AwesomeTranslations::ModelInspector
     clazz.name.gsub("::", "/").split("/").map { |part| ::StringCases.camel_to_snake(part) }.join("/")
   end
 
-  def gettext_key
+  def class_key
     return "activerecord.models.#{snake_name}"
   end
 
-  def gettext_key_one
-    return "#{gettext_key}.one"
+  def class_key_one
+    return "#{class_key}.one"
   end
 
-  def gettext_key_other
-    return "#{gettext_key}.other"
+  def class_key_other
+    return "#{class_key}.other"
   end
 
   # TODO: Maybe this should yield a ModelInspector::Relationship instead?
@@ -61,8 +62,8 @@ class AwesomeTranslations::ModelInspector
     end
   end
 
-  def i18n_key name
-    return "activerecord.attributes.#{snake_name}.#{name}"
+  def attribute_key(attribute_name)
+    return "activerecord.attributes.#{snake_name}.#{attribute_name}"
   end
 
   def to_s
@@ -75,63 +76,32 @@ class AwesomeTranslations::ModelInspector
 
 private
 
-  # Loads all models for Rails app and all engines.
+  def self.find_subclasses(clazz, &blk)
+    return if @scanned[clazz]
+    @scanned[clazz] = true
+
+    clazz.subclasses.each do |subclass|
+      blk.call ::AwesomeTranslations::ModelInspector.new(subclass)
+      find_subclasses(subclass, &blk)
+    end
+  end
+
+  # Preloads all models for Rails app and all engines (if they aren't loaded, then they cant be inspected).
   def self.load_models
     load_models_for(Rails.root)
-    Rails.application.railties.engines.each do |r|
-      load_models_for(r.root)
+    engines.each do |engine|
+      load_models_for(engine.root)
     end
+  end
+
+  def self.engines
+    ::Rails::Engine.subclasses.map(&:instance)
   end
 
   # Loads models for the given app-directory (Rails-root or engine).
   def self.load_models_for(root)
     Dir.glob("#{root}/app/models/**/*.rb") do |model_path|
       require model_path
-    end
-  end
-
-  def self.scan_for_models(parent_clazz, constant_name, &blk)
-    return unless parent_clazz.const_defined?(constant_name)
-
-    begin
-      clazz = parent_clazz.const_get(constant_name)
-    rescue
-      return
-    end
-
-    return if !clazz.respond_to?(:name) || !clazz.name || !clazz.respond_to?(:constants)
-    return if clazz.name == "ActiveRecord::SchemaMigration"
-    return if clazz.name.end_with?("::Translation")
-
-    clazz.constants.sort.each do |clazz_sym|
-      begin
-        class_current = clazz.const_get(clazz_sym)
-      rescue
-        next
-      rescue RuntimeError, LoadError
-        next
-      end
-
-      if @scanned[class_current]
-        next
-      else
-        @scanned[class_current] = true
-      end
-
-      next if !class_current.is_a?(Class) && !class_current.is_a?(Module)
-
-      scan_for_models(clazz, clazz_sym, &blk)
-    end
-
-    begin
-      return unless clazz < ActiveRecord::Base
-    rescue
-      return
-    end
-
-    unless @yielded[clazz]
-      @yielded[clazz] = true
-      blk.call ::AwesomeTranslations::ModelInspector.new(clazz)
     end
   end
 end

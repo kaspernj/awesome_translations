@@ -28,6 +28,7 @@ class AwesomeTranslations::Handlers::ErbHandler < AwesomeTranslations::Handlers:
       file = erb_inspector.files.select { |file| file.full_path == group.data[:full_path] }.first
 
       file.translations.each do |translation|
+        next if translation.global?
         yielder << translation.model
       end
     end

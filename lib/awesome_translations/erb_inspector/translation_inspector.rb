@@ -21,6 +21,10 @@ class AwesomeTranslations::ErbInspector::TranslationInspector
     )
   end
 
+  def global?
+    !key.start_with?(".")
+  end
+
 private
 
   def generate_full_key

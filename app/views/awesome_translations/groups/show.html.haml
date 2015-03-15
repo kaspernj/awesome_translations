@@ -12,8 +12,7 @@
           %td= translation.key
 
           - I18n.available_locales.each do |locale|
-            %td
-              = text_field "t", "#{translation.key}[#{locale}]", value: translation.value(locale: locale)
+            %td= text_field "t", "#{translation.key}[#{locale}]", class: "translation-input", lang: locale, value: translation.value(locale: locale)
 
         - if translation.file_line_content?
           %tr.line-content-row
