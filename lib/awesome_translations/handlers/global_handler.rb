@@ -18,7 +18,7 @@ class AwesomeTranslations::Handlers::GlobalHandler < AwesomeTranslations::Handle
       erb_inspector = AwesomeTranslations::ErbInspector.new
       erb_inspector.files.each do |file|
         file.translations.each do |translation|
-          next if translation.key.start_with?(".")
+          next unless translation.global?
 
           unless translations_found.key?(translation.full_key)
             translations_found[translation.full_key] = true

@@ -37,7 +37,7 @@ private
   def active_record_attributes(model_inspector)
     result = []
 
-    model_inspector.attributes do |attribute|
+    model_inspector.attributes.each do |attribute|
       translations = {}
 
       I18n.available_locales.each do |locale|
@@ -58,7 +58,7 @@ private
 
     model_inspector.paperclip_attachments do |name|
       result << AwesomeTranslations::Translation.new(
-        key: model_inspector.i18n_key(name),
+        key: model_inspector.attribute_key(name),
         dir: dir_path(model_inspector)
       )
     end
@@ -69,11 +69,11 @@ private
   def model_names(model_inspector)
     result = []
     result << AwesomeTranslations::Translation.new(
-      key: model_inspector.gettext_key_one,
+      key: model_inspector.class_key_one,
       dir: dir_path(model_inspector)
     )
     result << AwesomeTranslations::Translation.new(
-      key: model_inspector.gettext_key_other,
+      key: model_inspector.class_key_other,
       dir: dir_path(model_inspector)
     )
 
@@ -85,7 +85,7 @@ private
 
     model_inspector.relationships do |key, reflection|
       result << AwesomeTranslations::Translation.new(
-        key: model_inspector.i18n_key(reflection.name),
+        key: model_inspector.attribute_key(reflection.name),
         dir: dir_path(model_inspector)
       )
     end
