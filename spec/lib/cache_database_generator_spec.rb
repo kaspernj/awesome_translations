@@ -40,6 +40,8 @@ describe AwesomeTranslations::CacheDatabaseGenerator do
       cache_database_generator.cache_translations
       row = db.select(:cached_translations, key: "activerecord.attributes.user.id").fetch
       row.should_not eq false
+
+      cached_translation = AwesomeTranslations::CacheDatabaseGenerator::CachedTranslation.find(row[:id])
     end
   end
 end

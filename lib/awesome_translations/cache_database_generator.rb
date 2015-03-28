@@ -1,4 +1,6 @@
 class AwesomeTranslations::CacheDatabaseGenerator
+  autoload :CachedTranslation, "#{File.dirname(__FILE__)}/cache_database_generator/cached_translation"
+
   attr_reader :db
 
   def initialize(args = {})
@@ -11,6 +13,9 @@ class AwesomeTranslations::CacheDatabaseGenerator
 
   def init_database
     @db = Baza::Db.new(type: :sqlite3, path: @args[:path], debug: @debug)
+    CachedTranslation.db = @db
+    CachedTranslation.table_name = "cached_translations"
+
     @cached_translations_table = @db.tables.create(:cached_translations,
       columns: [
         {

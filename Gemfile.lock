@@ -4,11 +4,29 @@ PATH
     awesome_translations (0.0.4)
       array_enumerator (~> 0.0.7)
       baza
+      baza_models
       haml
       jquery-rails
       rails (>= 3.1.2)
       sass-rails
       sqlite3
+      string-cases
+
+PATH
+  remote: /home/kaspernj/Dev/Ruby/baza
+  specs:
+    baza (0.0.15)
+      array_enumerator
+      datet
+      knjrbfw
+      string-cases
+      wref
+
+PATH
+  remote: /home/kaspernj/Dev/Ruby/baza_models
+  specs:
+    baza_models (0.0.0)
+      baza (~> 0.0.15)
       string-cases
 
 GEM
@@ -40,12 +58,6 @@ GEM
       tzinfo (~> 0.3.37)
     arel (4.0.2)
     array_enumerator (0.0.7)
-    baza (0.0.14)
-      array_enumerator
-      datet
-      knjrbfw
-      string-cases
-      wref
     builder (3.1.4)
     codeclimate-test-reporter (0.4.1)
       simplecov (>= 0.7.1, < 1.0.0)
@@ -89,9 +101,6 @@ GEM
       datet
       http2
       string-strtr
-    plugin_migrator (0.0.2)
-      rails (>= 4.0.0)
-      string-cases
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -163,12 +172,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  array_enumerator
   awesome_translations!
+  baza!
+  baza_models!
   codeclimate-test-reporter
   factory_girl_rails
   forgery
   haml-rails
-  jquery-rails
-  plugin_migrator
   rspec-rails
