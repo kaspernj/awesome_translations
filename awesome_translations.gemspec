@@ -24,7 +24,13 @@ Gem::Specification.new do |s|
   s.add_dependency "array_enumerator", "~> 0.0.7"
 
   s.add_development_dependency "haml-rails"
-  s.add_development_dependency "sqlite3"
+
+  if RUBY_ENGINE == "jruby"
+    s.add_development_dependency "activerecord-jdbcsqlite3-adapter"
+  else
+    s.add_development_dependency "sqlite3"
+  end
+
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "forgery"
   s.add_development_dependency "factory_girl_rails"
