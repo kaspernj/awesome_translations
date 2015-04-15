@@ -20,6 +20,13 @@ class AwesomeTranslations::ErbInspector
     end
   end
 
+  def file(root_path, file_path)
+    return AwesomeTranslations::ErbInspector::FileInspector.new(
+      file_path: file_path,
+      root_path: root_path
+    )
+  end
+
 private
 
   def scan_dir(path, root_path, yielder)
@@ -34,7 +41,7 @@ private
 
       if File.directory?(full_path)
         scan_dir(file_path, root_path, yielder)
-      elsif ext == ".erb" || ext == ".haml"
+      elsif ext == ".erb" || ext == ".haml" || ext == ".rb"
         yielder << AwesomeTranslations::ErbInspector::FileInspector.new(
           file_path: file_path,
           root_path: root_path

@@ -12,7 +12,8 @@ class AwesomeTranslations::Handlers::ErbHandler < AwesomeTranslations::Handlers:
           data: {
             name: file.file_path,
             root_path: file.root_path,
-            full_path: file.full_path
+            full_path: file.full_path,
+            file_path: file.file_path
           }
         )
       end
@@ -24,9 +25,7 @@ class AwesomeTranslations::Handlers::ErbHandler < AwesomeTranslations::Handlers:
       translations = []
 
       # Parse views for translations.
-      erb_inspector = AwesomeTranslations::ErbInspector.new
-      file = erb_inspector.files.select { |file| file.full_path == group.data[:full_path] }.first
-
+      file = AwesomeTranslations::ErbInspector.new.file(group.data[:root_path], group.data[:file_path])
       file.translations.each do |translation|
         next if translation.global?
         yielder << translation.model
