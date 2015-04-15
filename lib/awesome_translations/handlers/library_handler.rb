@@ -1,7 +1,6 @@
 class AwesomeTranslations::Handlers::LibraryHandler < AwesomeTranslations::Handlers::BaseHandler
   def groups
     ArrayEnumerator.new do |yielder|
-      erb_inspector = AwesomeTranslations::ErbInspector.new
       erb_inspector.files.each do |file|
         yielder << AwesomeTranslations::Group.new(
           id: Base64.urlsafe_encode64(file.full_path),
@@ -19,7 +18,6 @@ class AwesomeTranslations::Handlers::LibraryHandler < AwesomeTranslations::Handl
 
   def translations_for_group(group)
     ArrayEnumerator.new do |yielder|
-      erb_inspector = AwesomeTranslations::ErbInspector.new
       file = erb_inspector.file(group.data[:root_path], group.data[:file_path])
 
       file.translations.each do |translation|
@@ -27,5 +25,13 @@ class AwesomeTranslations::Handlers::LibraryHandler < AwesomeTranslations::Handl
         yielder << translation.model
       end
     end
+  end
+
+private
+
+  def erb_inspector
+    @erb_inspector ||= AwesomeTranslations::ErbInspector.new(
+      exts: [".rb"]
+    )
   end
 end

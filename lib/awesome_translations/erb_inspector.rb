@@ -4,8 +4,11 @@ class AwesomeTranslations::ErbInspector
   autoload :TranslationInspector, "#{File.dirname(__FILE__)}/erb_inspector/translation_inspector"
 
   def initialize(args = {})
-    if args[:dirs]
-      @dirs = args[:dirs]
+    @args = args
+    @args[:exts] ||= [".erb", ".haml", ".rb"]
+
+    if @args[:dirs]
+      @dirs = @args[:dirs]
     else
       @dirs = AwesomeTranslations.config.paths_to_translate
     end
@@ -41,7 +44,7 @@ private
 
       if File.directory?(full_path)
         scan_dir(file_path, root_path, yielder)
-      elsif ext == ".erb" || ext == ".haml" || ext == ".rb"
+      elsif @args[:exts].include?(ext)
         yielder << AwesomeTranslations::ErbInspector::FileInspector.new(
           file_path: file_path,
           root_path: root_path
