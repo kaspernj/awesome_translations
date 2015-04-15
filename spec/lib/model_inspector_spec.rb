@@ -5,11 +5,13 @@ describe AwesomeTranslations::ModelInspector do
   let(:model_classes) { AwesomeTranslations::ModelInspector.model_classes.map(&:clazz) }
 
   it "#model_classes" do
+    require "jquery-rails"
+
     model_classes.to_a.sort { |class1, class2| class1.name <=> class2.name }.should eq [Role, User]
   end
 
   it "#engines" do
-    AwesomeTranslations::ModelInspector.engines.map(&:class).should eq [AwesomeTranslations::Engine, Jquery::Rails::Engine]
+    AwesomeTranslations::ModelInspector.engines.map(&:class).sort { |class1, class2| class1.name <=> class2.name }.should eq [AwesomeTranslations::Engine, Jquery::Rails::Engine]
   end
 
   it "#class_key" do

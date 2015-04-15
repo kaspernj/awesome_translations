@@ -1,6 +1,7 @@
 require "haml"
 require "string-cases"
 require "array_enumerator"
+require "jquery-rails"
 
 module AwesomeTranslations
   autoload :Config, "#{File.dirname(__FILE__)}/awesome_translations/config"
@@ -12,7 +13,10 @@ module AwesomeTranslations
   def self.config
     @config ||= AwesomeTranslations::Config.new
   end
+
+  def self.load_object_extensions
+    ::Object.__send__(:include, AwesomeTranslations::ObjectExtensions)
+  end
 end
 
 require_relative "awesome_translations/engine"
-Object.__send__(:include, AwesomeTranslations::ObjectExtensions)
