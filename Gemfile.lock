@@ -132,12 +132,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  array_enumerator
   awesome_translations!
   codeclimate-test-reporter
   factory_girl_rails
   forgery
   haml-rails
-  jquery-rails
   rspec-rails
   sqlite3

@@ -19,6 +19,8 @@ ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 FactoryGirl.definition_file_paths << File.join(File.dirname(__FILE__), 'factories')
 FactoryGirl.find_definitions
 
+AwesomeTranslations.load_object_extensions
+
 RSpec.configure do |config|
   include ActionDispatch::TestProcess
 

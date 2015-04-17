@@ -20,7 +20,7 @@ class AwesomeTranslations::Handlers::ValidationsHandler < AwesomeTranslations::H
           translations_for_length_validator(validator, model_inspector, attribute_name, yielder) if validator.is_a?(ActiveModel::Validations::LengthValidator)
           translations_for_format_validator(validator, model_inspector, attribute_name, yielder) if validator.is_a?(ActiveModel::Validations::FormatValidator)
           translations_for_uniqueness_validator(validator, model_inspector, attribute_name, yielder) if validator.is_a?(ActiveRecord::Validations::UniquenessValidator)
-          translations_for_presence_validator(validator, model_inspector, attribute_name, yielder) if validator.is_a?(ActiveRecord::Validations::PresenceValidator)
+          translations_for_presence_validator(validator, model_inspector, attribute_name, yielder) if validator.class.name == "ActiveRecord::Validations::PresenceValidator"
           translations_for_email_validator(validator, model_inspector, attribute_name, yielder) if validator.class.name == "EmailValidator"
         end
       end

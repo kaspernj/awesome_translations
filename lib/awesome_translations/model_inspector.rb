@@ -10,11 +10,11 @@ class AwesomeTranslations::ModelInspector
 
     @scanned = {}
     @yielded = {}
-    @skip = [ActiveRecord::SchemaMigration]
+    @skip = ["ActiveRecord::SchemaMigration"]
 
     ArrayEnumerator.new do |yielder|
       find_subclasses(ActiveRecord::Base) do |model_inspector|
-        next if @skip.include? model_inspector.clazz
+        next if @skip.include? model_inspector.clazz.name
         yielder << model_inspector
       end
     end
@@ -101,7 +101,13 @@ private
   # Loads models for the given app-directory (Rails-root or engine).
   def self.load_models_for(root)
     Dir.glob("#{root}/app/models/**/*.rb") do |model_path|
-      require model_path
+      begin
+        require model_path
+      rescue => e
+        $stderr.puts "Could not load model in #{model_path}"
+        $stderr.puts e.inspect
+        $stderr.puts e.backtrace
+      end
     end
   end
 end
