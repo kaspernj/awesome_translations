@@ -22,8 +22,6 @@ module AwesomeTranslations::ObjectExtensions
 
       dir = File.dirname(previous_file)
       dir = dir.gsub(/\A#{Regexp.escape(Rails.root.to_s)}\//, "")
-
-      puts "Dir: #{dir}"
       dir = dir.gsub(/\Aapp\//, "") if dir.starts_with?("app/")
 
       file = File.basename(previous_file, File.extname(previous_file))
