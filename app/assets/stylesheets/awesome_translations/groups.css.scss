@@ -1,22 +1,45 @@
 body.controller_groups {
   &.action_show {
-    .line-content {
-      font-family: Monospace;
-      border: 1px solid black;
-      background-color: lightgrey;
-      padding: 5px;
+    table.translations {
+      width: 100%;
+      table-layout: fixed;
 
-      pre {
-        margin: 0px;
+      thead > tr, tbody > tr {
+        td:first-child, th:first-child {
+          width: 350px;
+        }
       }
-    }
 
-    .line-spacer {
-      height: 10px;
-    }
+      tbody > tr {
+        td.translation-key {
+          .translation-key-text {
+            overflow-x: auto;
+          }
+        }
 
-    .translation-input {
-      width: 300px;
+        td.line-content .container {
+          font-family: Monospace;
+          border: 1px solid black;
+          background-color: lightgrey;
+          padding: 5px;
+          overflow-x: auto;
+
+          pre {
+            margin: 0px;
+          }
+        }
+
+        td.line-spacer {
+          height: 10px;
+        }
+
+        td.translation {
+          .translation-input {
+            width: 100%;
+            box-sizing: border-box;
+          }
+        }
+      }
     }
   }
 }
