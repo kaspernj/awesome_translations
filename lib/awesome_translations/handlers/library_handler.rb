@@ -18,15 +18,10 @@ class AwesomeTranslations::Handlers::LibraryHandler < AwesomeTranslations::Handl
 
   def translations_for_group(group)
     ArrayEnumerator.new do |yielder|
-      translations_found = {}
       file = erb_inspector.file(group.data[:root_path], group.data[:file_path])
 
       file.translations.each do |translation|
         next if translation.global?
-        next if translations_found.key?(translation.key)
-
-        translations_found[translation.key] = true
-
         yielder << translation.model
       end
     end
