@@ -4,11 +4,14 @@ require "array_enumerator"
 require "jquery-rails"
 
 module AwesomeTranslations
-  autoload :Config, "#{File.dirname(__FILE__)}/awesome_translations/config"
-  autoload :ErbInspector, "#{File.dirname(__FILE__)}/awesome_translations/erb_inspector"
-  autoload :Handlers, "#{File.dirname(__FILE__)}/awesome_translations/handlers"
-  autoload :ObjectExtensions, "awesome_translations/object_extensions"
-  autoload :ModelInspector, "awesome_translations/model_inspector"
+  path = "#{File.dirname(__FILE__)}/awesome_translations"
+
+  autoload :Config, "#{path}/config"
+  autoload :ErbInspector, "#{path}/erb_inspector"
+  autoload :GlobalTranslator, "#{path}/global_translator"
+  autoload :Handlers, "#{path}/handlers"
+  autoload :ObjectExtensions, "#{path}/object_extensions"
+  autoload :ModelInspector, "#{path}/model_inspector"
 
   def self.config
     @config ||= AwesomeTranslations::Config.new
