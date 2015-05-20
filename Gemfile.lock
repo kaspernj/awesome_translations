@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    awesome_translations (0.0.8)
+    awesome_translations (0.0.9)
       array_enumerator (~> 0.0.7)
       haml
       jquery-rails
