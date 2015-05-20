@@ -21,8 +21,6 @@ class AwesomeTranslations::Handlers::ErbHandler < AwesomeTranslations::Handlers:
 
   def translations_for_group(group)
     ArrayEnumerator.new do |yielder|
-      translations = []
-
       # Parse views for translations.
       file = erb_inspector.file(group.data[:root_path], group.data[:file_path])
       file.translations.each do |translation|

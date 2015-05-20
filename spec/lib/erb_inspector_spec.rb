@@ -12,7 +12,7 @@ describe AwesomeTranslations::ErbInspector do
 
   describe "#files" do
     it "should find haml-files" do
-      files.length.should eq 27
+      files.length.should eq 28
     end
 
     it "should find haml-files" do

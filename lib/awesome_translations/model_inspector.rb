@@ -2,6 +2,7 @@ class AwesomeTranslations::ModelInspector
   autoload :Attribute, "#{File.dirname(__FILE__)}/model_inspector/attribute"
 
   attr_reader :clazz
+  cattr_accessor :models_loaded
 
   # Yields a model-inspector for each model found in the application.
   def self.model_classes
@@ -88,10 +89,16 @@ private
 
   # Preloads all models for Rails app and all engines (if they aren't loaded, then they cant be inspected).
   def self.load_models
+    return false if AwesomeTranslations::ModelInspector.models_loaded
+
+    AwesomeTranslations::ModelInspector.models_loaded = true
+
     load_models_for(Rails.root)
     engines.each do |engine|
       load_models_for(engine.root)
     end
+
+    return true
   end
 
   def self.engines

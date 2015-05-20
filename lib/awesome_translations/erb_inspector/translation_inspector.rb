@@ -1,9 +1,9 @@
 class AwesomeTranslations::ErbInspector::TranslationInspector
-  attr_reader :dir, :file_path, :line_no, :method, :key, :full_key, :full_path, :root_path
+  attr_reader :dir, :file_path, :last_method, :line_no, :method, :key, :full_key, :full_path, :root_path
 
   def initialize(args)
     @dir, @file_path, @full_path, @line_no = args[:dir], args[:file_path], args[:full_path], args[:line_no]
-    @method, @key, @root_path = args[:method], args[:key], args[:root_path]
+    @method, @key, @root_path, @last_method = args[:method], args[:key], args[:root_path], args[:last_method]
 
     @full_path = "#{@root_path}/#{@file_path}"
 
@@ -29,19 +29,23 @@ private
 
   def generate_full_key
     if @method == "t" && @key.start_with?(".")
-      @full_key = File.dirname(@file_path)
+      @full_key = "#{File.dirname(@file_path)}"
 
-      if @full_key.start_with?("app/views/")
+      if @full_key.starts_with?("app/mailers")
+        @full_key.gsub!(/\Aapp\/mailers(\/|)/, "")
+        is_mailer = true
+      elsif @full_key.start_with?("app/views/")
         # Remove "app/views" from view-translations since that doesn't get used in keys.
-        @full_key = @full_key.gsub(/\Aapp\/views\//, "")
+        @full_key.gsub!(/\Aapp\/views\//, "")
       elsif @full_key.start_with?("app/")
         # Remove "app" from controller- and helper-translations since that doesn't get used.
-        @full_key = @full_key.gsub(/\Aapp\//, "")
+        @full_key.gsub!(/\Aapp\//, "")
       end
 
-      @full_key = @full_key.gsub("/", ".")
-      @full_key << "."
+      @full_key.gsub!("/", ".")
+      @full_key << "." unless @full_key.empty?
       @full_key << file_key(@file_path)
+      @full_key << ".#{@last_method}" if is_mailer && @last_method
       @full_key << "."
       @full_key << @key.gsub(/\A\./, "")
     elsif @method == "t"

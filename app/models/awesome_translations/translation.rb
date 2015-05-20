@@ -8,6 +8,10 @@ class AwesomeTranslations::Translation
     raise "Dir wasn't valid: '#{@dir}'." unless @dir.present?
   end
 
+  def last_key
+    key.to_s.split(".").last
+  end
+
   def id
     raise "stub!"
   end
