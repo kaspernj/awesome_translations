@@ -10,8 +10,9 @@ module AwesomeTranslations
   autoload :ErbInspector, "#{path}/erb_inspector"
   autoload :GlobalTranslator, "#{path}/global_translator"
   autoload :Handlers, "#{path}/handlers"
-  autoload :ObjectExtensions, "#{path}/object_extensions"
   autoload :ModelInspector, "#{path}/model_inspector"
+  autoload :ObjectExtensions, "#{path}/object_extensions"
+  autoload :TranslateFunctionality, "#{path}/translate_functionality"
 
   def self.config
     @config ||= AwesomeTranslations::Config.new

@@ -29,7 +29,7 @@ private
     class_name = class_name.gsub("::", "_")
     class_name = StringCases.camel_to_snake(class_name)
 
-    dir_path = "#{Rails.root}/config/locales/awesome_translations/models/#{class_name}"
+    dir_path = Rails.root.join('config', 'locales', 'awesome_translations', 'models', class_name)
 
     return dir_path
   end
