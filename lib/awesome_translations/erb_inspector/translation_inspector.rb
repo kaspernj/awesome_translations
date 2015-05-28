@@ -37,6 +37,8 @@ private
       elsif @full_key.start_with?("app/views/")
         # Remove "app/views" from view-translations since that doesn't get used in keys.
         @full_key.gsub!(/\Aapp\/views\//, "")
+      elsif @full_key.start_with?('app/cells')
+        @full_key.gsub!(/\Aapp\/cells\//, '')
       elsif @full_key.start_with?("app/")
         # Remove "app" from controller- and helper-translations since that doesn't get used.
         @full_key.gsub!(/\Aapp\//, "")
