@@ -8,4 +8,8 @@ class Role < ActiveRecord::Base
       t(".moderator") => "moderator"
     }
   end
+
+  def self.roles_array
+    [[t('.user'), 'user']]
+  end
 end

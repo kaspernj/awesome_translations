@@ -16,4 +16,12 @@ describe AwesomeTranslations::Handlers::LibraryHandler do
   it "generates keys with method-name for mailers" do
     expect(subject_translation.key).to eq "my_mailer.mailer_action.custom_subject"
   end
+
+  it 'finds translations in arrays' do
+    moderator_translation = group.translations.select { |translation| translation.key == "models.role.moderator" }.first
+    user_translation = group.translations.select { |translation| translation.key == "models.role.user" }.first
+
+    expect(moderator_translation).to_not eq nil
+    expect(user_translation).to_not eq nil
+  end
 end
