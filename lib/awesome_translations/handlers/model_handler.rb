@@ -19,6 +19,7 @@ class AwesomeTranslations::Handlers::ModelHandler < AwesomeTranslations::Handler
       active_record_attributes(model_inspector).each { |translation| yielder << translation }
       paperclip_attachments(model_inspector).each { |translation| yielder << translation }
       relationships(model_inspector).each { |translation| yielder << translation }
+      monetized_attributes(model_inspector).each { |translation| yielder << translation }
     end
   end
 
@@ -29,9 +30,9 @@ private
     class_name = class_name.gsub("::", "_")
     class_name = StringCases.camel_to_snake(class_name)
 
-    dir_path = "#{Rails.root}/config/locales/awesome_translations/models/#{class_name}"
+    dir_path = Rails.root.join('config', 'locales', 'awesome_translations', 'models', class_name)
 
-    return dir_path
+    return dir_path.to_s
   end
 
   def active_record_attributes(model_inspector)
@@ -86,6 +87,19 @@ private
     model_inspector.relationships do |key, reflection|
       result << AwesomeTranslations::Translation.new(
         key: model_inspector.attribute_key(reflection.name),
+        dir: dir_path(model_inspector)
+      )
+    end
+
+    return result
+  end
+
+  def monetized_attributes(model_inspector)
+    result = []
+
+    model_inspector.money_attributes do |name|
+      result << AwesomeTranslations::Translation.new(
+        key: model_inspector.attribute_key(name),
         dir: dir_path(model_inspector)
       )
     end

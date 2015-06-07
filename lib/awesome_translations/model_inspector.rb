@@ -34,9 +34,17 @@ class AwesomeTranslations::ModelInspector
   end
 
   def paperclip_attachments
-    return [] unless ::Kernel.const_defined?("Paperclip")
+    return unless ::Kernel.const_defined?("Paperclip")
     Paperclip::AttachmentRegistry.names_for(@clazz).each do |name|
       yield name
+    end
+  end
+
+  def money_attributes
+    return if !::Kernel.const_defined?('Money') || !@clazz.respond_to?(:monetized_attributes)
+
+    @clazz.monetized_attributes.each do |attribute|
+      yield attribute[0].to_s
     end
   end
 
