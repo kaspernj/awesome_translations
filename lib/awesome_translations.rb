@@ -1,7 +1,5 @@
-require "haml"
 require "string-cases"
 require "array_enumerator"
-require "jquery-rails"
 
 module AwesomeTranslations
   path = "#{File.dirname(__FILE__)}/awesome_translations"

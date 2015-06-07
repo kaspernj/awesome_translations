@@ -7,8 +7,8 @@ class Role < ActiveRecord::Base
 
   def self.roles
     return {
-      t(".administrator") => "admin",
-      t(".moderator") => "moderator"
+      t('.administrator') => 'admin',
+      t('.moderator') => 'moderator'
     }
   end
 
