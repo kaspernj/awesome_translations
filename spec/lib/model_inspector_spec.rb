@@ -11,7 +11,7 @@ describe AwesomeTranslations::ModelInspector do
   end
 
   it "#engines" do
-    AwesomeTranslations::ModelInspector.engines.map(&:class).sort { |class1, class2| class1.name <=> class2.name }.should eq [AwesomeTranslations::Engine, Jquery::Rails::Engine]
+    AwesomeTranslations::ModelInspector.engines.map(&:class).sort { |class1, class2| class1.name <=> class2.name }.should eq [AwesomeTranslations::Engine, Jquery::Rails::Engine, MoneyRails::Engine]
   end
 
   it "#class_key" do

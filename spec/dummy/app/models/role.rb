@@ -1,11 +1,14 @@
 class Role < ActiveRecord::Base
   belongs_to :user
+
   validates_presence_of :user, :role
+
+  monetize :price_cents, allow_nil: true
 
   def self.roles
     return {
-      t(".administrator") => "admin",
-      t(".moderator") => "moderator"
+      t('.administrator') => 'admin',
+      t('.moderator') => 'moderator'
     }
   end
 
