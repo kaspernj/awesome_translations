@@ -1,16 +1,16 @@
-require "spec_helper"
+require 'spec_helper'
 
 describe AwesomeTranslations::TranslatedValue do
-  let(:test_file_path){ "#{Dir.tmpdir}/da.yml" }
+  let(:test_file_path) { "#{Dir.tmpdir}/da.yml" }
 
-  let(:translated_value){
+  let(:translated_value) do
     described_class.new(
       file: test_file_path,
       key: "activerecord.attributes.test_model.test",
       locale: :da,
       value: "test"
     )
-  }
+  end
 
   before do
     test_translations = {
