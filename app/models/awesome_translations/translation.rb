@@ -94,14 +94,23 @@ class AwesomeTranslations::Translation
   end
 
   def value_for?(locale)
-    I18n.with_locale(locale) { return I18n.exists?(@key) }
+    if array_translation?
+      I18n.with_locale(locale) { return I18n.exists?(array_key) && I18n.t(array_key)[array_no].present? }
+    else
+      I18n.with_locale(locale) { return I18n.exists?(@key) }
+    end
   end
 
   def value(args = {})
     locale = (args[:locale] || I18n.locale || I18n.default_locale).to_sym
 
     return nil unless value_for?(locale)
-    I18n.with_locale(locale) { return I18n.t(@key) }
+
+    if array_translation?
+      I18n.with_locale(locale) { return I18n.t(array_key)[array_no] }
+    else
+      I18n.with_locale(locale) { return I18n.t(@key) }
+    end
   end
 
   def file_line_content?
