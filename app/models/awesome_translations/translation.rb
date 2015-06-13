@@ -1,15 +1,45 @@
 class AwesomeTranslations::Translation
-  attr_reader :dir, :key, :file_path, :line_no
+  attr_reader :default, :dir, :key, :file_path, :line_no
 
   def initialize(data)
     @data = data
-    @dir, @key, @file_path, @full_path, @line_no = data[:dir], data[:key], data[:file_path], data[:full_path], data[:line_no]
+    @dir, @file_path, @full_path, @line_no = data[:dir], data[:file_path], data[:full_path], data[:line_no]
+    @key, @key_show = data[:key], data[:key_show]
+    @default = data[:default]
 
     raise "Dir wasn't valid: '#{@dir}'." unless @dir.present?
   end
 
   def last_key
-    key.to_s.split(".").last
+    key.to_s.split('.').last
+  end
+
+  def key_show_with_fallback
+    @key_show.presence || last_key
+  end
+
+  def array_translation?
+    if @key.match(/\[(\d+)\]\Z/)
+      return true
+    else
+      return false
+    end
+  end
+
+  def array_key
+    if match = @key.match(/\A(.+)\[(\d+)\]\Z/)
+      return match[1]
+    end
+
+    return nil
+  end
+
+  def array_no
+    if match = @key.match(/\A(.+)\[(\d+)\]\Z/)
+      return match[2].to_i
+    end
+
+    return nil
   end
 
   def id
@@ -96,7 +126,7 @@ class AwesomeTranslations::Translation
   end
 
   def to_s
-    "<AwesomeTranslations::Translation key=\"#{@key}\" dir=\"#{@dir}\">"
+    "<AwesomeTranslations::Translation key=\"#{@key}\" dir=\"#{@dir}\" array_translation?=\"#{array_translation?}\" array_key=\"#{array_key}\" array_no=\"#{array_no}\">"
   end
 
   def inspect

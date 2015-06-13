@@ -11,6 +11,30 @@ class AwesomeTranslations::TranslatedValue
     "<AwesomeTranslations::TranslatedValue file=\"#{@file}\" locale=\"#{@locale}\" key=\"#{@key}\" value=\"#{@value}\">"
   end
 
+  def array_translation?
+    if @key.match(/\[(\d+)\]\Z/)
+      return true
+    else
+      return false
+    end
+  end
+
+  def array_key
+    if match = @key.match(/\A(.+)\[(\d+)\]\Z/)
+      return match[1]
+    end
+
+    return nil
+  end
+
+  def array_no
+    if match = @key.match(/\A(.+)\[(\d+)\]\Z/)
+      return match[2].to_i
+    end
+
+    return nil
+  end
+
   alias inspect to_s
 
   def save!
@@ -33,7 +57,14 @@ class AwesomeTranslations::TranslatedValue
         if @value.empty?
           current.delete(key_part)
         else
-          current[key_part] = value
+          if array_translation?
+            match = key_part.match(/\A(.+)\[(\d+)\]\Z/)
+            current_array = current[match[1]] || []
+            current_array[array_no] = value
+            current[match[1]] = current_array
+          else
+            current[key_part] = value
+          end
         end
       else
         current[key_part] ||= {}
