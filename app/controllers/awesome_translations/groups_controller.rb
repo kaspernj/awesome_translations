@@ -10,27 +10,13 @@ class AwesomeTranslations::GroupsController < AwesomeTranslations::ApplicationCo
   end
 
   def update
-    puts "Params: #{params}"
-    puts "Keys: #{params[:t].keys}"
-
     @group.translations.each do |translation|
       if translation.array_translation?
-        unless params[:t].key?(translation.array_key)
-          puts "Ignore: #{translation.key}"
-          next
-        end
-
-        puts "Array: #{params[:t][translation.array_key][translation.array_no.to_s]}"
-        puts "Translation: #{translation}"
-
+        next unless params[:t].key?(translation.array_key)
         values = params[:t][translation.array_key][translation.array_no.to_s]
         next unless values
       else
-        unless params[:t].key?(translation.key)
-          puts "Ignore: #{translation.key}"
-          next
-        end
-
+        next unless params[:t].key?(translation.key)
         values = params[:t][translation.key]
       end
 

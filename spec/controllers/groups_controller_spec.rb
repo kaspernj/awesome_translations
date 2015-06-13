@@ -12,8 +12,6 @@ describe AwesomeTranslations::GroupsController do
 
     I18n.load_path.delete(date_time_path.to_s)
     I18n.load_path.delete(model_locales_path)
-
-    puts "LoadPath: #{I18n.load_path.sort.join("\n")}"
   end
 
   render_views
@@ -51,8 +49,6 @@ describe AwesomeTranslations::GroupsController do
       }
 
       translations = YAML.load_file(date_time_path)
-
-      puts "Translations: #{translations}"
 
       expect(translations['da']['date']['day_names'][1]).to eq 'Mandag'
       expect(translations['da']['date']['day_names'][4]).to eq 'Torsdag'
