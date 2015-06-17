@@ -52,7 +52,7 @@ class AwesomeTranslations::Group
   end
 
   def to_s
-    "<AwesomeTranslations::Group id=\"#{@id}\" name=\"#{@name}\">"
+    "<AwesomeTranslations::Group id=\"#{@id}\" name=\"#{name}\">"
   end
 
   def inspect
