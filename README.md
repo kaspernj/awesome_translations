@@ -28,9 +28,36 @@ If you want to do translations from your models or controllers, you will need to
 AwesomeTranslations.load_object_extensions
 ```
 
+If you don't like monkey patching the Object-class, you can also load it like this by creating 'config/initializers/awesome_translations' and insert something like this to allow t-method-calls from inside models:
+```ruby
+ActiveRecord::Base.__send__(:include, AwesomeTranslations::TranslateFunctionality)
+```
+
 You will also need to modify the line in your Gemfile a bit:
 ```ruby
 gem 'awesome_translations'
+```
+
+## Helper translations
+
+The t-method translates like from inside a view in Rails. To get around this, you can call 'helper_t' instead. Start by including that method in your helpers by adding this to ApplicationHelper:
+```ruby
+module ApplicationHelper
+  include AwesomeTranslations::ApplicationHelper
+end
+```
+
+This is an example of how it works and what the difference is:
+```ruby
+module ApplicationHelper
+  include AwesomeTranslations::ApplicationHelper
+
+  # Sample method with translation
+  def hello_world
+    t('.hello_world') #=> translates with key '#{controller_name}.#{action_name}.hello_world'
+    return helper_t('.hello_world') #=> translates with key 'helpers.application_helper.hello_world'
+  end
+end
 ```
 
 ## Translating your application
