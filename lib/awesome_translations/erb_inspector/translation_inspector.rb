@@ -78,9 +78,11 @@ private
 
   def generate_dir
     if @key.start_with?(".")
-      @dir = "#{Rails.root}/config/locales/awesome_translations/#{File.dirname(@file_path)}/#{File.basename(@file_path, File.extname(@file_path))}"
+      file_base_name = File.basename(@file_path).match(/\A(.+?)\./)[1]
+
+      @dir = Rails.root.join('config', 'locales', 'awesome_translations', File.dirname(@file_path), file_base_name).to_s
     else
-      @dir = "#{Rails.root}/config/locales/awesome_translations"
+      @dir = Rails.root.join('config', 'locales', 'awesome_translations').to_s
     end
   end
 end

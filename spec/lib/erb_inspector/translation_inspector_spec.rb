@@ -26,10 +26,10 @@ describe AwesomeTranslations::ErbInspector::TranslationInspector do
   end
 
   it "#full_path" do
-    hello_world_translation.full_path.should eq "#{Rails.root}/app/views/users/index.html.haml"
+    hello_world_translation.full_path.should eq Rails.root.join('app', 'views', 'users', 'index.html.haml').to_s
   end
 
   it '#dir' do
-    user_was_created_translation.dir.should end_with 'spec/dummy/config/locales/awesome_translations/app/controllers'
+    user_was_created_translation.dir.should end_with 'spec/dummy/config/locales/awesome_translations/app/controllers/users_controller'
   end
 end

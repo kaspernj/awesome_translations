@@ -34,6 +34,6 @@ describe AwesomeTranslations::Handlers::ErbHandler do
 
   it "sets the correct translation path" do
     danish_translation = layout_translations.select { |t| t.key == "layouts.application.danish" }.first
-    danish_translation.dir.should eq "#{Rails.root}/config/locales/awesome_translations/app/views/layouts"
+    danish_translation.dir.should eq "#{Rails.root}/config/locales/awesome_translations/app/views/layouts/application"
   end
 end

@@ -12,7 +12,7 @@ describe AwesomeTranslations::Handlers::LibraryHandler do
   it "finds translations made with the t method" do
     admin_translation.should_not eq nil
     admin_translation.key.should eq "models.role.administrator"
-    admin_translation.dir.should end_with "spec/dummy/config/locales/awesome_translations/app/models"
+    admin_translation.dir.should end_with "spec/dummy/config/locales/awesome_translations/app/models/role"
   end
 
   it "generates keys with method-name for mailers" do
