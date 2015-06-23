@@ -7,7 +7,7 @@ describe AwesomeTranslations::Handlers::LibraryHandler do
   let(:subject_translation) { mailer_group.translations.select { |translation| translation.key == "my_mailer.mailer_action.custom_subject" }.first }
   let(:admin_translation) { group.translations.select { |translation| translation.key == "models.role.administrator" }.first }
   let(:application_helper_group) { handler.groups.select { |group| group.name == 'app/helpers/application_helper.rb' }.first }
-  let(:hello_world_translation) { application_helper_group.translations.select { |translation| puts "Translation: #{translation}"; translation.key == 'helpers.application_helper.hello_world' }.first }
+  let(:hello_world_translation) { application_helper_group.translations.select { |translation| translation.key == 'helpers.application_helper.hello_world' }.first }
 
   it "finds translations made with the t method" do
     admin_translation.should_not eq nil

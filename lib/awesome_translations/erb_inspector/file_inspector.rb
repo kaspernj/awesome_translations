@@ -69,13 +69,13 @@ private
       key: key
     )
 
-    unless translation_with_key_exists?(translations_found, translation_inspector.key)
+    unless translation_with_key_exists?(translations_found, translation_inspector.full_key)
       yielder << translation_inspector
       translations_found << translation_inspector
     end
   end
 
-  def translation_with_key_exists?(translations_found, translation_key)
-    translations_found.select { |t| t.key == translation_key }.any?
+  def translation_with_key_exists?(translations_found, translation_full_key)
+    translations_found.select { |t| t.full_key == translation_full_key }.any?
   end
 end
