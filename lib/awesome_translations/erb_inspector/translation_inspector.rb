@@ -37,6 +37,10 @@ private
       elsif @full_key.start_with?("app/views/")
         # Remove "app/views" from view-translations since that doesn't get used in keys.
         @full_key.gsub!(/\Aapp\/views\//, "")
+      elsif @full_key.start_with?('app/controllers')
+        # Remove "app/controllers" from controller-translations since that doesn't get used in keys.
+        @full_key.gsub!(/\Aapp\/controllers(\/?)/, '')
+        is_controller = true
       elsif @full_key.start_with?('app/cells')
         @full_key.gsub!(/\Aapp\/cells\//, '')
       elsif @full_key.start_with?("app/")
@@ -47,7 +51,7 @@ private
       @full_key.gsub!("/", ".")
       @full_key << "." unless @full_key.empty?
       @full_key << file_key(@file_path)
-      @full_key << ".#{@last_method}" if is_mailer && @last_method
+      @full_key << ".#{@last_method}" if (is_mailer || is_controller) && @last_method
       @full_key << "."
       @full_key << @key.gsub(/\A\./, "")
     elsif @method == 't' || @method == 'helper_t'
@@ -66,12 +70,15 @@ private
     # Remove leading "_" from partials
     key = key.gsub(/\A_/, "")
 
+    # Remove '_controller' from controllers
+    key = key.gsub(/_controller\Z/, '')
+
     return key
   end
 
   def generate_dir
     if @key.start_with?(".")
-      @dir = "#{Rails.root}/config/locales/awesome_translations/#{File.dirname(@file_path)}"
+      @dir = "#{Rails.root}/config/locales/awesome_translations/#{File.dirname(@file_path)}/#{File.basename(@file_path, File.extname(@file_path))}"
     else
       @dir = "#{Rails.root}/config/locales/awesome_translations"
     end
