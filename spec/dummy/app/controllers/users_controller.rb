@@ -24,9 +24,23 @@ class UsersController < ApplicationController
   def edit
   end
 
+  def update
+    if @user.update_attributes(user_params)
+      flash[:notice] = controller_t('.user_was_updated')
+      redirect_to user_path(@user)
+    else
+      flash[:error] = @user.errors.full_messages.join('. ')
+      render :edit
+    end
+  end
+
 private
 
   def set_user
     @user = User.find(params[:id].to_i) if params[:id].to_i > 0
+  end
+
+  def user_params
+    params.require(:user).permit(:email)
   end
 end
