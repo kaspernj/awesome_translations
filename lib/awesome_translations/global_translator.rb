@@ -22,6 +22,7 @@ class AwesomeTranslations::GlobalTranslator
 
       dir = File.dirname(previous_file)
       dir = dir.gsub(/\A#{Regexp.escape(Rails.root.to_s)}\//, "")
+      dir = dir.gsub(/\Aspec\/dummy\//, '')
 
       file = File.basename(previous_file, File.extname(previous_file))
 
@@ -37,7 +38,7 @@ class AwesomeTranslations::GlobalTranslator
       translation_key = translation_key.gsub(/\Aapp\//, "")
       translation_key << "/#{file}"
       translation_key.gsub!("/", ".")
-      translation_key << ".#{call[:method]}" if is_controller
+      translation_key << ".#{call[:method]}" if is_controller && args[:action_in_key] != false
       translation_key << key
 
       # Change key to full path.
