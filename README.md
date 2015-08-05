@@ -47,6 +47,23 @@ module ApplicationHelper
 end
 ```
 
+## Controller translations without action in key
+
+Start by including this in your ApplicationController:
+```ruby
+class ApplicationController
+  include AwesomeTranslations::ControllerTranslateFunctionality
+```
+
+Then you can use the `controller_t`-method like this:
+```ruby
+class UsersController < ApplicationController
+  def create
+    flash[:notice] = controller_t('.user_was_saved')
+  end
+end
+```
+
 This is an example of how it works and what the difference is:
 ```ruby
 module ApplicationHelper

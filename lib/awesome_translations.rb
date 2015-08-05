@@ -5,6 +5,7 @@ module AwesomeTranslations
   path = "#{File.dirname(__FILE__)}/awesome_translations"
 
   autoload :Config, "#{path}/config"
+  autoload :ControllerTranslateFunctionality, "#{path}/controller_translate_functionality"
   autoload :ErbInspector, "#{path}/erb_inspector"
   autoload :GlobalTranslator, "#{path}/global_translator"
   autoload :Handlers, "#{path}/handlers"
