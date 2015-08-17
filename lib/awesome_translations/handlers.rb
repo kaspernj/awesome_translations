@@ -11,11 +11,13 @@ class AwesomeTranslations::Handlers
     autoload const_name_camel.to_sym, "#{File.dirname(__FILE__)}/handlers/#{const_name_snake}"
 
     unless const_name_snake == "base_handler"
-      @handlers << AwesomeTranslations::Handler.new(
+      handler = AwesomeTranslations::Handler.new(
         id: const_name_snake,
         const_name: const_name_camel,
         name: const_name_camel
       )
+
+      @handlers << handler if handler.instance.enabled?
     end
   end
 
