@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    awesome_translations (0.0.23)
+    awesome_translations (0.0.24)
       array_enumerator (~> 0.0.7)
       rails (>= 3.0.0, < 5.0.0)
       string-cases
