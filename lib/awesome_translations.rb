@@ -4,7 +4,7 @@ require "array_enumerator"
 module AwesomeTranslations
   path = "#{File.dirname(__FILE__)}/awesome_translations"
 
-  autoload :CacheDatabaseGenerator, "#{path}/awesome_translations/cache_database_generator"
+  autoload :CacheDatabaseGenerator, "#{path}/cache_database_generator"
   autoload :Config, "#{path}/config"
   autoload :ErbInspector, "#{path}/erb_inspector"
   autoload :GlobalTranslator, "#{path}/global_translator"

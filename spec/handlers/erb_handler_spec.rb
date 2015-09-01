@@ -9,27 +9,27 @@ describe AwesomeTranslations::Handlers::ErbHandler do
   let(:layout_translations) { layout_group.translations }
 
   it "finds translations made with the t method" do
-    hello_world_translations = users_index_translations.select { |t| t.key == "users.index.hello_world" }
+    hello_world_translations = users_index_translations.select { |t| t.key == "users.index.hello_world" }.to_a
     hello_world_translations.length.should eq 1
   end
 
   it "finds translations in the layout" do
-    danish_translations = layout_translations.select { |t| t.key == "layouts.application.danish" }
+    danish_translations = layout_translations.select { |t| t.key == "layouts.application.danish" }.to_a
     danish_translations.length.should eq 1
   end
 
   it "doesnt include _ in partial keys" do
-    partial_test = users_partial_test_translations.select { |t| t.key == "users.partial_test.partial_test" }
+    partial_test = users_partial_test_translations.select { |t| t.key == "users.partial_test.partial_test" }.to_a
     partial_test.length.should eq 1
   end
 
   it "removes special characters when using the custom method" do
-    current_language_translation = layout_translations.select { |t| t.key == "layouts.application.the_current_language_is" }
+    current_language_translation = layout_translations.select { |t| t.key == "layouts.application.the_current_language_is" }.to_a
     current_language_translation.length.should eq 1
   end
 
   it "has unique translations" do
-    expect(layout_translations.select { |t| t.key == "layouts.application.hello_world" }.length).to eq 1
+    expect(layout_translations.select { |t| t.key == "layouts.application.hello_world" }.to_a.length).to eq 1
   end
 
   it "sets the correct translation path" do
