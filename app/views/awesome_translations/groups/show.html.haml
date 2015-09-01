@@ -1,23 +1,28 @@
 %h1= "Show group: #{@group.name}"
 
 = form_for :group, url: handler_group_path(@handler, @group), method: :put do |f|
-  %table
+  %table.translations
     %thead
-      %th Key
+      %th Last Key
       - I18n.available_locales.each do |locale|
         %th= locale
     %tbody
       - @translations.each do |translation|
         %tr
-          %td= translation.key
+          %td.translation-key
+            .translation-key-text= translation.key_show_with_fallback
 
           - I18n.available_locales.each do |locale|
-            %td= text_field "t", "#{translation.key}[#{locale}]", class: "translation-input", lang: locale, value: translation.value(locale: locale)
+            %td.translation= text_field "t", "#{translation.key}[#{locale}]", class: "translation-input", lang: locale, value: translation.value(locale: locale)
 
-        - if translation.file_line_content?
+        - if translation.file_line_content? || translation.default.present?
           %tr.line-content-row
             %td.line-content{colspan: 1 + I18n.available_locales.length}
-              %pre= translation.file_line_content
+              .container
+                - if translation.file_line_content?
+                  %pre= translation.file_line_content
+                - elsif translation.default.present?
+                  = "Default: #{translation.default}"
           %tr
             %td.line-spacer{colspan: 1 + I18n.available_locales.length}
       - if @translations.empty?

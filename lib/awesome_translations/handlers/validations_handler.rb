@@ -17,11 +17,19 @@ class AwesomeTranslations::Handlers::ValidationsHandler < AwesomeTranslations::H
 
       model_inspector.clazz._validators.each do |attribute_name, validators|
         validators.each do |validator|
-          translations_for_length_validator(validator, model_inspector, attribute_name, yielder) if validator.is_a?(ActiveModel::Validations::LengthValidator)
-          translations_for_format_validator(validator, model_inspector, attribute_name, yielder) if validator.is_a?(ActiveModel::Validations::FormatValidator)
-          translations_for_uniqueness_validator(validator, model_inspector, attribute_name, yielder) if validator.is_a?(ActiveRecord::Validations::UniquenessValidator)
-          translations_for_presence_validator(validator, model_inspector, attribute_name, yielder) if validator.is_a?(ActiveRecord::Validations::PresenceValidator)
-          translations_for_email_validator(validator, model_inspector, attribute_name, yielder) if validator.class.name == "EmailValidator"
+          if validator.is_a?(ActiveModel::Validations::LengthValidator)
+            translations_for_length_validator(validator, model_inspector, attribute_name, yielder)
+          elsif validator.is_a?(ActiveModel::Validations::FormatValidator)
+            translations_for_format_validator(validator, model_inspector, attribute_name, yielder)
+          elsif validator.is_a?(ActiveRecord::Validations::UniquenessValidator)
+            translations_for_uniqueness_validator(validator, model_inspector, attribute_name, yielder)
+          elsif validator.class.name == "ActiveRecord::Validations::PresenceValidator"
+            translations_for_presence_validator(validator, model_inspector, attribute_name, yielder)
+          elsif validator.class.name == "EmailValidator"
+            translations_for_email_validator(validator, model_inspector, attribute_name, yielder)
+          elsif validator.class.name == "ActiveModel::Validations::ConfirmationValidator"
+            translations_for_confirmation_validator(validator, model_inspector, attribute_name, yielder)
+          end
         end
       end
     end
@@ -57,6 +65,15 @@ private
 
   def translations_for_email_validator(validator, model_inspector, attribute_name, yielder)
     add_translation("invalid", model_inspector, attribute_name, yielder) # "is invalid"
+  end
+
+  def translations_for_confirmation_validator(validator, model_inspector, attribute_name, yielder)
+    snake_clazz_name = StringCases.camel_to_snake(model_inspector.clazz.name)
+
+    yielder << AwesomeTranslations::Translation.new(
+      key: "activerecord.attributes.#{snake_clazz_name}.#{attribute_name}_confirmation",
+      dir: "#{Rails.root}/config/locales/awesome_translations/models/#{snake_clazz_name}"
+    )
   end
 
   def add_translation(key, model_inspector, attribute_name, yielder)

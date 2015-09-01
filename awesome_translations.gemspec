@@ -16,19 +16,25 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["spec/**/*"]
 
-  s.add_dependency "rails", ">= 3.1.2"
+  s.add_dependency "rails", ">= 3.0.0", "< 5.0.0"
   s.add_dependency "string-cases"
-  s.add_runtime_dependency "jquery-rails"
-  s.add_dependency "sass-rails"
-  s.add_dependency "haml"
-  s.add_runtime_dependency "array_enumerator", "~> 0.0.7"
   s.add_dependency "baza"
   s.add_dependency "baza_models"
-  s.add_dependency "sqlite3"
+  s.add_dependency "array_enumerator", "~> 0.0.7"
 
-  s.add_development_dependency "haml-rails"
+  if RUBY_ENGINE == "jruby"
+    s.add_dependency "activerecord-jdbcsqlite3-adapter"
+  else
+    s.add_dependency "sqlite3"
+  end
+
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "forgery"
   s.add_development_dependency "factory_girl_rails"
   s.add_development_dependency "codeclimate-test-reporter"
+  s.add_development_dependency 'money-rails'
+  s.add_development_dependency "jquery-rails"
+  s.add_development_dependency "haml"
+  s.add_development_dependency "haml-rails"
+  s.add_development_dependency "sass-rails"
 end

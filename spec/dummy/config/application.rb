@@ -8,7 +8,11 @@ require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 Bundler.require(*Rails.groups)
-require "awesome_translations"
+
+require 'haml'
+require 'jquery-rails'
+require 'money-rails'
+require 'awesome_translations'
 
 module Dummy
   class Application < Rails::Application

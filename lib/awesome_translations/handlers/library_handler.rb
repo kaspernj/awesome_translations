@@ -1,7 +1,4 @@
-class AwesomeTranslations::Handlers::ErbHandler < AwesomeTranslations::Handlers::BaseHandler
-  METHOD_NAMES = ["_", "t"]
-  VALID_BEGINNING = '(^|\s+|\(|\{|<%=\s*)'
-
+class AwesomeTranslations::Handlers::LibraryHandler < AwesomeTranslations::Handlers::BaseHandler
   def groups
     ArrayEnumerator.new do |yielder|
       erb_inspector.files.each do |file|
@@ -21,8 +18,8 @@ class AwesomeTranslations::Handlers::ErbHandler < AwesomeTranslations::Handlers:
 
   def translations_for_group(group)
     ArrayEnumerator.new do |yielder|
-      # Parse views for translations.
       file = erb_inspector.file(group.data[:root_path], group.data[:file_path])
+
       file.translations.each do |translation|
         next if translation.global?
         yielder << translation.model
@@ -34,7 +31,7 @@ private
 
   def erb_inspector
     @erb_inspector ||= AwesomeTranslations::ErbInspector.new(
-      exts: [".erb", ".haml"]
+      exts: ['.rb']
     )
   end
 end

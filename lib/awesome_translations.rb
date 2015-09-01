@@ -1,19 +1,25 @@
-require "haml"
 require "string-cases"
 require "array_enumerator"
 
 module AwesomeTranslations
-  autoload :CacheDatabaseGenerator, "#{File.dirname(__FILE__)}/awesome_translations/cache_database_generator"
-  autoload :Config, "#{File.dirname(__FILE__)}/awesome_translations/config"
-  autoload :ErbInspector, "#{File.dirname(__FILE__)}/awesome_translations/erb_inspector"
-  autoload :Handlers, "#{File.dirname(__FILE__)}/awesome_translations/handlers"
-  autoload :ObjectExtensions, "awesome_translations/object_extensions"
-  autoload :ModelInspector, "awesome_translations/model_inspector"
+  path = "#{File.dirname(__FILE__)}/awesome_translations"
+
+  autoload :CacheDatabaseGenerator, "#{path}/awesome_translations/cache_database_generator"
+  autoload :Config, "#{path}/config"
+  autoload :ErbInspector, "#{path}/erb_inspector"
+  autoload :GlobalTranslator, "#{path}/global_translator"
+  autoload :Handlers, "#{path}/handlers"
+  autoload :ModelInspector, "#{path}/model_inspector"
+  autoload :ObjectExtensions, "#{path}/object_extensions"
+  autoload :TranslateFunctionality, "#{path}/translate_functionality"
 
   def self.config
     @config ||= AwesomeTranslations::Config.new
   end
+
+  def self.load_object_extensions
+    ::Object.__send__(:include, AwesomeTranslations::ObjectExtensions)
+  end
 end
 
 require_relative "awesome_translations/engine"
-Object.__send__(:include, AwesomeTranslations::ObjectExtensions)

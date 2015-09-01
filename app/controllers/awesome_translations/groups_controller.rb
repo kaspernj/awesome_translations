@@ -11,9 +11,15 @@ class AwesomeTranslations::GroupsController < AwesomeTranslations::ApplicationCo
 
   def update
     @group.translations.each do |translation|
-      next unless params[:t].key?(translation.key)
+      if translation.array_translation?
+        next unless params[:t].key?(translation.array_key)
+        values = params[:t][translation.array_key][translation.array_no.to_s]
+        next unless values
+      else
+        next unless params[:t].key?(translation.key)
+        values = params[:t][translation.key]
+      end
 
-      values = params[:t][translation.key]
       values.each do |locale, value|
         translated_value = translation.translated_value_for_locale(locale)
         translated_value.value = value
@@ -22,7 +28,6 @@ class AwesomeTranslations::GroupsController < AwesomeTranslations::ApplicationCo
     end
 
     I18n.backend.reload!
-
     redirect_to handler_group_path(@handler, @group)
   end
 
