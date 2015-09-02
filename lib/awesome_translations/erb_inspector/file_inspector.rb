@@ -1,5 +1,5 @@
 class AwesomeTranslations::ErbInspector::FileInspector
-  METHOD_NAMES = ['t', 'helper_t']
+  METHOD_NAMES = ['t', 'controller_t', 'helper_t']
   VALID_BEGINNING = '(^|\s+|\(|\{|\[|<%=\s*)'
 
   attr_reader :root_path, :file_path

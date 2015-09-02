@@ -16,7 +16,7 @@ class AwesomeTranslations::Handler
   end
 
   def id
-    @data[:id]
+    @data.fetch(:id)
   end
 
   def to_param
@@ -28,15 +28,19 @@ class AwesomeTranslations::Handler
   end
 
   def name
-    @data[:name]
+    @data.fetch(:name)
   end
 
   def const
-    AwesomeTranslations::Handlers.const_get(@data[:const_name])
+    AwesomeTranslations::Handlers.const_get(@data.fetch(:const_name))
+  end
+
+  def instance
+    const.new
   end
 
   def translations
-    const.new.translations
+    instance.translations
   end
 
   def groups

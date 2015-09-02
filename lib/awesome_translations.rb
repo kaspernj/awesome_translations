@@ -6,6 +6,7 @@ module AwesomeTranslations
 
   autoload :CacheDatabaseGenerator, "#{path}/cache_database_generator"
   autoload :Config, "#{path}/config"
+  autoload :ControllerTranslateFunctionality, "#{path}/controller_translate_functionality"
   autoload :ErbInspector, "#{path}/erb_inspector"
   autoload :GlobalTranslator, "#{path}/global_translator"
   autoload :Handlers, "#{path}/handlers"
