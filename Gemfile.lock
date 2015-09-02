@@ -4,15 +4,16 @@ PATH
     awesome_translations (0.0.20)
       array_enumerator (~> 0.0.10)
       baza
+      baza_migrations
       baza_models
       rails (>= 3.0.0, < 5.0.0)
       sqlite3
       string-cases
 
 PATH
-  remote: /home/kaspernj/Dev/Ruby/baza
+  remote: /Users/kaspernj/Dev/Ruby/baza
   specs:
-    baza (0.0.18)
+    baza (0.0.19)
       array_enumerator (~> 0.0.10)
       datet (~> 0.0.25)
       event_handler (~> 0.0.0)
@@ -20,7 +21,14 @@ PATH
       wref (~> 0.0.8)
 
 PATH
-  remote: /home/kaspernj/Dev/Ruby/baza_models
+  remote: /Users/kaspernj/Dev/Ruby/baza_migrations
+  specs:
+    baza_migrations (0.0.0)
+      baza (~> 0.0.14)
+      string-cases (~> 0.0.1)
+
+PATH
+  remote: /Users/kaspernj/Dev/Ruby/baza_models
   specs:
     baza_models (0.0.0)
       baza (~> 0.0.15)
@@ -159,6 +167,7 @@ PLATFORMS
 DEPENDENCIES
   awesome_translations!
   baza!
+  baza_migrations!
   baza_models!
   codeclimate-test-reporter
   factory_girl_rails
