@@ -1,5 +1,5 @@
 class AwesomeTranslations::CacheDatabaseGenerator
-  autoload :CachedTranslation, "#{File.dirname(__FILE__)}/cache_database_generator/cached_translation"
+  autoload :Translation, "#{File.dirname(__FILE__)}/cache_database_generator/translation"
 
   attr_reader :db
 
@@ -8,51 +8,45 @@ class AwesomeTranslations::CacheDatabaseGenerator
 
     @args = args
     @debug = @args[:debug] || false
+
+    init_database
+    execute_migrations
   end
 
   def init_database
-    @db = Baza::Db.new(type: :sqlite3, path: database_path, debug: @debug)
-    CachedTranslation.db = @db
-    CachedTranslation.table_name = "cached_translations"
-
-    @cached_translations_table = @db.tables.create(:cached_translations,
-      columns: [
-        {
-          name: :id,
-          type: :int,
-          autoincr: true,
-          primarykey: true
-        },{
-          name: :locale,
-          type: :varchar
-        },{
-          name: :file_path,
-          type: :text
-        },{
-          name: :key,
-          type: :varchar
-        },{
-          name: :value,
-          type: :text
-        }
-      ],
-      indexes: [
-        :id,
-        :file_path,
-        :key
-      ]
-    )
-
     @initialized = true
+    @@db ||= Baza::Db.new(type: :sqlite3, path: database_path, debug: @debug)
+    @db = @@db
+
+    AwesomeTranslations::CacheDatabaseGenerator::Translation.db ||= @db
+    AwesomeTranslations::CacheDatabaseGenerator::Translation.table_name = "translations"
   end
 
   def cache_translations
+    cache_yml_translations
+    cache_handler_translations
+  end
+
+  def cache_yml_translations
     init_database unless initialized?
     cache_translations_in_dir(Rails.root.join("config", "locales"))
   end
 
+  def cache_handler_translations
+    init_database unless initialized?
+    cache_translations_in_handlers
+  end
+
   def initialized?
     @initialized ||= false
+  end
+
+  def self.database_path
+    @database_path ||= Rails.root.join("db", "awesome_translations.sqlite3").to_s
+  end
+
+  def database_path
+    @database_path ||= self.class.database_path
   end
 
 private
@@ -61,8 +55,25 @@ private
     print "#{message}\n" if @debug
   end
 
-  def database_path
-    @database_path ||= Rails.root.join("database", "awesome_translations.sqlite3").to_s
+  def execute_migrations
+    executor = BazaMigrations::MigrationsExecutor.new(db: @db)
+    executor.add_dir "#{File.dirname(__FILE__)}/../../db/baza_translations_migrations"
+    executor.execute_migrations
+  end
+
+  def cache_translations_in_handlers
+    AwesomeTranslations::Handler.all.each do |handler|
+      handler.groups.each do |group|
+        group.translations.each do |translation|
+          translation = AwesomeTranslations::CacheDatabaseGenerator::Translation.find_or_initialize_by(key: translation.key)
+          translation.assign_attributes(
+            file_path_translation: @current_file,
+            line_no: translation.line_no
+          )
+          translation.save!
+        end
+      end
+    end
   end
 
   def cache_translations_in_dir(dir_path)
@@ -102,12 +113,16 @@ private
         cache_translations_in_hash(file_path, locale, value, current_key)
       else
         debug "Found new key: #{current_key.join(".")} translated to #{value}"
-        @db.upsert(:cached_translations, {}, {
+
+        key = current_key.join(".")
+
+        translation = AwesomeTranslations::CacheDatabaseGenerator::Translation.find_or_initialize_by(key: key)
+        translation.assign_attributes(
+          file_path: @current_file,
           locale: locale,
-          file_path: file_path,
-          key: current_key.join("."),
           value: value
-        })
+        )
+        translation.save!
       end
     end
   end

@@ -1,12 +1,14 @@
 require "spec_helper"
 
 describe AwesomeTranslations::CacheDatabaseGenerator do
-  let(:cache_database_generator) { AwesomeTranslations::CacheDatabaseGenerator.new(debug: false) }
-  let(:table) { db.tables["cached_translations"] }
+  let(:cache_database_generator) { AwesomeTranslations::CacheDatabaseGenerator.new(debug: true) }
+  let(:table) { db.tables["translations"] }
   let(:db) { cache_database_generator.db }
 
   before do
     require "fileutils"
+
+    File.unlink(cache_database_generator.database_path) if File.exist?(cache_database_generator.database_path)
 
     locales_path = Rails.root.join("config", "locales")
     FileUtils.rm_rf(locales_path)
@@ -32,16 +34,24 @@ describe AwesomeTranslations::CacheDatabaseGenerator do
 
   it "#init_database" do
     cache_database_generator.init_database
-    table.name.should eq :cached_translations
+    table.name.should eq :translations
   end
 
   describe "#cache_translations" do
-    it "can cache translations" do
-      cache_database_generator.cache_translations
-      row = db.select(:cached_translations, key: "activerecord.attributes.user.id").fetch
+    it "#cache_yml_translations" do
+      cache_database_generator.cache_yml_translations
+      row = db.single(:translations, key: "activerecord.attributes.user.id")
       row.should_not eq false
 
-      cached_translation = AwesomeTranslations::CacheDatabaseGenerator::CachedTranslation.find(row[:id])
+      cached_translation = AwesomeTranslations::CacheDatabaseGenerator::Translation.find(row.fetch(:id))
+    end
+
+    it "#cache_handler_translations" do
+      cache_database_generator.cache_handler_translations
+      row = db.single(:translations, key: "activerecord.attributes.user.id")
+      expect(row).to_not eq false
+
+      cached_translation = AwesomeTranslations::CacheDatabaseGenerator::Translation.find(row.fetch(:id))
     end
   end
 end
