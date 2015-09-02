@@ -8,11 +8,10 @@ class AwesomeTranslations::CacheDatabaseGenerator
 
     @args = args
     @debug = @args[:debug] || false
-    @args[:path] = Tempfile.new("awesome_translations_cache_database_generator").path
   end
 
   def init_database
-    @db = Baza::Db.new(type: :sqlite3, path: @args[:path], debug: @debug)
+    @db = Baza::Db.new(type: :sqlite3, path: database_path, debug: @debug)
     CachedTranslation.db = @db
     CachedTranslation.table_name = "cached_translations"
 
@@ -60,6 +59,10 @@ private
 
   def debug(message)
     print "#{message}\n" if @debug
+  end
+
+  def database_path
+    @database_path ||= Rails.root.join("database", "awesome_translations.sqlite3").to_s
   end
 
   def cache_translations_in_dir(dir_path)
