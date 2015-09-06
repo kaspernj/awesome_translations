@@ -37,6 +37,11 @@ table.main-table {
     border-top: 1px solid black;
     border-bottom: 1px solid black;
     padding: 10px;
+
+    .menu-item {
+      float: left;
+      margin-right: 12px;
+    }
   }
 
   td.main-content {

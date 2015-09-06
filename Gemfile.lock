@@ -4,7 +4,10 @@ PATH
     awesome_translations (0.0.20)
       array_enumerator (~> 0.0.10)
       baza
+      baza_migrations
       baza_models
+      coffee-rails
+      jquery-rails
       rails (>= 3.0.0, < 5.0.0)
       sqlite3
       string-cases
@@ -12,12 +15,19 @@ PATH
 PATH
   remote: /home/kaspernj/Dev/Ruby/baza
   specs:
-    baza (0.0.18)
+    baza (0.0.19)
       array_enumerator (~> 0.0.10)
       datet (~> 0.0.25)
       event_handler (~> 0.0.0)
       string-cases (~> 0.0.1)
       wref (~> 0.0.8)
+
+PATH
+  remote: /home/kaspernj/Dev/Ruby/baza_migrations
+  specs:
+    baza_migrations (0.0.0)
+      baza (~> 0.0.14)
+      string-cases (~> 0.0.1)
 
 PATH
   remote: /home/kaspernj/Dev/Ruby/baza_models
@@ -58,11 +68,19 @@ GEM
     builder (3.1.4)
     codeclimate-test-reporter (0.4.1)
       simplecov (>= 0.7.1, < 1.0.0)
+    coffee-rails (4.1.0)
+      coffee-script (>= 2.2.0)
+      railties (>= 4.0.0, < 5.0)
+    coffee-script (2.4.1)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.9.1.1)
     datet (0.0.25)
     diff-lcs (1.2.5)
     docile (1.1.5)
     erubis (2.7.0)
     event_handler (0.0.0)
+    execjs (2.6.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.5.0)
@@ -159,6 +177,7 @@ PLATFORMS
 DEPENDENCIES
   awesome_translations!
   baza!
+  baza_migrations!
   baza_models!
   codeclimate-test-reporter
   factory_girl_rails
