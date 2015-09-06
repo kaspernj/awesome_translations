@@ -19,6 +19,8 @@ class AwesomeTranslations::Handlers
     end
   end
 
+  @handlers = @handlers.select { |handler| handler.instance.enabled? }
+
   def self.list
     @handlers
   end
