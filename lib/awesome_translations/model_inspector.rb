@@ -14,9 +14,18 @@ class AwesomeTranslations::ModelInspector
     @skip = ["ActiveRecord::SchemaMigration"]
 
     ArrayEnumerator.new do |yielder|
-      find_subclasses(ActiveRecord::Base) do |model_inspector|
-        next if @skip.include? model_inspector.clazz.name
-        yielder << model_inspector
+      if Object.const_defined?(:ActiveRecord)
+        find_subclasses(ActiveRecord::Base) do |model_inspector|
+          next if @skip.include? model_inspector.clazz.name
+          yielder << model_inspector
+        end
+      end
+
+      if Object.const_defined?(:Mongoid)
+        mongoid_models do |model_inspector|
+          next if @skip.include? model_inspector.clazz.name
+          yielder << model_inspector
+        end
       end
     end
   end
