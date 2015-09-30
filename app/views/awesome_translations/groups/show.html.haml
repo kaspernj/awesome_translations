@@ -13,7 +13,7 @@
             .translation-key-text= translation.key_show_with_fallback
 
           - I18n.available_locales.each do |locale|
-            %td.translation= text_field "t", "#{translation.key}[#{locale}]", class: "translation-input", lang: locale, value: translation.value(locale: locale)
+            %td.translation= text_field "t", "#{translation.key}[#{locale}]", class: "translation-input", lang: locale, value: translation.translation_value(locale: locale)
 
         - if translation.file_line_content? || translation.default.present?
           %tr.line-content-row

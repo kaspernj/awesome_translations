@@ -44,10 +44,7 @@ class AwesomeTranslations::Group
   end
 
   def name
-    if @data && @data[:name].present?
-      return @data[:name].presence
-    end
-
+    return @data[:name] if @data && @data[:name].present?
     return id
   end
 

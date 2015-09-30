@@ -1,5 +1,5 @@
 class AwesomeTranslations::Translation
-  attr_reader :default, :dir, :key, :file_path, :line_no
+  attr_reader :default, :dir, :key, :key_show, :file_path, :line_no, :full_path
 
   def initialize(data)
     @data = data

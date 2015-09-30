@@ -41,7 +41,7 @@ describe AwesomeTranslations::CacheDatabaseGenerator do
     it "#cache_yml_translations" do
       cache_database_generator.cache_yml_translations
       row = db.single(:translations, key: "activerecord.attributes.user.id")
-      row.should_not eq false
+      expect(row).to_not eq false
 
       cached_translation = AwesomeTranslations::CacheDatabaseGenerator::Translation.find(row.fetch(:id))
     end

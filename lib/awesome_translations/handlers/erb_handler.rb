@@ -5,7 +5,7 @@ class AwesomeTranslations::Handlers::ErbHandler < AwesomeTranslations::Handlers:
   def groups
     ArrayEnumerator.new do |yielder|
       erb_inspector.files.each do |file|
-        yielder << AwesomeTranslations::Group.new(
+        group = AwesomeTranslations::Group.new(
           id: Base64.urlsafe_encode64(file.full_path),
           handler: self,
           data: {
@@ -15,6 +15,8 @@ class AwesomeTranslations::Handlers::ErbHandler < AwesomeTranslations::Handlers:
             file_path: file.file_path
           }
         )
+
+        yielder << group if translations_for_group(group).any?
       end
     end
   end

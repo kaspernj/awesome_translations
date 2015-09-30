@@ -13,6 +13,7 @@ module AwesomeTranslations
   autoload :ModelInspector, "#{path}/model_inspector"
   autoload :ObjectExtensions, "#{path}/object_extensions"
   autoload :TranslateFunctionality, "#{path}/translate_functionality"
+  autoload :TranslationMigrator, "#{path}/translation_migrator"
 
   def self.config
     @config ||= AwesomeTranslations::Config.new

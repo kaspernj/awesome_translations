@@ -10,9 +10,11 @@
     - @groups.each do |group|
       %tr
         %td= link_to group.name, handler_group_path(@handler, group)
-        %td= group.translations_count
-        %td= group.translations_count(finished: true)
-        %td= group.translations_count(unfinished: true)
+        %td= group.handler_translations.count
+        %td
+          -#= group.translations.count(finished: true)
+        %td
+          -#= group.translations.count(unfinished: true)
     - if @groups.empty?
       %tr
         %td.error{colspan: 2} No groups were found.
