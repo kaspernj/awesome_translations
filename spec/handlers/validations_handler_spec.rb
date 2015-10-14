@@ -6,7 +6,7 @@ describe AwesomeTranslations::Handlers::ValidationsHandler do
   let(:blank_email_translation) { user_group.translations.select { |translation| translation.key.include? "email.blank" }.first }
 
   it "#groups" do
-    validations_handler.groups.to_a.length.should eq 2
+    expect(validations_handler.groups.to_a.length).to eq 4
   end
 
   describe "#translations_for_group" do
