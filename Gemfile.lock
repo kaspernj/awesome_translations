@@ -47,6 +47,9 @@ GEM
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
     forgery (0.6.0)
+    globalize (4.0.3)
+      activemodel (>= 4.0.0, < 5)
+      activerecord (>= 4.0.0, < 5)
     haml (4.0.5)
       tilt
     haml-rails (0.5.3)
@@ -138,6 +141,7 @@ DEPENDENCIES
   codeclimate-test-reporter
   factory_girl_rails
   forgery
+  globalize
   haml
   haml-rails
   jquery-rails
