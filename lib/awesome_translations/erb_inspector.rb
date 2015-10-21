@@ -5,7 +5,7 @@ class AwesomeTranslations::ErbInspector
 
   def initialize(args = {})
     @args = args
-    @args[:exts] ||= [".erb", ".haml", ".rb"]
+    @args[:exts] ||= [".erb", ".haml", ".rb", ".rake"]
 
     if @args[:dirs]
       @dirs = @args[:dirs]

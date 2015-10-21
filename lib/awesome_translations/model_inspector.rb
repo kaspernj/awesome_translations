@@ -48,6 +48,14 @@ class AwesomeTranslations::ModelInspector
     end
   end
 
+  def globalize_attributes
+    return if !::Kernel.const_defined?('Globalize') || !@clazz.respond_to?(:translated_attribute_names)
+
+    @clazz.translated_attribute_names.each do |attribute|
+      yield attribute.to_s
+    end
+  end
+
   def snake_name
     clazz.name.gsub("::", "/").split("/").map { |part| ::StringCases.camel_to_snake(part) }.join("/")
   end
