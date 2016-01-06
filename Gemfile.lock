@@ -5,9 +5,9 @@ PATH
       active-record-transactioner
       array_enumerator (~> 0.0.10)
       auto_autoloader
-      baza
-      baza_migrations
-      baza_models
+      baza (>= 0.0.20)
+      baza_migrations (>= 0.0.1)
+      baza_models (>= 0.0.2)
       coffee-rails
       haml-rails
       jquery-rails
@@ -15,31 +15,6 @@ PATH
       sass-rails
       sqlite3
       string-cases (= 0.0.2)
-
-PATH
-  remote: /home/kaspernj/Dev/Ruby/baza_migrations
-  specs:
-    baza_migrations (0.0.0)
-      baza (~> 0.0.14)
-      string-cases (~> 0.0.1)
-
-PATH
-  remote: /home/kaspernj/Dev/Ruby/baza_models
-  specs:
-    baza_models (0.0.1)
-      array_enumerator
-      baza (~> 0.0.20)
-      string-cases
-
-PATH
-  remote: /home/kaspernj/Dev/Ruby/baza
-  specs:
-    baza (0.0.20)
-      array_enumerator (~> 0.0.10)
-      datet (~> 0.0.25)
-      event_handler (~> 0.0.0)
-      string-cases (~> 0.0.1)
-      wref (~> 0.0.8)
 
 GEM
   remote: https://rubygems.org/
@@ -84,6 +59,20 @@ GEM
     array_enumerator (0.0.10)
     auto_autoloader (0.0.1)
       string-cases
+    baza (0.0.20)
+      array_enumerator (~> 0.0.10)
+      datet (~> 0.0.25)
+      event_handler (~> 0.0.0)
+      string-cases (~> 0.0.1)
+      wref (~> 0.0.8)
+    baza_migrations (0.0.1)
+      auto_autoloader
+      baza (~> 0.0.20)
+      string-cases (~> 0.0.1)
+    baza_models (0.0.2)
+      array_enumerator
+      baza (~> 0.0.20)
+      string-cases (>= 0.0.2)
     builder (3.2.2)
     codeclimate-test-reporter (0.4.8)
       simplecov (>= 0.7.1, < 1.0.0)
@@ -230,9 +219,6 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_translations!
-  baza!
-  baza_migrations!
-  baza_models!
   codeclimate-test-reporter
   factory_girl_rails
   forgery

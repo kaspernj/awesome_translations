@@ -31,19 +31,13 @@ class AwesomeTranslations::Translation
   end
 
   def array_key
-    if (match = @key.match(/\A(.+)\[(\d+)\]\Z/))
-      return match[1]
-    end
-
-    nil
+    return unless (match = @key.match(/\A(.+)\[(\d+)\]\Z/))
+    match[1]
   end
 
   def array_no
-    if (match = @key.match(/\A(.+)\[(\d+)\]\Z/))
-      return match[2].to_i
-    end
-
-    nil
+    return unless (match = @key.match(/\A(.+)\[(\d+)\]\Z/))
+    match[2].to_i
   end
 
   def to_param

@@ -5,17 +5,20 @@ class AwesomeTranslations::CacheDatabaseGenerator::TranslationValue < BazaModels
 
   delegate :key, to: :translation_key
 
-  def handler_translation
-    AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation
-      .where(translation_key_id: translation_key_id)
-      .first
-  end
-
   def calculated_translation_file_path
     "#{handler_translation.dir}/#{locale}.yml"
   end
 
+  def handler_translation
+    @handler_translation ||= AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation
+      .find_by(translation_key_id: translation_key_id)
+  end
+
   def migrate_to_awesome_translations_namespace!
-    raise "stub!"
+    AwesomeTranslations::TranslationMigrator.new(
+      translation_key: translation_key,
+      handler_translation: handler_translation,
+      translation_value: self
+    ).execute
   end
 end

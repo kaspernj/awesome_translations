@@ -53,6 +53,8 @@ RSpec.configure do |config|
   end
 
   config.before do
+    I18n.load_path.delete_if { |path| !File.exist?(path) }
+
     generator = AwesomeTranslations::CacheDatabaseGenerator.current
     generator.init_database
   end
@@ -60,6 +62,12 @@ RSpec.configure do |config|
   config.after do
     generator = AwesomeTranslations::CacheDatabaseGenerator.current
     generator.close
+
+    translation_file = Rails.root.join("config", "locales", "translations.yml").to_s
+    File.unlink(translation_file) if File.exist?(translation_file)
+
+    at_dir = Rails.root.join("config", "locales", "awesome_translations").to_s
+    FileUtils.rm_rf(at_dir) if File.exist?(at_dir)
   end
 
   # Run specs in random order to surface order dependencies. If you find an

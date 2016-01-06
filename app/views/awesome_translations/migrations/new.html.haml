@@ -1,4 +1,4 @@
-%h1 Migrate translations into AwesomeTranslations
+- content_for(:header_title) { "Migrate translations into AwesomeTranslations" }
 
 = form_for :migration, url: migrations_path do |f|
   %table
@@ -11,7 +11,7 @@
       - translations_to_migrate.each do |translation|
         %tr
           %td= check_box_tag("m[#{translation.id}]", 1, true)
-          %td= translation.translation_key.key
+          %td= translation.key
           %td= path_without_root_or_locales(translation.file_path)
           %td= path_without_root_or_locales(translation.calculated_translation_file_path)
       - if translations_to_migrate.empty?

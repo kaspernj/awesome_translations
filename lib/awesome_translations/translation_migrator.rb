@@ -38,9 +38,15 @@ private
 
     clean_empty_hash(translations_hash)
 
-    FileUtils.mkdir_p(@handler_translation.dir)
+    FileUtils.mkdir_p(File.dirname(@new_path))
     File.open(@new_path, "w") { |fp| fp.write(YAML.dump(new_translations_hash)) }
-    File.unlink(@old_path) if translations_hash.empty?
+
+    if translations_hash.empty?
+      I18n.load_path.delete(@old_path)
+      File.unlink(@old_path)
+    else
+      File.open(@old_path, "w") { |fp| fp.write(YAML.dump(translations_hash)) }
+    end
 
     @translation_value.update_attributes!(file_path: @new_path)
   end
