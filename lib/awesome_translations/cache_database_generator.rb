@@ -19,7 +19,7 @@ class AwesomeTranslations::CacheDatabaseGenerator
 
   def init_database
     @initialized = true
-    @db = Baza::Db.new(type: :sqlite3, path: database_path, debug: @debug)
+    @db = Baza::Db.new(type: :sqlite3, path: database_path, debug: true)
 
     AwesomeTranslations::CacheDatabaseGenerator::Group.db = @db
     AwesomeTranslations::CacheDatabaseGenerator::Group.table_name = "groups"
@@ -57,6 +57,15 @@ class AwesomeTranslations::CacheDatabaseGenerator
     clean_up_not_found
   end
 
+  def with_transactioner
+    require "active-record-transactioner"
+
+    ActiveRecordTransactioner.new do |transactioner|
+      @transactioner = transactioner
+      yield
+    end
+  end
+
   def cache_yml_translations
     cache_translations_in_dir(Rails.root.join("config", "locales"))
   end
@@ -78,11 +87,7 @@ class AwesomeTranslations::CacheDatabaseGenerator
   end
 
   def update_handlers
-    @handlers_found = {}
-    @groups_found = {}
-    @translation_keys_found = {}
-    @handler_translations_found = {}
-    @translation_values_found = {}
+    @handlers_found ||= {}
 
     AwesomeTranslations::Handler.all.each do |handler|
       handler_model = AwesomeTranslations::CacheDatabaseGenerator::Handler.find_or_initialize_by(identifier: handler.id)
@@ -96,6 +101,8 @@ class AwesomeTranslations::CacheDatabaseGenerator
   end
 
   def update_groups_for_handler(handler, handler_model)
+    @groups_found ||= {}
+
     handler.groups.each do |group|
       group_model = AwesomeTranslations::CacheDatabaseGenerator::Group.find_or_initialize_by(
         handler_id: handler_model.id,
@@ -110,13 +117,16 @@ class AwesomeTranslations::CacheDatabaseGenerator
     end
   end
 
-  def update_translations_for_group(handler_model, group)
+  def update_translations_for_group(handler_model, group, group_model)
+    @translation_keys_found ||= {}
+    @handler_translations_found ||= {}
+
     group.translations.each do |translation|
-      translation_key = AwesomeTranslations::CacheDatabaseGenerator::TranslationKey.find_or_initialize_by(
-        key: translation.key
-      )
+      translation_key = AwesomeTranslations::CacheDatabaseGenerator::TranslationKey.find_or_initialize_by(key: translation.key)
       translation_key.assign_attributes(group_id: group_model.id, handler_id: handler_model.id)
       translation_key.save!
+
+      raise "KEY ERROR: #{translation_key.inspect}" unless translation_key.id.to_i > 0
 
       @translation_keys_found[translation_key.id] = true
 
@@ -133,7 +143,12 @@ class AwesomeTranslations::CacheDatabaseGenerator
         full_path: translation.full_path,
         dir: translation.dir
       )
-      handler_translation.save!
+
+      if @transactioner && handler_translation.persisted?
+        @transactioner.save!(handler_translation)
+      else
+        handler_translation.save!
+      end
 
       @handler_translations_found[handler_translation.id] = true
     end
@@ -152,15 +167,18 @@ private
   end
 
   def cache_translations_in_handlers
-    update_handlers do |handler, handler_model|
-      update_groups_for_handler(handler, handler_model) do |group|
-        update_translations_for_group(handler_model, group)
+    with_transactioner do
+      update_handlers do |handler, handler_model|
+        update_groups_for_handler(handler, handler_model) do |group, group_model|
+          update_translations_for_group(handler_model, group, group_model)
+        end
       end
     end
   end
 
   def cache_translations_in_dir(dir_path)
     debug "Looking for translations in #{dir_path}"
+    @translation_values_found ||= {}
 
     Dir.foreach(dir_path) do |file|
       next if file == "." || file == ".."
@@ -176,6 +194,8 @@ private
   end
 
   def cache_translations_in_file(file_path)
+    @translation_keys_found ||= {}
+
     debug "Cache translations in #{file_path}"
 
     i18n_hash = YAML.load_file(file_path)
@@ -200,6 +220,8 @@ private
         key = current_key.join(".")
 
         translation_key = AwesomeTranslations::CacheDatabaseGenerator::TranslationKey.find_or_create_by!(key: key)
+        @translation_keys_found[translation_key.id] = true
+        raise "KEY ERROR: #{translation_key.inspect}" unless translation_key.id.to_i > 0
 
         translation_value = AwesomeTranslations::CacheDatabaseGenerator::TranslationValue.find_or_initialize_by(
           translation_key_id: translation_key.id,
@@ -217,24 +239,26 @@ private
   end
 
   def clean_up_not_found
-    AwesomeTranslations::CacheDatabaseGenerator::Handler
-      .where.not(id: @handlers_found.keys)
-      .destroy_all
+    @db.transaction do
+      AwesomeTranslations::CacheDatabaseGenerator::Handler
+        .where.not(id: @handlers_found.keys)
+        .destroy_all
 
-    AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation
-      .where.not(id: @handler_translations_found.keys)
-      .destroy_all
+      AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation
+        .where.not(id: @handler_translations_found.keys)
+        .destroy_all
 
-    AwesomeTranslations::CacheDatabaseGenerator::Group
-      .where.not(id: @groups_found.keys)
-      .destroy_all
+      AwesomeTranslations::CacheDatabaseGenerator::Group
+        .where.not(id: @groups_found.keys)
+        .destroy_all
 
-    AwesomeTranslations::CacheDatabaseGenerator::TranslationKey
-      .where.not(id: @translation_keys_found.keys)
-      .destroy_all
+      AwesomeTranslations::CacheDatabaseGenerator::TranslationKey
+        .where.not(id: @translation_keys_found.keys)
+        .destroy_all
 
-    AwesomeTranslations::CacheDatabaseGenerator::TranslationValue
-      .where.not(id: @translation_values_found.keys)
-      .destroy_all
+      AwesomeTranslations::CacheDatabaseGenerator::TranslationValue
+        .where.not(id: @translation_values_found.keys)
+        .destroy_all
+    end
   end
 end

@@ -23,6 +23,14 @@ class AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation < BazaMode
     )
   end
 
+  def finished?
+    @finished ||= translation.finished?
+  end
+
+  def unfinished?
+    !finished?
+  end
+
   def array_key
     if (match = key.match(/\A(.+)\[(\d+)\]\Z/))
       return match[1]

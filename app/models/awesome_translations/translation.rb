@@ -3,8 +3,12 @@ class AwesomeTranslations::Translation
 
   def initialize(data)
     @data = data
-    @dir, @file_path, @full_path, @line_no = data[:dir], data[:file_path], data[:full_path], data[:line_no]
-    @key, @key_show = data[:key], data[:key_show]
+    @dir = data[:dir]
+    @file_path = data[:file_path]
+    @full_path = data[:full_path]
+    @line_no = data[:line_no]
+    @key = data[:key]
+    @key_show = data[:key_show]
     @default = data[:default]
 
     raise "Dir wasn't valid: '#{@dir}'." unless @dir.present?
@@ -27,23 +31,19 @@ class AwesomeTranslations::Translation
   end
 
   def array_key
-    if match = @key.match(/\A(.+)\[(\d+)\]\Z/)
+    if (match = @key.match(/\A(.+)\[(\d+)\]\Z/))
       return match[1]
     end
 
-    return nil
+    nil
   end
 
   def array_no
-    if match = @key.match(/\A(.+)\[(\d+)\]\Z/)
+    if (match = @key.match(/\A(.+)\[(\d+)\]\Z/))
       return match[2].to_i
     end
 
-    return nil
-  end
-
-  def id
-    raise "stub!"
+    nil
   end
 
   def to_param
@@ -68,7 +68,7 @@ class AwesomeTranslations::Translation
       )
     end
 
-    return result
+    result
   end
 
   def finished?
@@ -77,7 +77,7 @@ class AwesomeTranslations::Translation
       return false
     end
 
-    return true
+    true
   end
 
   def unfinished?
@@ -95,9 +95,9 @@ class AwesomeTranslations::Translation
 
   def value_for?(locale)
     if array_translation?
-      I18n.with_locale(locale) { return I18n.exists?(array_key) && I18n.t(array_key)[array_no].present? }
+      I18n.with_locale(locale) { I18n.exists?(array_key) && I18n.t(array_key)[array_no].present? }
     else
-      I18n.with_locale(locale) { return I18n.exists?(@key) }
+      I18n.with_locale(locale) { I18n.exists?(@key) }
     end
   end
 
@@ -107,9 +107,9 @@ class AwesomeTranslations::Translation
     return nil unless value_for?(locale)
 
     if array_translation?
-      I18n.with_locale(locale) { return I18n.t(array_key)[array_no] }
+      I18n.with_locale(locale) { I18n.t(array_key)[array_no] }
     else
-      I18n.with_locale(locale) { return I18n.t(@key) }
+      I18n.with_locale(locale) { I18n.t(@key) }
     end
   end
 

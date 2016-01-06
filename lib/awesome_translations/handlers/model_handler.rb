@@ -2,8 +2,6 @@ class AwesomeTranslations::Handlers::ModelHandler < AwesomeTranslations::Handler
   def groups
     ArrayEnumerator.new do |yielder|
       AwesomeTranslations::ModelInspector.model_classes.each do |model_inspector|
-        next unless model_inspector.clazz.name.present?
-
         yielder << AwesomeTranslations::Group.new(
           id: model_inspector.clazz.name,
           handler: self

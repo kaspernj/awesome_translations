@@ -1,4 +1,5 @@
-%h1= "Show group: #{@group.name}"
+- content_for(:header_title) { "Show group: #{@group.name}" }
+- content_for(:header_right) { link_to "Update translations", update_translations_cache_handler_group_path(@handler.identifier, @group.identifier), method: :post, class: "button", data: {confirm: "Are you sure?"} }
 
 = form_for :group, url: handler_group_path(@handler, @group), method: :put do |f|
   %table.translations

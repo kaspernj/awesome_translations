@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     awesome_translations (0.0.24)
+      active-record-transactioner
       array_enumerator (~> 0.0.10)
       auto_autoloader
       baza
@@ -16,14 +17,14 @@ PATH
       string-cases (= 0.0.2)
 
 PATH
-  remote: /Users/kaspernj/Dev/Ruby/baza_migrations
+  remote: /home/kaspernj/Dev/Ruby/baza_migrations
   specs:
     baza_migrations (0.0.0)
       baza (~> 0.0.14)
       string-cases (~> 0.0.1)
 
 PATH
-  remote: /Users/kaspernj/Dev/Ruby/baza_models
+  remote: /home/kaspernj/Dev/Ruby/baza_models
   specs:
     baza_models (0.0.1)
       array_enumerator
@@ -31,7 +32,7 @@ PATH
       string-cases
 
 PATH
-  remote: /Users/kaspernj/Dev/Ruby/baza
+  remote: /home/kaspernj/Dev/Ruby/baza
   specs:
     baza (0.0.20)
       array_enumerator (~> 0.0.10)
@@ -62,6 +63,7 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    active-record-transactioner (0.0.6)
     activejob (4.2.5)
       activesupport (= 4.2.5)
       globalid (>= 0.3.0)

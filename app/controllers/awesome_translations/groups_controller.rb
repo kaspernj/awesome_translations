@@ -31,6 +31,16 @@ class AwesomeTranslations::GroupsController < AwesomeTranslations::ApplicationCo
     redirect_to handler_group_path(@handler, @group)
   end
 
+  def update_translations_cache
+    handler = AwesomeTranslations::Handler.find(@handler.identifier)
+    group = AwesomeTranslations::Group.find_by_handler_and_id(handler, @group.identifier)
+
+    generator = AwesomeTranslations::CacheDatabaseGenerator.current
+    generator.update_translations_for_group(@handler, group, @group)
+
+    redirect_to handler_group_path(@handler.identifier, @group.identifier)
+  end
+
 private
 
   def set_handler

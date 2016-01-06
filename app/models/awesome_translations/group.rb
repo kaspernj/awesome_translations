@@ -21,9 +21,9 @@ class AwesomeTranslations::Group
 
     args.each do |key, value|
       if key == :finished
-        translations_list = translations_list.select { |translation| translation.finished? } if value
+        translations_list = translations_list.select(&:finished?) if value
       elsif key == :unfinished
-        translations_list = translations_list.select { |translation| translation.unfinished? } if value
+        translations_list = translations_list.select(&:unfinished?) if value
       else
         raise "Unknown key: #{key}"
       end

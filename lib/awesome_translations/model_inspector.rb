@@ -15,7 +15,7 @@ class AwesomeTranslations::ModelInspector
 
     ArrayEnumerator.new do |yielder|
       find_subclasses(ActiveRecord::Base) do |model_inspector|
-        next if @skip.include? model_inspector.clazz.name
+        next if !model_inspector.clazz.name || @skip.include?(model_inspector.clazz.name)
         yielder << model_inspector
       end
     end

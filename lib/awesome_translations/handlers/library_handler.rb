@@ -2,8 +2,10 @@ class AwesomeTranslations::Handlers::LibraryHandler < AwesomeTranslations::Handl
   def groups
     ArrayEnumerator.new do |yielder|
       erb_inspector.files.each do |file|
+        id = file.file_path.gsub(/[^A-z0-9]/, "_")
+
         group = AwesomeTranslations::Group.new(
-          id: Base64.urlsafe_encode64(file.full_path),
+          id: id,
           handler: self,
           data: {
             name: file.file_path,
