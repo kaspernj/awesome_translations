@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/kaspernj/best_practice_project.git
+  revision: 124eaa5ed1d69dcca5d7ab7893ad086891a9abbd
+  specs:
+    best_practice_project (0.0.7)
+
 PATH
   remote: .
   specs:
@@ -15,11 +21,6 @@ PATH
       sass-rails
       sqlite3
       string-cases (= 0.0.2)
-
-PATH
-  remote: /home/kaspernj/Dev/Ruby/best_practice_project
-  specs:
-    best_practice_project (0.0.7)
 
 GEM
   remote: https://rubygems.org/

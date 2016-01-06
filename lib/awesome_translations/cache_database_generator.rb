@@ -157,7 +157,7 @@ class AwesomeTranslations::CacheDatabaseGenerator
 private
 
   def debug(message)
-    print "#{message}\n" if @debug
+    puts "#{message}" if @debug
   end
 
   def execute_migrations

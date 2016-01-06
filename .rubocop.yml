@@ -10,13 +10,10 @@ Style/FileName:
   Enabled: false
 
 Metrics/LineLength:
-  Max: 160
+  Max: 237
 
 Metrics/MethodLength:
   Max: 50
-
-Metrics/AbcSize:
-  Max: 25
 
 Metrics/ClassLength:
   Max: 250

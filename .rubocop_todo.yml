@@ -32,11 +32,6 @@ Metrics/AbcSize:
 Metrics/CyclomaticComplexity:
   Max: 18
 
-# Offense count: 12
-# Configuration parameters: AllowURI, URISchemes.
-Metrics/LineLength:
-  Max: 237
-
 # Offense count: 1
 # Configuration parameters: CountComments.
 Metrics/MethodLength:
@@ -73,3 +68,6 @@ Style/RegexpLiteral:
     - 'app/helpers/awesome_translations/application_helper.rb'
     - 'lib/awesome_translations/erb_inspector/translation_inspector.rb'
     - 'lib/awesome_translations/global_translator.rb'
+
+Rails/Output:
+  Enabled: false

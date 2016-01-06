@@ -1,5 +1,5 @@
 class AwesomeTranslations::HandlersController < AwesomeTranslations::ApplicationController
-  before_filter :set_handler, only: [:show, :update_groups_cache]
+  before_action :set_handler, only: [:show, :update_groups_cache]
 
   def index
     @handlers = AwesomeTranslations::CacheDatabaseGenerator::Handler.order(:name)

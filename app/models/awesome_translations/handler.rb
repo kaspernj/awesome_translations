@@ -1,4 +1,6 @@
 class AwesomeTranslations::Handler
+  delegate :translations, to: :instance
+
   def self.all
     AwesomeTranslations::Handlers.list
   end
@@ -33,10 +35,6 @@ class AwesomeTranslations::Handler
 
   def instance
     const.new
-  end
-
-  def translations
-    instance.translations
   end
 
   def groups

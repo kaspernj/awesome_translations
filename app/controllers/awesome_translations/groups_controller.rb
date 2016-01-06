@@ -1,6 +1,6 @@
 class AwesomeTranslations::GroupsController < AwesomeTranslations::ApplicationController
-  before_filter :set_handler
-  before_filter :set_group
+  before_action :set_handler
+  before_action :set_group
 
   def index
   end
