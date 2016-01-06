@@ -34,10 +34,10 @@ class AwesomeTranslations::GroupsController < AwesomeTranslations::ApplicationCo
 private
 
   def set_handler
-    @handler = AwesomeTranslations::CacheDatabaseGenerator::Handler.find(params[:handler_id])
+    @handler = AwesomeTranslations::CacheDatabaseGenerator::Handler.find_by(identifier: params[:handler_id])
   end
 
   def set_group
-    @group = @handler.groups.find(params[:id])
+    @group = @handler.groups.find_by(identifier: params[:id])
   end
 end

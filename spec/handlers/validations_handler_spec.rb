@@ -11,15 +11,15 @@ describe AwesomeTranslations::Handlers::ValidationsHandler do
 
   describe "#translations_for_group" do
     it "finds the right number of validation translations" do
-      user_group.translations.to_a.length.should eq 6
+      expect(user_group.translations.to_a.length).to eq 6
     end
 
     it "finds the right key" do
-      blank_email_translation.key.should eq "activerecord.errors.models.user.attributes.email.blank"
+      expect(blank_email_translation.key).to eq "activerecord.errors.models.user.attributes.email.blank"
     end
 
     it "finds the right directory" do
-      blank_email_translation.dir.should eq "#{Rails.root}/config/locales/awesome_translations/models/user"
+      expect(blank_email_translation.dir).to eq "#{Rails.root}/config/locales/awesome_translations/models/user"
     end
 
     it 'finds confirmation translations' do

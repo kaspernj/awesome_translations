@@ -1,7 +1,6 @@
 # Used to find translations in the Rails app by inspecting .erb- and .haml-files.
 class AwesomeTranslations::ErbInspector
-  autoload :FileInspector, "#{File.dirname(__FILE__)}/erb_inspector/file_inspector"
-  autoload :TranslationInspector, "#{File.dirname(__FILE__)}/erb_inspector/translation_inspector"
+  AutoAutoloader.autoload_sub_classes(self, __FILE__)
 
   def initialize(args = {})
     @args = args

@@ -10,7 +10,10 @@ class AwesomeTranslations::Group
   end
 
   def initialize(args)
-    @handler, @id, @data = args[:handler], args[:id], args[:data]
+    @handler = args.fetch(:handler)
+    @id = args.fetch(:id)
+    @data = args[:data] || {}
+    raise "Invalid ID: #{@id}" unless @id.present?
   end
 
   def translations(args = {})
@@ -26,13 +29,13 @@ class AwesomeTranslations::Group
       end
     end
 
-    return translations_list
+    translations_list
   end
 
   def translations_count(args = {})
     count = 0
     translations(args).each { count += 1 }
-    return count
+    count
   end
 
   def to_param
@@ -44,8 +47,7 @@ class AwesomeTranslations::Group
   end
 
   def name
-    return @data[:name] if @data && @data[:name].present?
-    return id
+    @data[:name].presence || id.presence
   end
 
   def to_s

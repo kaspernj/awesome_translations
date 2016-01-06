@@ -1,4 +1,5 @@
-%h1= "Show handler: #{@handler.name}"
+- content_for(:header_title) { "Show handler: #{@handler.name}" }
+- content_for(:header_right) { link_to "Update groups", update_groups_cache_handler_path(@handler.identifier), method: :post, class: "button", data: {confirm: "Are you sure?"} }
 
 %table
   %thead
@@ -9,7 +10,7 @@
   %tbody
     - @groups.each do |group|
       %tr
-        %td= link_to group.name, handler_group_path(@handler, group)
+        %td= link_to group.name, handler_group_path(@handler, group.identifier)
         %td= group.handler_translations.count
         %td
           -#= group.translations.count(finished: true)

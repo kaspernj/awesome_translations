@@ -22,14 +22,14 @@ describe AwesomeTranslations::ErbInspector::TranslationInspector do
   end
 
   it "#full_key" do
-    hello_world_translation.full_key.should eq "users.index.hello_world"
+    expect(hello_world_translation.full_key).to eq "users.index.hello_world"
   end
 
   it "#full_path" do
-    hello_world_translation.full_path.should eq Rails.root.join('app', 'views', 'users', 'index.html.haml').to_s
+    expect(hello_world_translation.full_path).to eq Rails.root.join('app', 'views', 'users', 'index.html.haml').to_s
   end
 
   it '#dir' do
-    user_was_created_translation.dir.should end_with 'spec/dummy/config/locales/awesome_translations/app/controllers/users_controller'
+    expect(user_was_created_translation.dir).to end_with 'spec/dummy/config/locales/awesome_translations/app/controllers/users_controller'
   end
 end

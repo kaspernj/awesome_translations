@@ -15,7 +15,7 @@ describe AwesomeTranslations::ErbInspector::FileInspector do
 
   describe "#translations" do
     it "finds the right number of translations" do
-      user_index_translations.length.should eq 3
+      expect(user_index_translations.length).to eq 3
     end
   end
 end

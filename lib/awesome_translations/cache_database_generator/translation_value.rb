@@ -1,5 +1,5 @@
 class AwesomeTranslations::CacheDatabaseGenerator::TranslationValue < BazaModels::Model
-  belongs_to :translation_key, table_name: "translation_keys", foreign_key: "translation_key_id", class_name: "AwesomeTranslations::CacheDatabaseGenerator::TranslationKey"
+  belongs_to :translation_key, foreign_key: "translation_key_id", class_name: "AwesomeTranslations::CacheDatabaseGenerator::TranslationKey"
 
   validates_presence_of :translation_key
 

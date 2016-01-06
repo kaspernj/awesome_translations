@@ -54,3 +54,17 @@ table.main-table {
 table > thead > tr > th {
   text-align: left;
 }
+
+.button {
+  padding: 10px;
+  background-color: lightgrey;
+  border: 1px solid black;
+  border-radius: 5px;
+  color: black;
+  text-decoration: none;
+
+  &:link, &:visited, &:hover, &:active {
+    color: black;
+    text-decoration: none;
+  }
+}

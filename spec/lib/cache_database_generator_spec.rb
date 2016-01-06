@@ -1,15 +1,11 @@
 require "spec_helper"
 
 describe AwesomeTranslations::CacheDatabaseGenerator do
-  let(:cache_database_generator) { AwesomeTranslations::CacheDatabaseGenerator.new(debug: true) }
-  let(:table) { db.tables["translations"] }
+  let(:cache_database_generator) { AwesomeTranslations::CacheDatabaseGenerator.current }
+  let(:table) { db.tables["handler_translations"] }
   let(:db) { cache_database_generator.db }
 
   before do
-    require "fileutils"
-
-    File.unlink(cache_database_generator.database_path) if File.exist?(cache_database_generator.database_path)
-
     locales_path = Rails.root.join("config", "locales")
     FileUtils.rm_rf(locales_path)
     Dir.mkdir(locales_path)
@@ -33,25 +29,30 @@ describe AwesomeTranslations::CacheDatabaseGenerator do
   end
 
   it "#init_database" do
-    cache_database_generator.init_database
-    table.name.should eq :translations
+    expect(table.name).to eq "handler_translations"
   end
 
   describe "#cache_translations" do
     it "#cache_yml_translations" do
       cache_database_generator.cache_yml_translations
-      row = db.single(:translations, key: "activerecord.attributes.user.id")
-      expect(row).to_not eq false
 
-      cached_translation = AwesomeTranslations::CacheDatabaseGenerator::Translation.find(row.fetch(:id))
+      translation = AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation
+        .joins(:translation_key)
+        .where(translation_keys: {key: "activerecord.attributes.user.id"})
+        .first
+
+      expect(translation).to_not eq nil
     end
 
     it "#cache_handler_translations" do
       cache_database_generator.cache_handler_translations
-      row = db.single(:translations, key: "activerecord.attributes.user.id")
-      expect(row).to_not eq false
 
-      cached_translation = AwesomeTranslations::CacheDatabaseGenerator::Translation.find(row.fetch(:id))
+      translation = AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation
+        .joins(:translation_key)
+        .where(translation_keys: {key: "activerecord.attributes.user.id"})
+        .first
+
+      expect(translation).to_not eq nil
     end
   end
 end

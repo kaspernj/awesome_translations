@@ -37,7 +37,7 @@ describe AwesomeTranslations::TranslatedValue do
 
     translations = YAML.load(File.read(test_file_path))
 
-    translations["da"]["activerecord"]["attributes"]["test_model"]["test"].should eq "new test"
-    translations["da"]["activerecord"]["attributes"]["test_model"]["other_translation"].should eq "En anden"
+    expect(translations["da"]["activerecord"]["attributes"]["test_model"]["test"]).to eq "new test"
+    expect(translations["da"]["activerecord"]["attributes"]["test_model"]["other_translation"]).to eq "En anden"
   end
 end

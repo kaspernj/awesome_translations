@@ -22,4 +22,20 @@ class AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation < BazaMode
       line_no: line_no
     )
   end
+
+  def array_key
+    if (match = key.match(/\A(.+)\[(\d+)\]\Z/))
+      return match[1]
+    end
+
+    nil
+  end
+
+  def array_no
+    if (match = key.match(/\A(.+)\[(\d+)\]\Z/))
+      return match[2].to_i
+    end
+
+    nil
+  end
 end

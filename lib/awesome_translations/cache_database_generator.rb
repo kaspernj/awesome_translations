@@ -1,11 +1,11 @@
 class AwesomeTranslations::CacheDatabaseGenerator
-  autoload :Group, "#{File.dirname(__FILE__)}/cache_database_generator/group"
-  autoload :Handler, "#{File.dirname(__FILE__)}/cache_database_generator/handler"
-  autoload :HandlerTranslation, "#{File.dirname(__FILE__)}/cache_database_generator/handler_translation"
-  autoload :TranslationKey, "#{File.dirname(__FILE__)}/cache_database_generator/translation_key"
-  autoload :TranslationValue, "#{File.dirname(__FILE__)}/cache_database_generator/translation_value"
+  AutoAutoloader.autoload_sub_classes(self, __FILE__)
 
   attr_reader :db
+
+  def self.current
+    @current ||= AwesomeTranslations::CacheDatabaseGenerator.new
+  end
 
   def initialize(args = {})
     require "baza"
@@ -19,32 +19,38 @@ class AwesomeTranslations::CacheDatabaseGenerator
 
   def init_database
     @initialized = true
-    @@db ||= Baza::Db.new(type: :sqlite3, path: database_path, debug: @debug)
-    @db = @@db
+    @db = Baza::Db.new(type: :sqlite3, path: database_path, debug: @debug)
 
-    AwesomeTranslations::CacheDatabaseGenerator::Group.db ||= @db
+    AwesomeTranslations::CacheDatabaseGenerator::Group.db = @db
     AwesomeTranslations::CacheDatabaseGenerator::Group.table_name = "groups"
 
-    AwesomeTranslations::CacheDatabaseGenerator::Handler.db ||= @db
+    AwesomeTranslations::CacheDatabaseGenerator::Handler.db = @db
     AwesomeTranslations::CacheDatabaseGenerator::Handler.table_name = "handlers"
 
-    AwesomeTranslations::CacheDatabaseGenerator::TranslationKey.db ||= @db
+    AwesomeTranslations::CacheDatabaseGenerator::TranslationKey.db = @db
     AwesomeTranslations::CacheDatabaseGenerator::TranslationKey.table_name = "translation_keys"
 
-    AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation.db ||= @db
+    AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation.db = @db
     AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation.table_name = "handler_translations"
 
-    AwesomeTranslations::CacheDatabaseGenerator::TranslationValue.db ||= @db
+    AwesomeTranslations::CacheDatabaseGenerator::TranslationValue.db = @db
     AwesomeTranslations::CacheDatabaseGenerator::TranslationValue.table_name = "translation_values"
   end
 
-  def cache_translations
-    @handlers_found = {}
-    @groups_found = {}
-    @translation_keys_found = {}
-    @handler_translations_found = {}
-    @translation_values_found = {}
+  def close
+    @initialized = false
 
+    @db.close if @db
+    @db = nil
+
+    AwesomeTranslations::CacheDatabaseGenerator::Group.db = nil
+    AwesomeTranslations::CacheDatabaseGenerator::Handler.db = nil
+    AwesomeTranslations::CacheDatabaseGenerator::TranslationKey.db = nil
+    AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation.db = nil
+    AwesomeTranslations::CacheDatabaseGenerator::TranslationValue.db = nil
+  end
+
+  def cache_translations
     cache_yml_translations
     cache_handler_translations
 
@@ -71,6 +77,68 @@ class AwesomeTranslations::CacheDatabaseGenerator
     @database_path ||= self.class.database_path
   end
 
+  def update_handlers
+    @handlers_found = {}
+    @groups_found = {}
+    @translation_keys_found = {}
+    @handler_translations_found = {}
+    @translation_values_found = {}
+
+    AwesomeTranslations::Handler.all.each do |handler|
+      handler_model = AwesomeTranslations::CacheDatabaseGenerator::Handler.find_or_initialize_by(identifier: handler.id)
+      handler_model.assign_attributes(name: handler.name)
+      handler_model.save!
+
+      @handlers_found[handler_model.id] = true
+
+      yield handler, handler_model if block_given?
+    end
+  end
+
+  def update_groups_for_handler(handler, handler_model)
+    handler.groups.each do |group|
+      group_model = AwesomeTranslations::CacheDatabaseGenerator::Group.find_or_initialize_by(
+        handler_id: handler_model.id,
+        identifier: group.id
+      )
+      group_model.assign_attributes(name: group.name)
+      group_model.save!
+
+      @groups_found[group_model.id] = true
+
+      yield group, group_model if block_given?
+    end
+  end
+
+  def update_translations_for_group(handler_model, group)
+    group.translations.each do |translation|
+      translation_key = AwesomeTranslations::CacheDatabaseGenerator::TranslationKey.find_or_initialize_by(
+        key: translation.key
+      )
+      translation_key.assign_attributes(group_id: group_model.id, handler_id: handler_model.id)
+      translation_key.save!
+
+      @translation_keys_found[translation_key.id] = true
+
+      handler_translation = AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation.find_or_initialize_by(
+        translation_key_id: translation_key.id,
+        handler_id: handler_model.id,
+        group_id: group_model.id
+      )
+      handler_translation.assign_attributes(
+        default: translation.default,
+        file_path: translation.file_path,
+        line_no: translation.line_no,
+        key_show: translation.key_show,
+        full_path: translation.full_path,
+        dir: translation.dir
+      )
+      handler_translation.save!
+
+      @handler_translations_found[handler_translation.id] = true
+    end
+  end
+
 private
 
   def debug(message)
@@ -84,58 +152,9 @@ private
   end
 
   def cache_translations_in_handlers
-    AwesomeTranslations::Handler.all.each do |handler|
-      handler_model = AwesomeTranslations::CacheDatabaseGenerator::Handler.find_or_initialize_by(
-        identifier: handler.id
-      )
-      handler_model.assign_attributes(
-        name: handler.name
-      )
-      handler_model.save!
-
-      @handlers_found[handler_model.id] = true
-
-      handler.groups.each do |group|
-        group_model = AwesomeTranslations::CacheDatabaseGenerator::Group.find_or_initialize_by(
-          handler_id: handler_model.id,
-          identifier: group.id
-        )
-        group_model.assign_attributes(
-          name: group.name
-        )
-        group_model.save!
-
-        @groups_found[group_model.id] = true
-
-        group.translations.each do |translation|
-          translation_key = AwesomeTranslations::CacheDatabaseGenerator::TranslationKey.find_or_initialize_by(
-            key: translation.key
-          )
-          translation_key.assign_attributes(
-            group_id: group_model.id,
-            handler_id: handler_model.id
-          )
-          translation_key.save!
-
-          @translation_keys_found[translation_key.id] = true
-
-          handler_translation = AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation.find_or_initialize_by(
-            translation_key_id: translation_key.id,
-            handler_id: handler_model.id,
-            group_id: group_model.id
-          )
-          handler_translation.assign_attributes(
-            default: translation.default,
-            file_path: translation.file_path,
-            line_no: translation.line_no,
-            key_show: translation.key_show,
-            full_path: translation.full_path,
-            dir: translation.dir
-          )
-          handler_translation.save!
-
-          @handler_translations_found[handler_translation.id] = true
-        end
+    update_handlers do |handler, handler_model|
+      update_groups_for_handler(handler, handler_model) do |group|
+        update_translations_for_group(handler_model, group)
       end
     end
   end
