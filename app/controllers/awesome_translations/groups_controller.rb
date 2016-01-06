@@ -11,20 +11,9 @@ class AwesomeTranslations::GroupsController < AwesomeTranslations::ApplicationCo
 
   def update
     @group.handler_translations.each do |translation|
-      if translation.array_translation?
-        next unless params[:t].key?(translation.array_key)
-        values = params[:t][translation.array_key][translation.array_no.to_s]
-        next unless values
-      else
-        next unless params[:t].key?(translation.key)
-        values = params[:t][translation.key]
-      end
-
-      values.each do |locale, value|
-        translated_value = translation.translated_value_for_locale(locale)
-        translated_value.value = value
-        translated_value.save!
-      end
+      values = values_from_translation(translation)
+      next unless values
+      save_values(translation, values)
     end
 
     I18n.backend.reload!
@@ -49,5 +38,21 @@ private
 
   def set_group
     @group = @handler.groups.find_by(identifier: params[:id])
+  end
+
+  def values_from_translation(translation)
+    if translation.array_translation?
+      params[:t][translation.array_key][translation.array_no.to_s] if params[:t].key?(translation.array_key)
+    else
+      params[:t][translation.key] if params[:t].key?(translation.key)
+    end
+  end
+
+  def save_values(translation, values)
+    values.each do |locale, value|
+      translated_value = translation.translated_value_for_locale(locale)
+      translated_value.value = value
+      translated_value.save!
+    end
   end
 end

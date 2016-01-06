@@ -1,4 +1,2 @@
-module AwesomeTranslations
-  class ApplicationController < ActionController::Base
-  end
+class AwesomeTranslations::ApplicationController < ActionController::Base
 end
