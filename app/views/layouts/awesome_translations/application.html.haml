@@ -19,6 +19,17 @@
       %tr
         %td.main-menu
           .menu-item= link_to "Handlers", handlers_path
+          .menu-item= link_to "Migrate", new_migration_path
+          .menu-item= link_to "Cache", caches_path
       %tr
         %td.main-content
+          %table{width: "100%"}
+            %tbody
+              %tr
+                %td
+                  - if content_for(:header_title)
+                    %h1= content_for(:header_title)
+                %td{align: "right", width: "170px"}
+                  = content_for(:header_right)
+
           = yield

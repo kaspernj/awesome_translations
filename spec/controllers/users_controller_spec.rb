@@ -14,8 +14,8 @@ describe UsersController do
   it "#index" do
     user
     get :index
-    response.should be_success
-    assigns(:users).should include user
+    expect(response).to be_success
+    expect(assigns(:users)).to include user
   end
 
   it "#update" do

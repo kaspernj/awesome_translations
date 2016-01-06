@@ -17,16 +17,22 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "rails", ">= 3.0.0", "< 5.0.0"
-  s.add_dependency "string-cases"
-  s.add_dependency "array_enumerator", "~> 0.0.7"
-  s.add_dependency "haml-rails"
-  s.add_dependency "sass-rails"
-  s.add_dependency "jquery-rails"
+  s.add_dependency "string-cases", "0.0.2"
+  s.add_dependency "baza", ">= 0.0.20"
+  s.add_dependency "baza_models", ">= 0.0.2"
+  s.add_dependency "baza_migrations", ">= 0.0.1"
+  s.add_dependency "array_enumerator", "~> 0.0.10"
+  s.add_dependency "haml-rails", ">= 0"
+  s.add_dependency "coffee-rails", ">= 0"
+  s.add_dependency "sass-rails", ">= 0"
+  s.add_dependency "jquery-rails", ">= 0"
+  s.add_dependency "auto_autoloader", ">= 0"
+  s.add_dependency "active-record-transactioner", ">= 0"
 
   if RUBY_ENGINE == "jruby"
-    s.add_development_dependency "activerecord-jdbcsqlite3-adapter"
+    s.add_dependency "activerecord-jdbcsqlite3-adapter"
   else
-    s.add_development_dependency "sqlite3"
+    s.add_dependency "sqlite3"
   end
 
   s.add_development_dependency "rspec-rails"

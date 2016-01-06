@@ -9,23 +9,23 @@ describe AwesomeTranslations::Handlers::ErbHandler do
   let(:layout_translations) { layout_group.translations }
 
   it "finds translations made with the t method" do
-    hello_world_translations = users_index_translations.select { |t| t.key == "users.index.hello_world" }
-    hello_world_translations.to_a.length.should eq 1
+    hello_world_translations = users_index_translations.select { |t| t.key == "users.index.hello_world" }.to_a
+    expect(hello_world_translations.length).to eq 1
   end
 
   it "finds translations in the layout" do
-    danish_translations = layout_translations.select { |t| t.key == "layouts.application.danish" }
-    danish_translations.to_a.length.should eq 1
+    danish_translations = layout_translations.select { |t| t.key == "layouts.application.danish" }.to_a
+    expect(danish_translations.length).to eq 1
   end
 
   it "doesnt include _ in partial keys" do
-    partial_test = users_partial_test_translations.select { |t| t.key == "users.partial_test.partial_test" }
-    partial_test.to_a.length.should eq 1
+    partial_test = users_partial_test_translations.select { |t| t.key == "users.partial_test.partial_test" }.to_a
+    expect(partial_test.length).to eq 1
   end
 
   it "removes special characters when using the custom method" do
-    current_language_translation = layout_translations.select { |t| t.key == "layouts.application.the_current_language_is" }
-    current_language_translation.to_a.length.should eq 1
+    current_language_translation = layout_translations.select { |t| t.key == "layouts.application.the_current_language_is" }.to_a
+    expect(current_language_translation.length).to eq 1
   end
 
   it "has unique translations" do
@@ -34,6 +34,6 @@ describe AwesomeTranslations::Handlers::ErbHandler do
 
   it "sets the correct translation path" do
     danish_translation = layout_translations.select { |t| t.key == "layouts.application.danish" }.first
-    danish_translation.dir.should eq "#{Rails.root}/config/locales/awesome_translations/app/views/layouts/application"
+    expect(danish_translation.dir).to eq "#{Rails.root}/config/locales/awesome_translations/app/views/layouts/application"
   end
 end

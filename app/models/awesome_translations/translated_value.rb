@@ -4,12 +4,17 @@ class AwesomeTranslations::TranslatedValue
   attr_accessor :file, :locale, :key, :value
 
   def initialize(data)
-    @file, @locale, @key, @value = data[:file], data[:locale], data[:key], data[:value]
+    @file = data.fetch(:file)
+    @locale = data.fetch(:locale)
+    @key = data.fetch(:key)
+    @value = data.fetch(:value)
   end
 
   def to_s
     "<AwesomeTranslations::TranslatedValue file=\"#{@file}\" locale=\"#{@locale}\" key=\"#{@key}\" value=\"#{@value}\">"
   end
+
+  alias inspect to_s
 
   def array_translation?
     if @key.match(/\[(\d+)\]\Z/)
@@ -20,27 +25,19 @@ class AwesomeTranslations::TranslatedValue
   end
 
   def array_key
-    if match = @key.match(/\A(.+)\[(\d+)\]\Z/)
-      return match[1]
-    end
-
-    return nil
+    return unless (match = @key.match(/\A(.+)\[(\d+)\]\Z/))
+    match[1]
   end
 
   def array_no
-    if match = @key.match(/\A(.+)\[(\d+)\]\Z/)
-      return match[2].to_i
-    end
-
-    return nil
+    return unless (match = @key.match(/\A(.+)\[(\d+)\]\Z/))
+    match[2].to_i
   end
-
-  alias inspect to_s
 
   def save!
     dir = File.dirname(@file)
-    FileUtils.mkdir_p(dir) unless File.exists?(dir)
-    File.open(@file, "w") { |fp| fp.write("#{@locale}:\n") } unless File.exists?(@file)
+    FileUtils.mkdir_p(dir) unless File.exist?(dir)
+    File.open(@file, "w") { |fp| fp.write("#{@locale}:\n") } unless File.exist?(@file)
 
     translations = YAML.load(File.read(@file))
     translations ||= {}

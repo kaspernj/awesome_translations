@@ -6,11 +6,11 @@ class AwesomeTranslations::GroupsController < AwesomeTranslations::ApplicationCo
   end
 
   def show
-    @translations = @group.translations
+    @translations = @group.handler_translations
   end
 
   def update
-    @group.translations.each do |translation|
+    @group.handler_translations.each do |translation|
       if translation.array_translation?
         next unless params[:t].key?(translation.array_key)
         values = params[:t][translation.array_key][translation.array_no.to_s]
@@ -31,13 +31,23 @@ class AwesomeTranslations::GroupsController < AwesomeTranslations::ApplicationCo
     redirect_to handler_group_path(@handler, @group)
   end
 
+  def update_translations_cache
+    handler = AwesomeTranslations::Handler.find(@handler.identifier)
+    group = AwesomeTranslations::Group.find_by_handler_and_id(handler, @group.identifier)
+
+    generator = AwesomeTranslations::CacheDatabaseGenerator.current
+    generator.update_translations_for_group(@handler, group, @group)
+
+    redirect_to handler_group_path(@handler.identifier, @group.identifier)
+  end
+
 private
 
   def set_handler
-    @handler = AwesomeTranslations::Handler.find(params[:handler_id])
+    @handler = AwesomeTranslations::CacheDatabaseGenerator::Handler.find_by(identifier: params[:handler_id])
   end
 
   def set_group
-    @group = AwesomeTranslations::Group.find_by_handler_and_id(@handler, params[:id])
+    @group = @handler.groups.find_by(identifier: params[:id])
   end
 end

@@ -12,15 +12,15 @@ describe AwesomeTranslations::ErbInspector do
 
   describe "#files" do
     it "should find haml-files" do
-      files.length.should eq 29
+      expect(files.length).to eq 29
     end
 
     it "should find haml-files" do
-      file_paths.should include "app/views/users/index.html.haml"
+      expect(file_paths).to include "app/views/users/index.html.haml"
     end
 
     it "should find erb-files" do
-      file_paths.should include "app/views/users/show.html.erb"
+      expect(file_paths).to include "app/views/users/show.html.erb"
     end
   end
 end

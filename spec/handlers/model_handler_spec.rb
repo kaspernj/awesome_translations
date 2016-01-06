@@ -14,19 +14,19 @@ describe AwesomeTranslations::Handlers::ModelHandler do
 
   describe "#translations_for_group" do
     it "should find the right number of translations" do
-      user_group.translations.to_a.length.should eq 7
+      expect(user_group.translations.to_a.length).to eq 7
     end
 
     it "finds the model translations" do
-      translation_keys.should include "activerecord.models.user.other"
+      expect(translation_keys).to include "activerecord.models.user.other"
     end
 
     it "finds the attribute translations" do
-      translation_keys.should include "activerecord.attributes.user.age"
+      expect(translation_keys).to include "activerecord.attributes.user.age"
     end
 
     it "finds the has_many association translations" do
-      translation_keys.should include "activerecord.attributes.user.roles"
+      expect(translation_keys).to include "activerecord.attributes.user.roles"
     end
 
     it 'finds money-rails translations' do

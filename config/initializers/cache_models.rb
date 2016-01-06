@@ -1,0 +1,1 @@
+AwesomeTranslations::CacheDatabaseGenerator.new.init_database

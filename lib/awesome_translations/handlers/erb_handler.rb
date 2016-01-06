@@ -5,8 +5,10 @@ class AwesomeTranslations::Handlers::ErbHandler < AwesomeTranslations::Handlers:
   def groups
     ArrayEnumerator.new do |yielder|
       erb_inspector.files.each do |file|
-        yielder << AwesomeTranslations::Group.new(
-          id: Base64.urlsafe_encode64(file.full_path),
+        id = file.file_path.gsub(/[^A-z0-9]/, "_")
+
+        group = AwesomeTranslations::Group.new(
+          id: id,
           handler: self,
           data: {
             name: file.file_path,
@@ -15,6 +17,8 @@ class AwesomeTranslations::Handlers::ErbHandler < AwesomeTranslations::Handlers:
             file_path: file.file_path
           }
         )
+
+        yielder << group if translations_for_group(group).any?
       end
     end
   end
@@ -22,7 +26,7 @@ class AwesomeTranslations::Handlers::ErbHandler < AwesomeTranslations::Handlers:
   def translations_for_group(group)
     ArrayEnumerator.new do |yielder|
       # Parse views for translations.
-      file = erb_inspector.file(group.data[:root_path], group.data[:file_path])
+      file = erb_inspector.file(group.data.fetch(:root_path), group.data.fetch(:file_path))
       file.translations.each do |translation|
         next if translation.global?
         yielder << translation.model

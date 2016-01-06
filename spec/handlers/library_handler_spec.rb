@@ -12,9 +12,9 @@ describe AwesomeTranslations::Handlers::LibraryHandler do
   let(:update_saved_translation) { users_controller_handler.translations.select { |translation| translation.key == 'users.user_was_updated' }.first }
 
   it "finds translations made with the t method" do
-    admin_translation.should_not eq nil
-    admin_translation.key.should eq "models.role.administrator"
-    admin_translation.dir.should end_with "spec/dummy/config/locales/awesome_translations/app/models/role"
+    expect(admin_translation).to_not eq nil
+    expect(admin_translation.key).to eq "models.role.administrator"
+    expect(admin_translation.dir).to end_with "spec/dummy/config/locales/awesome_translations/app/models/role"
   end
 
   it "generates keys with method-name for mailers" do

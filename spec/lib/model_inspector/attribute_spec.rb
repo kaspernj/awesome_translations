@@ -5,14 +5,14 @@ describe AwesomeTranslations::ModelInspector::Attribute do
   let(:email_attr) { user_inspector.attributes.select { |attribute| attribute.name == "email" }.first }
 
   it "#i18n_key" do
-    email_attr.i18n_key.should eq "activerecord.attributes.user.email"
+    expect(email_attr.i18n_key).to eq "activerecord.attributes.user.email"
   end
 
   it "#name" do
-    email_attr.name.should eq "email"
+    expect(email_attr.name).to eq "email"
   end
 
   it "#model_inspector" do
-    email_attr.model_inspector.clazz.should eq User
+    expect(email_attr.model_inspector.clazz).to eq User
   end
 end
