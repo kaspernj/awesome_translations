@@ -24,6 +24,9 @@ Gem::Specification.new do |s|
   s.add_dependency "baza_models"
   s.add_dependency "baza_migrations"
   s.add_dependency "array_enumerator", "~> 0.0.10"
+  s.add_dependency "haml-rails"
+  s.add_dependency "sass-rails"
+  s.add_dependency "jquery-rails"
 
   if RUBY_ENGINE == "jruby"
     s.add_dependency "activerecord-jdbcsqlite3-adapter"
@@ -35,9 +38,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "forgery"
   s.add_development_dependency "factory_girl_rails"
   s.add_development_dependency "codeclimate-test-reporter"
-  s.add_development_dependency 'money-rails'
-  s.add_development_dependency "jquery-rails"
-  s.add_development_dependency "haml"
-  s.add_development_dependency "haml-rails"
-  s.add_development_dependency "sass-rails"
+  s.add_development_dependency "money-rails"
+  s.add_development_dependency "globalize"
 end

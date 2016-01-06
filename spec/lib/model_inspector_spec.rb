@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe AwesomeTranslations::ModelInspector do
   let(:user_inspector) { AwesomeTranslations::ModelInspector.model_classes.select { |model_inspector| model_inspector.clazz == User }.first }
-  let(:model_classes) { AwesomeTranslations::ModelInspector.model_classes.map(&:clazz) }
+  let(:model_classes) { AwesomeTranslations::ModelInspector.model_classes.map(&:clazz).select { |clazz| !clazz.name.end_with?("::Translation") } }
 
   it "#model_classes" do
     require "jquery-rails"
@@ -11,7 +11,7 @@ describe AwesomeTranslations::ModelInspector do
   end
 
   it "#engines" do
-    AwesomeTranslations::ModelInspector.engines.map(&:class).sort { |class1, class2| class1.name <=> class2.name }.should eq [AwesomeTranslations::Engine, Jquery::Rails::Engine, MoneyRails::Engine]
+    AwesomeTranslations::ModelInspector.engines.map(&:class).sort { |class1, class2| class1.name <=> class2.name }.should eq [AwesomeTranslations::Engine, Haml::Rails::Engine, Jquery::Rails::Engine, MoneyRails::Engine]
   end
 
   it "#class_key" do

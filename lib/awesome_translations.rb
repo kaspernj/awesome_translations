@@ -1,3 +1,4 @@
+require "baza_models"
 require "string-cases"
 require "array_enumerator"
 

@@ -33,7 +33,7 @@ private
 
   def erb_inspector
     @erb_inspector ||= AwesomeTranslations::ErbInspector.new(
-      exts: ['.rb']
+      exts: ['.rb', '.rake']
     )
   end
 end

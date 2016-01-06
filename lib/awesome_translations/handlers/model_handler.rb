@@ -20,6 +20,7 @@ class AwesomeTranslations::Handlers::ModelHandler < AwesomeTranslations::Handler
       paperclip_attachments(model_inspector).each { |translation| yielder << translation }
       relationships(model_inspector).each { |translation| yielder << translation }
       monetized_attributes(model_inspector).each { |translation| yielder << translation }
+      globalize_attributes(model_inspector).each { |translation| yielder << translation }
     end
   end
 
@@ -98,6 +99,19 @@ private
     result = []
 
     model_inspector.money_attributes do |name|
+      result << AwesomeTranslations::Translation.new(
+        key: model_inspector.attribute_key(name),
+        dir: dir_path(model_inspector)
+      )
+    end
+
+    return result
+  end
+
+  def globalize_attributes(model_inspector)
+    result = []
+
+    model_inspector.globalize_attributes do |name|
       result << AwesomeTranslations::Translation.new(
         key: model_inspector.attribute_key(name),
         dir: dir_path(model_inspector)
