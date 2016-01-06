@@ -74,7 +74,7 @@ private
   def clean_empty_hash(hash)
     all_empty = true
 
-    hash.delete_if do |key, value|
+    hash.delete_if do |_key, value|
       next unless value.is_a?(Hash)
 
       if value.empty?

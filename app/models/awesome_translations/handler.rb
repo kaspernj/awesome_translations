@@ -23,10 +23,6 @@ class AwesomeTranslations::Handler
     id
   end
 
-  def param_key
-    id
-  end
-
   def name
     @data.fetch(:name)
   end

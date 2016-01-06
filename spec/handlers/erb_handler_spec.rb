@@ -2,10 +2,10 @@ require "spec_helper"
 
 describe AwesomeTranslations::Handlers::ErbHandler do
   let(:handler) { AwesomeTranslations::Handlers::ErbHandler.new }
-  let(:users_index_group) { handler.groups.select { |group| group.name == "app/views/users/index.html.haml" }.first }
+  let(:users_index_group) { handler.groups.find { |group| group.name == "app/views/users/index.html.haml" } }
   let(:users_index_translations) { users_index_group.translations }
-  let(:users_partial_test_translations) { handler.groups.select { |group| group.name == "app/views/users/_partial_test.html.haml" }.first.translations }
-  let(:layout_group) { handler.groups.select { |group| group.name == "app/views/layouts/application.html.haml" }.first }
+  let(:users_partial_test_translations) { handler.groups.find { |group| group.name == "app/views/users/_partial_test.html.haml" }.translations }
+  let(:layout_group) { handler.groups.find { |group| group.name == "app/views/layouts/application.html.haml" } }
   let(:layout_translations) { layout_group.translations }
 
   it "finds translations made with the t method" do
@@ -33,7 +33,7 @@ describe AwesomeTranslations::Handlers::ErbHandler do
   end
 
   it "sets the correct translation path" do
-    danish_translation = layout_translations.select { |t| t.key == "layouts.application.danish" }.first
+    danish_translation = layout_translations.find { |t| t.key == "layouts.application.danish" }
     expect(danish_translation.dir).to eq "#{Rails.root}/config/locales/awesome_translations/app/views/layouts/application"
   end
 end

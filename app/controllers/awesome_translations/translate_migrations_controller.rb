@@ -5,6 +5,6 @@ class AwesomeTranslations::TranslateMigrationsController < AwesomeTranslations::
   def show
   end
 
-  def udpate
+  def update
   end
 end

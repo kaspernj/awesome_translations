@@ -1,4 +1,4 @@
-$:.push File.expand_path("../lib", __FILE__)
+$LOAD_PATH.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
 require "awesome_translations/version"
@@ -41,4 +41,10 @@ Gem::Specification.new do |s|
   s.add_development_dependency "codeclimate-test-reporter"
   s.add_development_dependency "money-rails"
   s.add_development_dependency "globalize"
+  s.add_development_dependency "best_practice_project"
+  s.add_development_dependency "rubycop"
+  s.add_development_dependency "scss_lint"
+  s.add_development_dependency "haml_lint"
+  s.add_development_dependency "coffeelint"
+  s.add_development_dependency "rails_best_practices"
 end

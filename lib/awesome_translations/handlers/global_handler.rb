@@ -11,7 +11,7 @@ class AwesomeTranslations::Handlers::GlobalHandler < AwesomeTranslations::Handle
     end
   end
 
-  def translations_for_group(group)
+  def translations_for_group(_group)
     ArrayEnumerator.new do |yielder|
       translations_found = {}
 

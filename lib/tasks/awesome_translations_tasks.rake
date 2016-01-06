@@ -16,7 +16,7 @@ namespace :awesome_translations do
     ]
 
     dirs.each do |dir|
-      unless File.exists?(dir)
+      unless File.exist?(dir)
         puts "[AwesomeTranslations] Creating dir: #{dir}"
         Dir.mkdir(dir)
       end
@@ -24,6 +24,5 @@ namespace :awesome_translations do
   end
 
   task "update" => :environment do
-
   end
 end

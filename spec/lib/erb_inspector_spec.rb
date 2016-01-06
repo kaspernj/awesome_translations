@@ -8,7 +8,7 @@ describe AwesomeTranslations::ErbInspector do
   end
 
   let(:files) { erb_inspector.files.to_a }
-  let(:file_paths) { files.map { |file| file.file_path } }
+  let(:file_paths) { files.map(&:file_path) }
 
   describe "#files" do
     it "should find haml-files" do

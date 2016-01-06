@@ -8,6 +8,6 @@ class AwesomeTranslations::CacheDatabaseGenerator::TranslationKey < BazaModels::
   validates_presence_of :group, :handler
 
   def last_key
-    key.to_s.split('.').last
+    key.to_s.split(".").last
   end
 end

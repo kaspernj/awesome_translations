@@ -15,7 +15,7 @@ class AwesomeTranslations::Translation
   end
 
   def last_key
-    key.to_s.split('.').last
+    key.to_s.split(".").last
   end
 
   def key_show_with_fallback
@@ -74,10 +74,6 @@ class AwesomeTranslations::Translation
     true
   end
 
-  def unfinished?
-    !finished?
-  end
-
   def translated_value_for_locale(locale)
     AwesomeTranslations::TranslatedValue.new(
       file: "#{dir}/#{locale}.yml",
@@ -108,7 +104,7 @@ class AwesomeTranslations::Translation
   end
 
   def file_line_content?
-    if @full_path && @line_no && File.exists?(@full_path)
+    if @full_path && @line_no && File.exist?(@full_path)
       return true
     else
       return false

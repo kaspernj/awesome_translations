@@ -1,5 +1,5 @@
 class AwesomeTranslations::Handlers::BaseHandler
-  def add_translations_for_hash(dir, group, yielder, hash)
+  def add_translations_for_hash(dir, _group, yielder, hash)
     translations_for_hash_recursive(dir, hash[:translations], yielder, [])
   end
 
@@ -20,8 +20,8 @@ class AwesomeTranslations::Handlers::BaseHandler
       else
         yielder << AwesomeTranslations::Translation.new(
           dir: dir,
-          key: current_keys.join('.'),
-          key_show: current_keys.join('.'),
+          key: current_keys.join("."),
+          key_show: current_keys.join("."),
           default: value
         )
       end

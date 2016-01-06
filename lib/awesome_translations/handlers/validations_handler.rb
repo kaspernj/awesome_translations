@@ -12,7 +12,7 @@ class AwesomeTranslations::Handlers::ValidationsHandler < AwesomeTranslations::H
 
   def translations_for_group(group)
     ArrayEnumerator.new do |yielder|
-      model_inspector = AwesomeTranslations::ModelInspector.model_classes.select { |model_inspector| model_inspector.clazz.name == group.name }.first
+      model_inspector = AwesomeTranslations::ModelInspector.model_classes.find { |model_inspector| model_inspector.clazz.name == group.name }
       raise "No inspector by that name: #{model_inspector.clazz.name}" unless model_inspector
 
       model_inspector.clazz._validators.each do |attribute_name, validators|
@@ -51,23 +51,23 @@ private
     end
   end
 
-  def translations_for_format_validator(validator, model_inspector, attribute_name, yielder)
+  def translations_for_format_validator(_validator, model_inspector, attribute_name, yielder)
     add_translation("invalid", model_inspector, attribute_name, yielder) # "is invalid"
   end
 
-  def translations_for_uniqueness_validator(validator, model_inspector, attribute_name, yielder)
+  def translations_for_uniqueness_validator(_validator, model_inspector, attribute_name, yielder)
     add_translation("taken", model_inspector, attribute_name, yielder) # "has already been taken"
   end
 
-  def translations_for_presence_validator(validator, model_inspector, attribute_name, yielder)
+  def translations_for_presence_validator(_validator, model_inspector, attribute_name, yielder)
     add_translation("blank", model_inspector, attribute_name, yielder) # "cannot be blank"
   end
 
-  def translations_for_email_validator(validator, model_inspector, attribute_name, yielder)
+  def translations_for_email_validator(_validator, model_inspector, attribute_name, yielder)
     add_translation("invalid", model_inspector, attribute_name, yielder) # "is invalid"
   end
 
-  def translations_for_confirmation_validator(validator, model_inspector, attribute_name, yielder)
+  def translations_for_confirmation_validator(_validator, model_inspector, attribute_name, yielder)
     snake_clazz_name = StringCases.camel_to_snake(model_inspector.clazz.name)
 
     yielder << AwesomeTranslations::Translation.new(

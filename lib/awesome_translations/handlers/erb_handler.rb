@@ -1,5 +1,5 @@
 class AwesomeTranslations::Handlers::ErbHandler < AwesomeTranslations::Handlers::BaseHandler
-  METHOD_NAMES = ["_", "t"]
+  METHOD_NAMES = %w(_ t)
   VALID_BEGINNING = '(^|\s+|\(|\{|<%=\s*)'
 
   def groups

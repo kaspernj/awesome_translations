@@ -14,7 +14,7 @@ class AwesomeTranslations::TranslatedValue
     "<AwesomeTranslations::TranslatedValue file=\"#{@file}\" locale=\"#{@locale}\" key=\"#{@key}\" value=\"#{@value}\">"
   end
 
-  alias inspect to_s
+  alias_method :inspect, :to_s
 
   def array_translation?
     if @key.match(/\[(\d+)\]\Z/)

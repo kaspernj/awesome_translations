@@ -3,7 +3,7 @@ require "spec_helper"
 describe AwesomeTranslations::Handlers::GlobalHandler do
   let(:global_handler) { AwesomeTranslations::Handlers::GlobalHandler.new }
   let(:translations) { global_handler.groups.first.translations.to_a }
-  let(:yes_translation) { translations.select { |translation| translation.key == "yes" }.first }
+  let(:yes_translation) { translations.find { |translation| translation.key == "yes" } }
 
   it "finds the right translations" do
     expect(translations.length).to eq 2

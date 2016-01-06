@@ -23,7 +23,7 @@ class AwesomeTranslations::ErbInspector
   end
 
   def file(root_path, file_path)
-    return AwesomeTranslations::ErbInspector::FileInspector.new(
+    AwesomeTranslations::ErbInspector::FileInspector.new(
       file_path: file_path,
       root_path: root_path
     )

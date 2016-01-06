@@ -1,8 +1,8 @@
 require "spec_helper"
 
 describe AwesomeTranslations::ModelInspector::Attribute do
-  let(:user_inspector) { AwesomeTranslations::ModelInspector.model_classes.select { |model_inspector| model_inspector.clazz == User }.first }
-  let(:email_attr) { user_inspector.attributes.select { |attribute| attribute.name == "email" }.first }
+  let(:user_inspector) { AwesomeTranslations::ModelInspector.model_classes.find { |model_inspector| model_inspector.clazz == User } }
+  let(:email_attr) { user_inspector.attributes.find { |attribute| attribute.name == "email" } }
 
   it "#i18n_key" do
     expect(email_attr.i18n_key).to eq "activerecord.attributes.user.email"

@@ -3,10 +3,10 @@ require "spec_helper"
 describe AwesomeTranslations::GroupsController do
   routes { AwesomeTranslations::Engine.routes }
 
-  let(:model_locales_path) { "#{Rails.root}/config/locales/awesome_translations/models" }
+  let(:model_locales_path) { Rails.root.join("config", "locales", "awesome_translations", "models").to_s }
   let(:user_yml_path) { "#{model_locales_path}/user/da.yml" }
   let(:role_yml_path) { "#{model_locales_path}/role/da.yml" }
-  let(:date_time_path) { Rails.root.join('config', 'locales', 'awesome_translations', 'date_time', 'da.yml') }
+  let(:date_time_path) { Rails.root.join("config", "locales", "awesome_translations", "date_time", "da.yml") }
 
   before do
     FileUtils.rm_f(model_locales_path) if File.exist?(model_locales_path)
@@ -38,22 +38,22 @@ describe AwesomeTranslations::GroupsController do
       expect(I18n.load_path).to include role_yml_path
     end
 
-    it 'handles array translations' do
-      put :update, handler_id: 'rails_handler', id: 'date_time', t: {
-        'date.day_names' => {
-          '1' => {
-            'da' => 'Mandag'
+    it "handles array translations" do
+      put :update, handler_id: "rails_handler", id: "date_time", t: {
+        "date.day_names" => {
+          "1" => {
+            "da" => "Mandag"
           },
-          '4' => {
-            'da' => 'Torsdag'
+          "4" => {
+            "da" => "Torsdag"
           }
         }
       }
 
       translations = YAML.load_file(date_time_path)
 
-      expect(translations['da']['date']['day_names'][1]).to eq 'Mandag'
-      expect(translations['da']['date']['day_names'][4]).to eq 'Torsdag'
+      expect(translations["da"]["date"]["day_names"][1]).to eq "Mandag"
+      expect(translations["da"]["date"]["day_names"][4]).to eq "Torsdag"
     end
   end
 end
