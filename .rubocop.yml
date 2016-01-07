@@ -1,6 +1,9 @@
 inherit_from: .rubocop_todo.yml
 
 AllCops:
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  RunRailsCops: true
   Exclude:
     - db/schema.rb
     - spec/dummy/db/schema.rb
