@@ -3,7 +3,7 @@ class AwesomeTranslations::GlobalTranslator
 
   def self.translate(key, args, &blk)
     if key.is_a?(String) && key.start_with?(".")
-      caller_number = args[:caller_number] ||  0
+      caller_number = args[:caller_number] || 0
 
       call = call_information(caller_number)
       previous_file = call[:path]
