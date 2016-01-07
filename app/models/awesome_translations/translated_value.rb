@@ -41,8 +41,19 @@ class AwesomeTranslations::TranslatedValue
 
     translations = YAML.load(File.read(@file))
     translations ||= {}
-
     translations[@locale.to_s] ||= {}
+
+    insert_translation_into_hash(translations)
+
+    update_models
+
+    I18n.load_path << file unless I18n.load_path.include?(file)
+    File.open(file, "w") { |fp| fp.write(YAML.dump(translations)) }
+  end
+
+private
+
+  def insert_translation_into_hash(translations)
     current = translations[@locale.to_s]
 
     key_parts = key.split(".")
@@ -68,14 +79,7 @@ class AwesomeTranslations::TranslatedValue
         current = current[key_part]
       end
     end
-
-    update_models
-
-    I18n.load_path << file unless I18n.load_path.include?(file)
-    File.open(file, "w") { |fp| fp.write(YAML.dump(translations)) }
   end
-
-private
 
   def update_models
     translation_key = AwesomeTranslations::CacheDatabaseGenerator::TranslationKey
