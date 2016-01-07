@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/kaspernj/baza_models.git
-  revision: 566f8adf4fdb126a2c8b260fa7e3c5b0589be6fa
+  revision: d1b15049564fece6e889981082e852ecb02e0d00
   specs:
     baza_models (0.0.2)
       array_enumerator
@@ -105,6 +105,7 @@ GEM
       json
     colored (1.2)
     concurrent-ruby (1.0.0)
+    concurrent-ruby (1.0.0-java)
     datet (0.0.25)
     diff-lcs (1.2.5)
     docile (1.1.5)
@@ -145,6 +146,7 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (1.8.3)
+    json (1.8.3-java)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -163,6 +165,7 @@ GEM
       railties (>= 3.0)
     nokogiri (1.6.7.1)
       mini_portile2 (~> 2.0.0.rc2)
+    nokogiri (1.6.7.1-java)
     parser (2.2.3.0)
       ast (>= 1.1, < 3.0)
     powerpack (0.1.1)
@@ -261,6 +264,7 @@ GEM
     sysexits (1.2.0)
     thor (0.19.1)
     thread_safe (0.3.5)
+    thread_safe (0.3.5-java)
     tilt (2.0.2)
     tins (1.6.0)
     tzinfo (1.2.2)
@@ -268,6 +272,7 @@ GEM
     wref (0.0.8)
 
 PLATFORMS
+  java
   ruby
 
 DEPENDENCIES
