@@ -69,7 +69,22 @@ class AwesomeTranslations::TranslatedValue
       end
     end
 
+    update_models
+
     I18n.load_path << file unless I18n.load_path.include?(file)
     File.open(file, "w") { |fp| fp.write(YAML.dump(translations)) }
+  end
+
+private
+
+  def update_models
+    translation_key = AwesomeTranslations::CacheDatabaseGenerator::TranslationKey
+      .find_or_create_by!(key: key)
+
+    translation_value = AwesomeTranslations::CacheDatabaseGenerator::TranslationValue
+      .find_or_initialize_by(locale: locale, translation_key: translation_key)
+
+    translation_value.value = value
+    translation_value.save!
   end
 end
