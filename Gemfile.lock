@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/kaspernj/baza_models.git
-  revision: cdc0048fe953d888113ff8fc829cfa3db740535a
+  revision: 566f8adf4fdb126a2c8b260fa7e3c5b0589be6fa
   specs:
     baza_models (0.0.2)
       array_enumerator
@@ -9,8 +9,9 @@ GIT
 
 GIT
   remote: git://github.com/kaspernj/best_practice_project.git
-  revision: 124eaa5ed1d69dcca5d7ab7893ad086891a9abbd
+  revision: 92d1e88d43ed270251b8b5cf58927fc316e87565
   specs:
+    best_practice_project (0.0.7)
 
 PATH
   remote: .
@@ -28,11 +29,6 @@ PATH
       sass-rails
       sqlite3
       string-cases (= 0.0.2)
-
-PATH
-  remote: /home/kaspernj/Dev/Ruby/best_practice_project
-  specs:
-    best_practice_project (0.0.7)
 
 GEM
   remote: https://rubygems.org/
