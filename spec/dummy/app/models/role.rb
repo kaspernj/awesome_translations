@@ -3,7 +3,7 @@ class Role < ActiveRecord::Base
 
   belongs_to :user
 
-  validates_presence_of :user, :role
+  validates :user, :role, presence: true
 
   monetize :price_cents, allow_nil: true
 

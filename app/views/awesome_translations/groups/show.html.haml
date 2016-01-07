@@ -1,5 +1,6 @@
 - content_for(:header_title) { "Show group: #{@group.name}" }
-- content_for(:header_right) { link_to "Update translations", update_translations_cache_handler_group_path(@handler.identifier, @group.identifier), method: :post, class: "button", data: {confirm: "Are you sure?"} }
+- content_for(:header_right) do
+  = link_to "Update translations", [:update_translations_cache, @handler, @group], method: :post, class: "button", data: {confirm: "Are you sure?"}
 
 = form_for :group, url: handler_group_path(@handler, @group), method: :put do |f|
   %table.translations
@@ -14,7 +15,8 @@
             .translation-key-text= translation.key_show_with_fallback
 
           - I18n.available_locales.each do |locale|
-            %td.translation= text_field "t", "#{translation.key}[#{locale}]", class: "translation-input", lang: locale, value: translation.translation_value(locale: locale)
+            %td.translation
+              = text_field "t", "#{translation.key}[#{locale}]", class: "translation-input", lang: locale, value: translation.translation_value(locale: locale)
 
         - if translation.file_line_content? || translation.default.present?
           %tr.line-content-row
@@ -23,7 +25,7 @@
                 - if translation.file_line_content?
                   %pre= translation.file_line_content
                 - elsif translation.default.present?
-                  = "Default: #{translation.default}"
+                  Default: #{translation.default}
           %tr
             %td.line-spacer{colspan: 1 + I18n.available_locales.length}
       - if @translations.empty?

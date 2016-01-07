@@ -5,10 +5,10 @@ source "https://rubygems.org"
 # development dependencies will be added by default to the :development group.
 gemspec
 
-gem "best_practice_project", github: "kaspernj/best_practice_project"
+gem "best_practice_project", github: "kaspernj/best_practice_project", path: "/home/kaspernj/Dev/Ruby/best_practice_project"
 
 # gem "baza", path: "/home/kaspernj/Dev/Ruby/baza"
-# gem "baza_models", path: "/home/kaspernj/Dev/Ruby/baza_models"
+gem "baza_models", github: "kaspernj/baza_models" # path: "/home/kaspernj/Dev/Ruby/baza_models"
 # gem "baza_migrations", path: "/home/kaspernj/Dev/Ruby/baza_migrations"
 
 # Declare any dependencies that are still in development here instead of in

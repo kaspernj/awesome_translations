@@ -1,8 +1,16 @@
 GIT
+  remote: git://github.com/kaspernj/baza_models.git
+  revision: cdc0048fe953d888113ff8fc829cfa3db740535a
+  specs:
+    baza_models (0.0.2)
+      array_enumerator
+      baza (~> 0.0.20)
+      string-cases (>= 0.0.2)
+
+GIT
   remote: git://github.com/kaspernj/best_practice_project.git
   revision: 124eaa5ed1d69dcca5d7ab7893ad086891a9abbd
   specs:
-    best_practice_project (0.0.7)
 
 PATH
   remote: .
@@ -13,7 +21,6 @@ PATH
       auto_autoloader
       baza (>= 0.0.20)
       baza_migrations (>= 0.0.1)
-      baza_models (>= 0.0.2)
       coffee-rails
       haml-rails
       jquery-rails
@@ -21,6 +28,11 @@ PATH
       sass-rails
       sqlite3
       string-cases (= 0.0.2)
+
+PATH
+  remote: /home/kaspernj/Dev/Ruby/best_practice_project
+  specs:
+    best_practice_project (0.0.7)
 
 GEM
   remote: https://rubygems.org/
@@ -44,7 +56,7 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    active-record-transactioner (0.0.6)
+    active-record-transactioner (0.0.7)
     activejob (4.2.5)
       activesupport (= 4.2.5)
       globalid (>= 0.3.0)
@@ -78,10 +90,6 @@ GEM
       auto_autoloader
       baza (~> 0.0.20)
       string-cases (~> 0.0.1)
-    baza_models (0.0.2)
-      array_enumerator
-      baza (~> 0.0.20)
-      string-cases (>= 0.0.2)
     builder (3.2.2)
     code_analyzer (0.4.5)
       sexp_processor
@@ -267,6 +275,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_translations!
+  baza_models!
   best_practice_project!
   codeclimate-test-reporter
   coffeelint

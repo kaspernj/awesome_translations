@@ -157,7 +157,9 @@ class AwesomeTranslations::CacheDatabaseGenerator
 private
 
   def debug(message)
+    # rubocop:disable Rails/Output
     puts "#{message}" if @debug
+    # rubocop:enable Rails/Output
   end
 
   def execute_migrations

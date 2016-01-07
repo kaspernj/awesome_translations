@@ -19,7 +19,7 @@ class AwesomeTranslations::HandlersController < AwesomeTranslations::Application
       generator.update_groups_for_handler(handler, handler_model)
     end
 
-    redirect_to handler_path(@handler.identifier)
+    redirect_to handler_path(@handler)
   end
 
   def show
