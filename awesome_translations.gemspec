@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", ">= 3.0.0", "< 5.0.0"
   s.add_dependency "string-cases", ">= 0.0.3"
   s.add_dependency "baza", ">= 0.0.20"
-  s.add_dependency "baza_models", ">= 0.0.2"
+  s.add_dependency "baza_models", ">= 0.0.3"
   s.add_dependency "baza_migrations", ">= 0.0.1"
   s.add_dependency "array_enumerator", "~> 0.0.10"
   s.add_dependency "haml-rails", ">= 0"
@@ -46,5 +46,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "scss_lint"
   s.add_development_dependency "haml_lint"
   s.add_development_dependency "coffeelint"
-  s.add_development_dependency "rails_best_practices"
+  s.add_development_dependency "rails_best_practices", ">= 0.0.8"
 end

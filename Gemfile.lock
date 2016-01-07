@@ -1,18 +1,3 @@
-GIT
-  remote: git://github.com/kaspernj/baza_models.git
-  revision: fa9767dc51a888c132447652d4ec8520fb74eb93
-  specs:
-    baza_models (0.0.2)
-      array_enumerator
-      baza (~> 0.0.20)
-      string-cases (>= 0.0.2)
-
-GIT
-  remote: git://github.com/kaspernj/best_practice_project.git
-  revision: 92d1e88d43ed270251b8b5cf58927fc316e87565
-  specs:
-    best_practice_project (0.0.7)
-
 PATH
   remote: .
   specs:
@@ -22,7 +7,7 @@ PATH
       auto_autoloader
       baza (>= 0.0.20)
       baza_migrations (>= 0.0.1)
-      baza_models (>= 0.0.2)
+      baza_models (>= 0.0.3)
       coffee-rails
       haml-rails
       jquery-rails
@@ -87,6 +72,13 @@ GEM
       auto_autoloader
       baza (~> 0.0.20)
       string-cases (~> 0.0.1)
+    baza_models (0.0.3)
+      array_enumerator (>= 0.0.10)
+      auto_autoloader (>= 0.0.1)
+      baza (~> 0.0.20)
+      string-cases (>= 0.0.3)
+    best_practice_project (0.0.8)
+      auto_autoloader
     builder (3.2.2)
     code_analyzer (0.4.5)
       sexp_processor
@@ -277,8 +269,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_translations!
-  baza_models!
-  best_practice_project!
+  best_practice_project
   codeclimate-test-reporter
   coffeelint
   factory_girl_rails
@@ -286,7 +277,7 @@ DEPENDENCIES
   globalize
   haml_lint
   money-rails
-  rails_best_practices
+  rails_best_practices (>= 0.0.8)
   rspec-rails
   rubycop
   scss_lint
