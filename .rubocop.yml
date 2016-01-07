@@ -33,10 +33,10 @@ Style/Documentation:
 Style/EmptyLines:
   Enabled: false
 
-StringLiterals:
+Style/StringLiterals:
   EnforcedStyle: double_quotes
 
-StringLiteralsInInterpolation:
+Style/StringLiteralsInInterpolation:
   Enabled: false
 
 Style/NilComparison:
