@@ -72,4 +72,9 @@ describe AwesomeTranslations::GroupsController do
       expect(translations["da"]["date"]["day_names"][4]).to eq "Torsdag"
     end
   end
+
+  it "#update_translations_cache" do
+    post :update_translations_cache, handler_id: "rails_handler", id: "date_time"
+    expect(response).to redirect_to handler_group_path("rails_handler", "date_time")
+  end
 end

@@ -15,4 +15,14 @@ describe AwesomeTranslations::HandlersController do
     get :show, id: "model_handler"
     expect(response).to be_success
   end
+
+  it "#update_cache" do
+    post :update_cache
+    expect(response).to redirect_to :handlers
+  end
+
+  it "#update_groups_cache" do
+    post :update_groups_cache, id: "rails_handler"
+    expect(response).to redirect_to handler_path("rails_handler")
+  end
 end
