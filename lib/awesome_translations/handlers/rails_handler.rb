@@ -142,7 +142,7 @@ private
     )
   end
 
-  def translations_for_numbers(dir, group, yielder)
+  def translations_for_numbers(dir, group, yielder) # rubocop:disable Metrics/MethodLength
     add_translations_for_hash(
       dir,
       group,

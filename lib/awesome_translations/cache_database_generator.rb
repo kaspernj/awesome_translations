@@ -160,7 +160,7 @@ private
 
   def debug(message)
     # rubocop:disable Rails/Output
-    puts "#{message}" if @debug
+    puts message.to_s if @debug
     # rubocop:enable Rails/Output
   end
 

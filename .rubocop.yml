@@ -3,10 +3,12 @@ inherit_from: .rubocop_todo.yml
 AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
-  RunRailsCops: true
   Exclude:
     - db/schema.rb
     - spec/dummy/db/schema.rb
+
+Rails:
+  Enabled: true
 
 # https://github.com/AtomLinter/linter-rubocop/issues/2
 Style/FileName:
@@ -24,14 +26,23 @@ Metrics/ClassLength:
 Style/AccessModifierIndentation:
   EnforcedStyle: outdent
 
+Style/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact
+
+Style/ConditionalAssignment:
+  Enabled: false
 
 Style/Documentation:
   Enabled: false
 
 Style/EmptyLines:
   Enabled: false
+
+Style/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes

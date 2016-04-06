@@ -35,7 +35,7 @@ private
 
   def generate_full_key
     if (@method == "t" || @method == "helper_t" || @method == "controller_t") && @key.start_with?(".")
-      @full_key = "#{File.dirname(@file_path)}"
+      @full_key = File.dirname(@file_path).to_s
 
       if @full_key.starts_with?("app/mailers")
         @full_key.gsub!(/\Aapp\/mailers(\/|)/, "")

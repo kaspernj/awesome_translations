@@ -40,8 +40,8 @@ private
   def values_from_translation(translation)
     if translation.array_translation?
       params[:t][translation.array_key][translation.array_no.to_s] if params[:t].key?(translation.array_key)
-    else
-      params[:t][translation.key] if params[:t].key?(translation.key)
+    elsif params[:t].key?(translation.key)
+      params[:t][translation.key]
     end
   end
 

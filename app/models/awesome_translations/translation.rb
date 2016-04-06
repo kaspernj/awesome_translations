@@ -23,11 +23,8 @@ class AwesomeTranslations::Translation
   end
 
   def array_translation?
-    if @key.match(/\[(\d+)\]\Z/)
-      return true
-    else
-      return false
-    end
+    return true if @key =~ /\[(\d+)\]\Z/
+    false
   end
 
   def array_key
@@ -104,11 +101,8 @@ class AwesomeTranslations::Translation
   end
 
   def file_line_content?
-    if @full_path && @line_no && File.exist?(@full_path)
-      return true
-    else
-      return false
-    end
+    return true if @full_path && @line_no && File.exist?(@full_path)
+    false
   end
 
   def file_line_content

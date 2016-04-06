@@ -91,8 +91,6 @@ class AwesomeTranslations::ModelInspector
     to_s
   end
 
-private
-
   def self.find_subclasses(clazz, &blk)
     return if @scanned[clazz]
     @scanned[clazz] = true

@@ -14,14 +14,11 @@ class AwesomeTranslations::TranslatedValue
     "<AwesomeTranslations::TranslatedValue file=\"#{@file}\" locale=\"#{@locale}\" key=\"#{@key}\" value=\"#{@value}\">"
   end
 
-  alias_method :inspect, :to_s
+  alias inspect to_s
 
   def array_translation?
-    if @key.match(/\[(\d+)\]\Z/)
-      return true
-    else
-      return false
-    end
+    return true if @key =~ /\[(\d+)\]\Z/
+    false
   end
 
   def array_key
@@ -64,15 +61,13 @@ private
       if index == last_index
         if @value.empty?
           current.delete(key_part)
+        elsif array_translation?
+          match = key_part.match(/\A(.+)\[(\d+)\]\Z/)
+          current_array = current[match[1]] || []
+          current_array[array_no] = value
+          current[match[1]] = current_array
         else
-          if array_translation?
-            match = key_part.match(/\A(.+)\[(\d+)\]\Z/)
-            current_array = current[match[1]] || []
-            current_array[array_no] = value
-            current[match[1]] = current_array
-          else
-            current[key_part] = value
-          end
+          current[key_part] = value
         end
       else
         current[key_part] ||= {}

@@ -1,6 +1,6 @@
 class AwesomeTranslations::Handlers::ErbHandler < AwesomeTranslations::Handlers::BaseHandler
-  METHOD_NAMES = %w(_ t)
-  VALID_BEGINNING = '(^|\s+|\(|\{|<%=\s*)'
+  METHOD_NAMES = %w(_ t).freeze
+  VALID_BEGINNING = '(^|\s+|\(|\{|<%=\s*)'.freeze
 
   def groups
     ArrayEnumerator.new do |yielder|
