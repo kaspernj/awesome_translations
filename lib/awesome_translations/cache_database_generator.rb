@@ -96,12 +96,13 @@ class AwesomeTranslations::CacheDatabaseGenerator
 
       @handlers_found[handler_model.id] = true
 
-      yield handler, handler_model if block_given?
+      yield handler_model if block_given?
     end
   end
 
-  def update_groups_for_handler(handler, handler_model)
+  def update_groups_for_handler(handler_model)
     @groups_found ||= {}
+    handler = handler_model.at_handler
 
     handler.groups.each do |group|
       group_model = AwesomeTranslations::CacheDatabaseGenerator::Group.find_or_initialize_by(
@@ -113,11 +114,12 @@ class AwesomeTranslations::CacheDatabaseGenerator
 
       @groups_found[group_model.id] = true
 
-      yield group, group_model if block_given?
+      yield group_model if block_given?
     end
   end
 
-  def update_translations_for_group(handler_model, group, group_model)
+  def update_translations_for_group(handler_model, group_model)
+    group = group_model.at_group
     @translation_keys_found ||= {}
     @handler_translations_found ||= {}
 
@@ -157,7 +159,9 @@ class AwesomeTranslations::CacheDatabaseGenerator
 private
 
   def debug(message)
-    print "#{message}\n" if @debug
+    # rubocop:disable Rails/Output
+    puts message.to_s if @debug
+    # rubocop:enable Rails/Output
   end
 
   def execute_migrations
@@ -170,9 +174,9 @@ private
 
   def cache_translations_in_handlers
     with_transactioner do
-      update_handlers do |handler, handler_model|
-        update_groups_for_handler(handler, handler_model) do |group, group_model|
-          update_translations_for_group(handler_model, group, group_model)
+      update_handlers do |handler_model|
+        update_groups_for_handler(handler_model) do |group_model|
+          update_translations_for_group(handler_model, group_model)
         end
       end
     end

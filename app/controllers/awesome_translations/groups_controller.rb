@@ -1,6 +1,6 @@
 class AwesomeTranslations::GroupsController < AwesomeTranslations::ApplicationController
-  before_filter :set_handler
-  before_filter :set_group
+  before_action :set_handler
+  before_action :set_group
 
   def index
   end
@@ -11,20 +11,9 @@ class AwesomeTranslations::GroupsController < AwesomeTranslations::ApplicationCo
 
   def update
     @group.handler_translations.each do |translation|
-      if translation.array_translation?
-        next unless params[:t].key?(translation.array_key)
-        values = params[:t][translation.array_key][translation.array_no.to_s]
-        next unless values
-      else
-        next unless params[:t].key?(translation.key)
-        values = params[:t][translation.key]
-      end
-
-      values.each do |locale, value|
-        translated_value = translation.translated_value_for_locale(locale)
-        translated_value.value = value
-        translated_value.save!
-      end
+      values = values_from_translation(translation)
+      next unless values
+      save_values(translation, values)
     end
 
     I18n.backend.reload!
@@ -32,13 +21,10 @@ class AwesomeTranslations::GroupsController < AwesomeTranslations::ApplicationCo
   end
 
   def update_translations_cache
-    handler = AwesomeTranslations::Handler.find(@handler.identifier)
-    group = AwesomeTranslations::Group.find_by_handler_and_id(handler, @group.identifier)
-
     generator = AwesomeTranslations::CacheDatabaseGenerator.current
-    generator.update_translations_for_group(@handler, group, @group)
+    generator.update_translations_for_group(@handler, @group)
 
-    redirect_to handler_group_path(@handler.identifier, @group.identifier)
+    redirect_to handler_group_path(@handler, @group)
   end
 
 private
@@ -49,5 +35,21 @@ private
 
   def set_group
     @group = @handler.groups.find_by(identifier: params[:id])
+  end
+
+  def values_from_translation(translation)
+    if translation.array_translation?
+      params[:t][translation.array_key][translation.array_no.to_s] if params[:t].key?(translation.array_key)
+    elsif params[:t].key?(translation.key)
+      params[:t][translation.key]
+    end
+  end
+
+  def save_values(translation, values)
+    values.each do |locale, value|
+      translated_value = translation.translated_value_for_locale(locale)
+      translated_value.value = value
+      translated_value.save!
+    end
   end
 end

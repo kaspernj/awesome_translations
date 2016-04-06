@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :set_user
+  before_action :set_user
 
   def index
     @users = User.all
@@ -26,10 +26,10 @@ class UsersController < ApplicationController
 
   def update
     if @user.update_attributes(user_params)
-      flash[:notice] = controller_t('.user_was_updated')
+      flash[:notice] = controller_t(".user_was_updated")
       redirect_to user_path(@user)
     else
-      flash[:error] = @user.errors.full_messages.join('. ')
+      flash[:error] = @user.errors.full_messages.join(". ")
       render :edit
     end
   end

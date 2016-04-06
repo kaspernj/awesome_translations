@@ -7,6 +7,6 @@ class AwesomeTranslations::ModelInspector::Attribute
   end
 
   def i18n_key
-    return "activerecord.attributes.#{@model_inspector.snake_name}.#{@name}"
+    "activerecord.attributes.#{@model_inspector.snake_name}.#{@name}"
   end
 end

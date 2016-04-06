@@ -16,12 +16,12 @@ describe AwesomeTranslations::TranslationMigrator do
   end
 
   before do
-    File.unlink(translation_value.file_path) if File.exists?(translation_value.file_path)
+    File.unlink(translation_value.file_path) if File.exist?(translation_value.file_path)
     File.open(translation_value.file_path, "w") { |fp| fp.write(YAML.dump(content)) }
   end
 
   after do
-    File.unlink(translation_value.file_path) if File.exists?(translation_value.file_path)
+    File.unlink(translation_value.file_path) if File.exist?(translation_value.file_path)
   end
 
   it "works" do

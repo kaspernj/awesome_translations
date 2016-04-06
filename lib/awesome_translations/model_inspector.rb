@@ -41,7 +41,7 @@ class AwesomeTranslations::ModelInspector
   end
 
   def money_attributes
-    return if !::Kernel.const_defined?('Money') || !@clazz.respond_to?(:monetized_attributes)
+    return if !::Kernel.const_defined?("Money") || !@clazz.respond_to?(:monetized_attributes)
 
     @clazz.monetized_attributes.each do |attribute|
       yield attribute[0].to_s
@@ -49,7 +49,7 @@ class AwesomeTranslations::ModelInspector
   end
 
   def globalize_attributes
-    return if !::Kernel.const_defined?('Globalize') || !@clazz.respond_to?(:translated_attribute_names)
+    return if !::Kernel.const_defined?("Globalize") || !@clazz.respond_to?(:translated_attribute_names)
 
     @clazz.translated_attribute_names.each do |attribute|
       yield attribute.to_s
@@ -61,15 +61,15 @@ class AwesomeTranslations::ModelInspector
   end
 
   def class_key
-    return "activerecord.models.#{snake_name}"
+    "activerecord.models.#{snake_name}"
   end
 
   def class_key_one
-    return "#{class_key}.one"
+    "#{class_key}.one"
   end
 
   def class_key_other
-    return "#{class_key}.other"
+    "#{class_key}.other"
   end
 
   # TODO: Maybe this should yield a ModelInspector::Relationship instead?
@@ -80,7 +80,7 @@ class AwesomeTranslations::ModelInspector
   end
 
   def attribute_key(attribute_name)
-    return "activerecord.attributes.#{snake_name}.#{attribute_name}"
+    "activerecord.attributes.#{snake_name}.#{attribute_name}"
   end
 
   def to_s
@@ -90,8 +90,6 @@ class AwesomeTranslations::ModelInspector
   def inspect
     to_s
   end
-
-private
 
   def self.find_subclasses(clazz, &blk)
     return if @scanned[clazz]
@@ -114,7 +112,7 @@ private
       load_models_for(engine.root)
     end
 
-    return true
+    true
   end
 
   def self.engines

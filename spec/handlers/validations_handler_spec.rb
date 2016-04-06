@@ -2,8 +2,8 @@ require "spec_helper"
 
 describe AwesomeTranslations::Handlers::ValidationsHandler do
   let(:validations_handler) { AwesomeTranslations::Handlers::ValidationsHandler.new }
-  let(:user_group) { validations_handler.groups.select { |group| group.name == "User" }.first }
-  let(:blank_email_translation) { user_group.translations.select { |translation| translation.key.include? "email.blank" }.first }
+  let(:user_group) { validations_handler.groups.find { |group| group.name == "User" } }
+  let(:blank_email_translation) { user_group.translations.find { |translation| translation.key.include? "email.blank" } }
 
   it "#groups" do
     expect(validations_handler.groups.to_a.length).to eq 4
@@ -22,10 +22,10 @@ describe AwesomeTranslations::Handlers::ValidationsHandler do
       expect(blank_email_translation.dir).to eq "#{Rails.root}/config/locales/awesome_translations/models/user"
     end
 
-    it 'finds confirmation translations' do
-      confirmation_translation = user_group.translations.select { |translation| translation.key.include? 'email_confirmation' }.first
+    it "finds confirmation translations" do
+      confirmation_translation = user_group.translations.find { |translation| translation.key.include? "email_confirmation" }
       expect(confirmation_translation).to_not be_blank
-      expect(confirmation_translation.key).to eq 'activerecord.attributes.user.email_confirmation'
+      expect(confirmation_translation.key).to eq "activerecord.attributes.user.email_confirmation"
     end
   end
 end

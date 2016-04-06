@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe AwesomeTranslations::TranslatedValue do
   let(:test_file_path) { "#{Dir.tmpdir}/da.yml" }

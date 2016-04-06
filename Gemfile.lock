@@ -1,20 +1,20 @@
 PATH
   remote: .
   specs:
-    awesome_translations (0.0.24)
+    awesome_translations (0.0.25)
       active-record-transactioner
       array_enumerator (~> 0.0.10)
       auto_autoloader
       baza (>= 0.0.20)
       baza_migrations (>= 0.0.1)
-      baza_models (>= 0.0.2)
+      baza_models (>= 0.0.3)
       coffee-rails
       haml-rails
       jquery-rails
       rails (>= 3.0.0, < 5.0.0)
       sass-rails
       sqlite3
-      string-cases (= 0.0.2)
+      string-cases (>= 0.0.3)
 
 GEM
   remote: https://rubygems.org/
@@ -38,7 +38,7 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    active-record-transactioner (0.0.6)
+    active-record-transactioner (0.0.7)
     activejob (4.2.5)
       activesupport (= 4.2.5)
       globalid (>= 0.3.0)
@@ -57,6 +57,7 @@ GEM
       tzinfo (~> 1.1)
     arel (6.0.3)
     array_enumerator (0.0.10)
+    ast (2.2.0)
     auto_autoloader (0.0.1)
       string-cases
     baza (0.0.20)
@@ -69,12 +70,17 @@ GEM
       auto_autoloader
       baza (~> 0.0.20)
       string-cases (~> 0.0.1)
-    baza_models (0.0.2)
-      array_enumerator
+    baza_models (0.0.3)
+      array_enumerator (>= 0.0.10)
+      auto_autoloader (>= 0.0.1)
       baza (~> 0.0.20)
-      string-cases (>= 0.0.2)
+      string-cases (>= 0.0.3)
+    best_practice_project (0.0.8)
+      auto_autoloader
     builder (3.2.2)
-    codeclimate-test-reporter (0.4.8)
+    code_analyzer (0.4.5)
+      sexp_processor
+    codeclimate-test-reporter (0.5.0)
       simplecov (>= 0.7.1, < 1.0.0)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
@@ -83,7 +89,13 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
+    coffeelint (1.14.0)
+      coffee-script
+      execjs
+      json
+    colored (1.2)
     concurrent-ruby (1.0.0)
+    concurrent-ruby (1.0.0-java)
     datet (0.0.25)
     diff-lcs (1.2.5)
     docile (1.1.5)
@@ -92,7 +104,7 @@ GEM
     execjs (2.6.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.5.0)
+    factory_girl_rails (4.6.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
     forgery (0.6.0)
@@ -109,6 +121,11 @@ GEM
       haml (>= 4.0.6, < 5.0)
       html2haml (>= 1.0.1)
       railties (>= 4.0.1)
+    haml_lint (0.17.0)
+      haml (~> 4.0)
+      rake (>= 10, < 12)
+      rubocop (>= 0.36.0)
+      sysexits (~> 1.1)
     html2haml (2.0.0)
       erubis (~> 2.7.0)
       haml (~> 4.0.0)
@@ -120,6 +137,7 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (1.8.3)
+    json (1.8.3-java)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -127,17 +145,22 @@ GEM
     mime-types (2.99)
     mini_portile2 (2.0.0)
     minitest (5.8.3)
-    monetize (1.1.0)
-      money (~> 6.5.0)
-    money (6.5.1)
+    monetize (1.4.0)
+      money (~> 6.7)
+    money (6.7.0)
       i18n (>= 0.6.4, <= 0.7.0)
-    money-rails (1.4.1)
+      sixarm_ruby_unaccent (>= 1.1.1, < 2)
+    money-rails (1.6.0)
       activesupport (>= 3.0)
-      monetize (~> 1.1.0)
-      money (~> 6.5.0)
+      monetize (~> 1.4.0)
+      money (~> 6.7)
       railties (>= 3.0)
     nokogiri (1.6.7.1)
       mini_portile2 (~> 2.0.0.rc2)
+    nokogiri (1.6.7.1-java)
+    parser (2.3.0.7)
+      ast (~> 2.2)
+    powerpack (0.1.1)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -160,21 +183,32 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.2)
       loofah (~> 2.0)
+    rails_best_practices (1.15.7)
+      activesupport
+      code_analyzer (>= 0.4.3)
+      colored
+      erubis
+      i18n
+      json
+      require_all
+      ruby-progressbar
     railties (4.2.5)
       actionpack (= 4.2.5)
       activesupport (= 4.2.5)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
+    rainbow (2.1.0)
     rake (10.4.2)
-    rspec-core (3.4.1)
+    require_all (1.3.3)
+    rspec-core (3.4.4)
       rspec-support (~> 3.4.0)
     rspec-expectations (3.4.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.4.0)
-    rspec-mocks (3.4.0)
+    rspec-mocks (3.4.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.4.0)
-    rspec-rails (3.4.0)
+    rspec-rails (3.4.2)
       actionpack (>= 3.0, < 4.3)
       activesupport (>= 3.0, < 4.3)
       railties (>= 3.0, < 4.3)
@@ -183,6 +217,13 @@ GEM
       rspec-mocks (~> 3.4.0)
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
+    rubocop (0.39.0)
+      parser (>= 2.3.0.7, < 3.0)
+      powerpack (~> 0.1)
+      rainbow (>= 1.99.1, < 3.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (~> 1.0, >= 1.0.1)
+    ruby-progressbar (1.7.5)
     ruby_parser (3.7.2)
       sexp_processor (~> 4.1)
     sass (3.4.20)
@@ -192,12 +233,16 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    scss_lint (0.47.1)
+      rake (>= 0.9, < 11)
+      sass (~> 3.4.15)
     sexp_processor (4.6.0)
-    simplecov (0.11.1)
+    simplecov (0.11.2)
       docile (~> 1.1.0)
       json (~> 1.8)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
+    sixarm_ruby_unaccent (1.1.1)
     sprockets (3.5.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -206,25 +251,35 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     sqlite3 (1.3.11)
-    string-cases (0.0.2)
+    string-cases (0.0.3)
+    sysexits (1.2.0)
     thor (0.19.1)
     thread_safe (0.3.5)
+    thread_safe (0.3.5-java)
     tilt (2.0.2)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    unicode-display_width (1.0.3)
     wref (0.0.8)
 
 PLATFORMS
+  java
   ruby
 
 DEPENDENCIES
   awesome_translations!
-  codeclimate-test-reporter
-  factory_girl_rails
-  forgery
-  globalize
-  money-rails
-  rspec-rails
+  best_practice_project
+  codeclimate-test-reporter (= 0.5.0)
+  coffeelint (= 1.14.0)
+  factory_girl_rails (= 4.6.0)
+  forgery (= 0.6.0)
+  globalize (= 5.0.1)
+  haml_lint (= 0.17.0)
+  money-rails (= 1.6.0)
+  rails_best_practices (>= 0.0.8)
+  rspec-rails (= 3.4.2)
+  rubocop (= 0.39.0)
+  scss_lint (= 0.47.1)
 
 BUNDLED WITH
    1.11.2

@@ -12,7 +12,7 @@ class AwesomeTranslations::Handlers::ModelHandler < AwesomeTranslations::Handler
 
   def translations_for_group(group)
     ArrayEnumerator.new do |yielder|
-      model_inspector = AwesomeTranslations::ModelInspector.model_classes.select { |model_inspector| model_inspector.clazz.name == group.name }.first
+      model_inspector = AwesomeTranslations::ModelInspector.model_classes.find { |model_inspector| model_inspector.clazz.name == group.name }
       raise "No inspector by that name: #{model_inspector.clazz.name}" unless model_inspector
 
       model_names(model_inspector).each { |translation| yielder << translation }
@@ -31,9 +31,9 @@ private
     class_name = class_name.gsub("::", "_")
     class_name = StringCases.camel_to_snake(class_name)
 
-    dir_path = Rails.root.join('config', 'locales', 'awesome_translations', 'models', class_name)
+    dir_path = Rails.root.join("config", "locales", "awesome_translations", "models", class_name)
 
-    return dir_path.to_s
+    dir_path.to_s
   end
 
   def active_record_attributes(model_inspector)
@@ -52,7 +52,7 @@ private
       )
     end
 
-    return result
+    result
   end
 
   def paperclip_attachments(model_inspector)
@@ -65,7 +65,7 @@ private
       )
     end
 
-    return result
+    result
   end
 
   def model_names(model_inspector)
@@ -79,20 +79,20 @@ private
       dir: dir_path(model_inspector)
     )
 
-    return result
+    result
   end
 
   def relationships(model_inspector)
     result = []
 
-    model_inspector.relationships do |key, reflection|
+    model_inspector.relationships do |_key, reflection|
       result << AwesomeTranslations::Translation.new(
         key: model_inspector.attribute_key(reflection.name),
         dir: dir_path(model_inspector)
       )
     end
 
-    return result
+    result
   end
 
   def monetized_attributes(model_inspector)
@@ -105,7 +105,7 @@ private
       )
     end
 
-    return result
+    result
   end
 
   def globalize_attributes(model_inspector)
@@ -118,6 +118,6 @@ private
       )
     end
 
-    return result
+    result
   end
 end

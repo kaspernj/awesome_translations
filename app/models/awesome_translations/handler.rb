@@ -1,4 +1,6 @@
 class AwesomeTranslations::Handler
+  delegate :translations, to: :instance
+
   def self.all
     AwesomeTranslations::Handlers.list
   end
@@ -23,10 +25,6 @@ class AwesomeTranslations::Handler
     id
   end
 
-  def param_key
-    id
-  end
-
   def name
     @data.fetch(:name)
   end
@@ -37,10 +35,6 @@ class AwesomeTranslations::Handler
 
   def instance
     const.new
-  end
-
-  def translations
-    instance.translations
   end
 
   def groups

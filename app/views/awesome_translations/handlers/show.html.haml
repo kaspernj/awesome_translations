@@ -1,5 +1,6 @@
 - content_for(:header_title) { "Show handler: #{@handler.name}" }
-- content_for(:header_right) { link_to "Update groups", update_groups_cache_handler_path(@handler.identifier), method: :post, class: "button", data: {confirm: "Are you sure?"} }
+- content_for(:header_right) do
+  = link_to "Update groups", [:update_groups_cache, @handler], method: :post, class: "button", data: {confirm: "Are you sure?"}
 
 %table
   %thead
@@ -10,10 +11,10 @@
   %tbody
     - @groups.includes(handler_translations: :translation_key).each do |group|
       %tr
-        %td= link_to group.name, handler_group_path(@handler.identifier, group.identifier)
+        %td= link_to group.name, handler_group_path(@handler, group)
         %td= group.handler_translations.count
-        %td= group.handler_translations.select(&:finished?).length
-        %td= group.handler_translations.select(&:unfinished?).length
+        %td= group.handler_translations.count(&:finished?)
+        %td= group.handler_translations.count(&:unfinished?)
     - if @groups.empty?
       %tr
         %td.error{colspan: 4} No groups were found.

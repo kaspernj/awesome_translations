@@ -6,4 +6,8 @@ class AwesomeTranslations::CacheDatabaseGenerator::Handler < BazaModels::Model
   def at_handler
     @at_handler ||= AwesomeTranslations::Handler.find(identifier)
   end
+
+  def to_param
+    identifier
+  end
 end

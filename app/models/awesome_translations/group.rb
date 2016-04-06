@@ -32,17 +32,7 @@ class AwesomeTranslations::Group
     translations_list
   end
 
-  def translations_count(args = {})
-    count = 0
-    translations(args).each { count += 1 }
-    count
-  end
-
   def to_param
-    id
-  end
-
-  def param_key
     id
   end
 

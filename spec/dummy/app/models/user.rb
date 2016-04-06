@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
-  validates_presence_of :email
-  validates_uniqueness_of :email
+  validates :email, presence: true
+  validates :email, uniqueness: true
   validates :email, length: {in: 2..255}, format: {with: /\A.+@.+\Z/}
-  validates_confirmation_of :email
+  validates :email, confirmation: true
 
   has_many :roles, dependent: :destroy
 end

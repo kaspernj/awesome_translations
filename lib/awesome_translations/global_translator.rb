@@ -1,9 +1,9 @@
 class AwesomeTranslations::GlobalTranslator
-  RUBY_2 = RUBY_VERSION.starts_with?('2')
+  RUBY_2 = RUBY_VERSION.starts_with?("2")
 
   def self.translate(key, args, &blk)
     if key.is_a?(String) && key.start_with?(".")
-      caller_number = args[:caller_number] || 0
+      caller_number = args[:caller_number] || 0
 
       call = call_information(caller_number)
       previous_file = call[:path]
@@ -13,22 +13,21 @@ class AwesomeTranslations::GlobalTranslator
       AwesomeTranslations::ModelInspector.engines.each do |engine|
         root = engine.root.to_s
 
-        if previous_file.starts_with?(root)
-          previous_file = previous_file.gsub(/\A#{Regexp.escape(root)}\//, "")
-          removed_root = true
-          break
-        end
+        next unless previous_file.starts_with?(root)
+        previous_file = previous_file.gsub(/\A#{Regexp.escape(root)}\//, "")
+        removed_root = true
+        break
       end
 
       dir = File.dirname(previous_file)
       dir = dir.gsub(/\A#{Regexp.escape(Rails.root.to_s)}\//, "")
-      dir = dir.gsub(/\Aspec\/dummy\//, '')
+      dir = dir.gsub(/\Aspec\/dummy\//, "")
 
       file = File.basename(previous_file, File.extname(previous_file))
 
-      if dir.starts_with?('app/controllers')
-        dir = dir.gsub(/\Aapp\/controllers(\/?)/, '')
-        file = file.gsub(/_controller\Z/, '')
+      if dir.starts_with?("app/controllers")
+        dir = dir.gsub(/\Aapp\/controllers(\/?)/, "")
+        file = file.gsub(/_controller\Z/, "")
         is_controller = true
       elsif dir.starts_with?("app/")
         dir = dir.gsub(/\Aapp\//, "")
@@ -37,7 +36,7 @@ class AwesomeTranslations::GlobalTranslator
       translation_key = dir
       translation_key = translation_key.gsub(/\Aapp\//, "")
       translation_key << "/#{file}"
-      translation_key.gsub!("/", ".")
+      translation_key.tr!("/", ".")
       translation_key << ".#{call[:method]}" if is_controller && args[:action_in_key] != false
       translation_key << key
 

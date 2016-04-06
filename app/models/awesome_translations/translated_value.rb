@@ -17,11 +17,8 @@ class AwesomeTranslations::TranslatedValue
   alias inspect to_s
 
   def array_translation?
-    if @key.match(/\[(\d+)\]\Z/)
-      return true
-    else
-      return false
-    end
+    return true if @key =~ /\[(\d+)\]\Z/
+    false
   end
 
   def array_key
@@ -41,8 +38,19 @@ class AwesomeTranslations::TranslatedValue
 
     translations = YAML.load(File.read(@file))
     translations ||= {}
-
     translations[@locale.to_s] ||= {}
+
+    insert_translation_into_hash(translations)
+
+    update_models
+
+    I18n.load_path << file unless I18n.load_path.include?(file)
+    File.open(file, "w") { |fp| fp.write(YAML.dump(translations)) }
+  end
+
+private
+
+  def insert_translation_into_hash(translations)
     current = translations[@locale.to_s]
 
     key_parts = key.split(".")
@@ -53,23 +61,29 @@ class AwesomeTranslations::TranslatedValue
       if index == last_index
         if @value.empty?
           current.delete(key_part)
+        elsif array_translation?
+          match = key_part.match(/\A(.+)\[(\d+)\]\Z/)
+          current_array = current[match[1]] || []
+          current_array[array_no] = value
+          current[match[1]] = current_array
         else
-          if array_translation?
-            match = key_part.match(/\A(.+)\[(\d+)\]\Z/)
-            current_array = current[match[1]] || []
-            current_array[array_no] = value
-            current[match[1]] = current_array
-          else
-            current[key_part] = value
-          end
+          current[key_part] = value
         end
       else
         current[key_part] ||= {}
         current = current[key_part]
       end
     end
+  end
 
-    I18n.load_path << file unless I18n.load_path.include?(file)
-    File.open(file, "w") { |fp| fp.write(YAML.dump(translations)) }
+  def update_models
+    translation_key = AwesomeTranslations::CacheDatabaseGenerator::TranslationKey
+      .find_or_create_by!(key: key)
+
+    translation_value = AwesomeTranslations::CacheDatabaseGenerator::TranslationValue
+      .find_or_initialize_by(locale: locale, translation_key: translation_key)
+
+    translation_value.value = value
+    translation_value.save!
   end
 end

@@ -1,13 +1,14 @@
 class AwesomeTranslations::ErbInspector::FileInspector
-  METHOD_NAMES = ['t', 'controller_t', 'helper_t']
-  VALID_BEGINNING = '(^|\s+|\(|\{|\[|<%=\s*)'
+  METHOD_NAMES = %w(t controller_t helper_t).freeze
+  VALID_BEGINNING = '(^|\s+|\(|\{|\[|<%=\s*)'.freeze
 
   attr_reader :root_path, :file_path
 
   def initialize(args)
     @args = args
-    @root_path, @file_path = args[:root_path], args[:file_path]
-    @method_names ||= ['t']
+    @root_path = args[:root_path]
+    @file_path = args[:file_path]
+    @method_names ||= ["t"]
   end
 
   def translations

@@ -3,18 +3,18 @@ class Role < ActiveRecord::Base
 
   belongs_to :user
 
-  validates_presence_of :user, :role
+  validates :user, :role, presence: true
 
   monetize :price_cents, allow_nil: true
 
   def self.roles
-    return {
-      t('.administrator') => 'admin',
-      t('.moderator') => 'moderator'
+    {
+      t(".administrator") => "admin",
+      t(".moderator") => "moderator"
     }
   end
 
   def self.roles_array
-    [[t('.user'), 'user']]
+    [[t(".user"), "user"]]
   end
 end
