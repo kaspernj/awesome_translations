@@ -6,7 +6,9 @@ class AwesomeTranslations::GroupsController < AwesomeTranslations::ApplicationCo
   end
 
   def show
-    @translations = @group.handler_translations
+    @ransack_params = params[:q] || {}
+    @ransack = @group.handler_translations.ransack(@ransack_params)
+    @translations = @ransack.result
   end
 
   def update

@@ -6,7 +6,11 @@ class AwesomeTranslations::CleanUpsController < AwesomeTranslations::Application
     translation_values = AwesomeTranslations::CacheDatabaseGenerator::TranslationValue
       .where(id: params[:c].keys)
 
-    translation_values.destroy_all
+    translation_values.each do |translation_value|
+      AwesomeTranslations::TranslationMigrator.new(translation_value: translation_value).execute
+
+      translation_value.destroy!
+    end
 
     redirect_to [:new, :clean_up]
   end

@@ -1,6 +1,12 @@
-- content_for(:header_title) { "Show group: #{@group.name}" }
+- content_for(:header_title) { "Show group: #{truncate(@group.name.reverse, length: 45).reverse}" }
 - content_for(:header_right) do
   = link_to "Update translations", [:update_translations_cache, @handler, @group], method: :post, class: "button", data: {confirm: "Are you sure?"}
+
+= simple_form_for :q, method: :get do |f|
+  = f.input :translation_key_key_cont, label: "Key contains", input_html: {value: @ransack_params[:translation_key_key_cont]}
+  = f.button :submit, "Filter"
+
+%br
 
 = form_for :group, url: handler_group_path(@handler, @group), method: :put do |f|
   %table.translations
