@@ -1,6 +1,6 @@
 - content_for(:header_title) { "Show handler: #{@handler.name}" }
 - content_for(:header_right) do
-  = bb_btn [:update_groups_cache, @handler], "Update groups", method: :post, data: {confirm: "Are you sure?"}, sm: true
+  = bb_btn [:update_groups_cache, @handler], "Update groups", method: :post, sm: true, data: {confirm: "Are you sure?"}
 
 = bb_panel @handler.name, table: true do
   %thead

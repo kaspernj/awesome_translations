@@ -1,6 +1,6 @@
 - content_for(:header_title) { "Show group: #{truncate(@group.name.reverse, length: 45).reverse}" }
 - content_for(:header_right) do
-  = bb_btn [:update_translations_cache, @handler, @group], "Update translations", method: :post, data: {confirm: "Are you sure?"}
+  = bb_btn [:update_translations_cache, @handler, @group], "Update translations", method: :post, sm: true, data: {confirm: "Are you sure?"}
 
 = bb_panel "Filter" do
   = simple_form_for :q, method: :get do |f|

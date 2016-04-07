@@ -1,5 +1,5 @@
 - content_for(:header_title) { "Handlers" }
-- content_for(:header_right) { bb_btn update_cache_handlers_path, "Update", method: :post, data: {confirm: "Are you sure?"}, sm: true }
+- content_for(:header_right) { bb_btn update_cache_handlers_path, "Update", method: :post, sm: true, data: {confirm: "Are you sure?"} }
 
 = bb_panel "Handlers", table: true do
   %thead
