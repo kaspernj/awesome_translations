@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    awesome_translations (0.0.25)
+    awesome_translations (0.0.26)
       active-record-transactioner
       array_enumerator (~> 0.0.10)
       auto_autoloader
@@ -107,7 +107,6 @@ GEM
       json
     colored (1.2)
     concurrent-ruby (1.0.1)
-    concurrent-ruby (1.0.1-java)
     database_cleaner (1.5.1)
     datet (0.0.25)
     diff-lcs (1.2.5)
