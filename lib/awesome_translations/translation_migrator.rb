@@ -3,28 +3,22 @@ class AwesomeTranslations::TranslationMigrator
   def initialize(args)
     require "fileutils"
 
-    @handler_translation = args.fetch(:handler_translation)
+    @handler_translation = args[:handler_translation]
     @translation_value = args.fetch(:translation_value)
-    @translation_key = @handler_translation.translation_key
+    @translation_key = @translation_value.translation_key
 
     @key_parts = @translation_key.key.split(".")
 
     @locale = @translation_value.locale
 
     @old_path = @translation_value.file_path
-    @new_path = "#{@handler_translation.dir}/#{@translation_value.locale}.yml"
+    @new_path = "#{@handler_translation.dir}/#{@translation_value.locale}.yml" if @handler_translation
   end
 
   def execute
-    remove_from_old_file
-  end
-
-private
-
-  def remove_from_old_file
     translations_hash = YAML.load_file(@old_path)
 
-    new_translations_hash = YAML.load_file(@new_path) if File.exist?(@new_path)
+    new_translations_hash = YAML.load_file(@new_path) if @new_path && File.exist?(@new_path)
     new_translations_hash ||= {}
     new_translations_hash[@locale] ||= {}
 
@@ -38,8 +32,10 @@ private
 
     clean_empty_hash(translations_hash)
 
-    FileUtils.mkdir_p(File.dirname(@new_path))
-    File.open(@new_path, "w") { |fp| fp.write(YAML.dump(new_translations_hash)) }
+    if @new_path
+      FileUtils.mkdir_p(File.dirname(@new_path))
+      File.open(@new_path, "w") { |fp| fp.write(YAML.dump(new_translations_hash)) }
+    end
 
     if translations_hash.empty?
       I18n.load_path.delete(@old_path)
@@ -48,8 +44,10 @@ private
       File.open(@old_path, "w") { |fp| fp.write(YAML.dump(translations_hash)) }
     end
 
-    @translation_value.update_attributes!(file_path: @new_path)
+    @translation_value.update_attributes!(file_path: @new_path) if @new_path
   end
+
+private
 
   def transfer_from_old_hash_to_new(new_hash, current_parts, current_pointer)
     new_part = current_parts.shift
@@ -61,13 +59,13 @@ private
       new_hash[new_part] ||= {}
     end
 
-    if new_pointer.is_a?(Hash)
-      transfer_from_old_hash_to_new(
-        new_hash.fetch(new_part),
-        current_parts,
-        new_pointer
-      )
-    end
+    return unless new_pointer.is_a?(Hash)
+
+    transfer_from_old_hash_to_new(
+      new_hash.fetch(new_part),
+      current_parts,
+      new_pointer
+    )
   end
 
   # Cleans out empty keys, if they don't contain translations

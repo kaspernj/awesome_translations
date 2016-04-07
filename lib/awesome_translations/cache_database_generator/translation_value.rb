@@ -6,7 +6,7 @@ class AwesomeTranslations::CacheDatabaseGenerator::TranslationValue < BazaModels
   delegate :key, to: :translation_key
 
   def calculated_translation_file_path
-    "#{handler_translation.dir}/#{locale}.yml"
+    "#{handler_translation.dir}/#{locale}.yml" if handler_translation
   end
 
   def handler_translation
