@@ -11,7 +11,7 @@ describe AwesomeTranslations::ModelInspector do
   end
 
   it "#engines" do
-    expect(AwesomeTranslations::ModelInspector.engines.map(&:class).sort { |class1, class2| class1.name <=> class2.name }).to eq [AwesomeTranslations::Engine, Haml::Rails::Engine, Jquery::Rails::Engine, MoneyRails::Engine]
+    expect(AwesomeTranslations::ModelInspector.engines.map(&:class).sort { |class1, class2| class1.name <=> class2.name }).to eq [AwesomeTranslations::Engine, BootstrapBuilders::Engine, Haml::Rails::Engine, Jquery::Rails::Engine, MoneyRails::Engine, Twitter::Bootstrap::Rails::Engine]
   end
 
   it "#class_key" do

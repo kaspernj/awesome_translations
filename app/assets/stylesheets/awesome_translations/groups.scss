@@ -1,6 +1,6 @@
-body.controller_groups {
-  &.action_show {
-    table.translations {
+body.controller-groups {
+  &.action-show {
+    table {
       width: 100%;
       table-layout: fixed;
 
@@ -15,22 +15,6 @@ body.controller_groups {
           .translation-key-text {
             overflow-x: auto;
           }
-        }
-
-        td.line-content .container {
-          font-family: Monospace;
-          border: 1px solid black;
-          background-color: lightgrey;
-          padding: 5px;
-          overflow-x: auto;
-
-          pre {
-            margin: 0px;
-          }
-        }
-
-        td.line-spacer {
-          height: 10px;
         }
 
         td.translation {

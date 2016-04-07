@@ -1,7 +1,11 @@
-require "auto_autoloader"
-require "baza_models"
-require "string-cases"
 require "array_enumerator"
+require "auto_autoloader"
+require "bootstrap_builders"
+require "baza_models"
+require "sass-rails"
+require "simple_form"
+require "string-cases"
+require "twitter-bootstrap-rails"
 
 module AwesomeTranslations
   AutoAutoloader.autoload_sub_classes(self, __FILE__)

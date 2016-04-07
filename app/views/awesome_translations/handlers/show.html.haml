@@ -1,8 +1,8 @@
 - content_for(:header_title) { "Show handler: #{@handler.name}" }
 - content_for(:header_right) do
-  = link_to "Update groups", [:update_groups_cache, @handler], method: :post, class: "button", data: {confirm: "Are you sure?"}
+  = bb_btn [:update_groups_cache, @handler], "Update groups", method: :post, data: {confirm: "Are you sure?"}, sm: true
 
-%table
+= bb_panel @handler.name, table: true do
   %thead
     %th Group
     %th Translations

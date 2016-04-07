@@ -1,7 +1,7 @@
-- content_for(:header_title) { Handlers }
-- content_for(:header_right) { link_to "Update", update_cache_handlers_path, method: :post, class: "button", data: {confirm: "Are you sure?"} }
+- content_for(:header_title) { "Handlers" }
+- content_for(:header_right) { bb_btn update_cache_handlers_path, "Update", method: :post, data: {confirm: "Are you sure?"}, sm: true }
 
-%table
+= bb_panel "Handlers", table: true do
   %thead
     %tr
       %th Handler
