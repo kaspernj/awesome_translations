@@ -3,12 +3,16 @@ class AwesomeTranslations::CleanUpsController < AwesomeTranslations::Application
   end
 
   def create
+    ids = []
+    params[:c].each do |translation_value_id, check_value|
+      ids << translation_value_id.to_i if check_value == "1"
+    end
+
     translation_values = AwesomeTranslations::CacheDatabaseGenerator::TranslationValue
-      .where(id: params[:c].keys)
+      .where(id: ids)
 
     translation_values.each do |translation_value|
       AwesomeTranslations::TranslationMigrator.new(translation_value: translation_value).execute
-
       translation_value.destroy!
     end
 

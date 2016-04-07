@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", ">= 3.0.0", "< 5.0.0"
   s.add_dependency "string-cases", ">= 0.0.3"
   s.add_dependency "baza", ">= 0.0.20"
-  s.add_dependency "baza_models", ">= 0.0.3"
+  s.add_dependency "baza_models", ">= 0.0.4"
   s.add_dependency "baza_migrations", ">= 0.0.1"
   s.add_dependency "array_enumerator", "~> 0.0.10"
   s.add_dependency "haml-rails", ">= 0"
@@ -36,6 +36,9 @@ Gem::Specification.new do |s|
   end
 
   s.add_development_dependency "rspec-rails", "3.4.2"
+  s.add_development_dependency "capybara", "2.6.2"
+  s.add_development_dependency "capybara-webkit", "1.8.0"
+  s.add_development_dependency "database_cleaner", "1.5.1"
   s.add_development_dependency "forgery", "0.6.0"
   s.add_development_dependency "factory_girl_rails", "4.6.0"
   s.add_development_dependency "codeclimate-test-reporter", "0.5.0"
