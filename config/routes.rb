@@ -1,5 +1,6 @@
 AwesomeTranslations::Engine.routes.draw do
   resources :caches
+  resources :clean_ups, only: [:new, :create]
 
   resources :handlers, only: [:index, :show] do
     post :update_cache, on: :collection

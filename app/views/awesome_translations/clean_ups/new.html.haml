@@ -1,0 +1,18 @@
+- content_for(:header_title) { "Clean Up" }
+
+= form_for :clean_ups, url: clean_ups_path do |f|
+  %table
+    %thead
+      %th{colspan: 2} Key
+      %th File
+    %tbody
+      - translations_to_clean_up.each do |translation|
+        %tr
+          %td= check_box_tag("c[#{translation.id}]", 1, true)
+          %td= translation.key
+          %td= path_without_root_or_locales(translation.file_path)
+      - if translations_to_clean_up.empty?
+        %tr
+          %td{colspan: 3} No translations were found
+
+  = f.submit "Delete"
