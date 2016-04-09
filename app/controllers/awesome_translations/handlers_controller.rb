@@ -38,8 +38,6 @@ class AwesomeTranslations::HandlersController < AwesomeTranslations::Application
       .includes(handler_translations: :translation_key)
       .order(:name)
 
-    puts "SQL: #{@groups.to_sql}"
-
     case @ransack_values[:with_translations]
     when "only_with"
       @groups = @groups.select { |group| group.handler_translations.any? }
