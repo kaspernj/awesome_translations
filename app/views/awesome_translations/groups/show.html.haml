@@ -1,10 +1,10 @@
 - content_for(:header_title) { "Show group: #{truncate(@group.name.reverse, length: 45).reverse}" }
 - content_for(:header_right) do
-  = bb_btn [:update_translations_cache, @handler, @group], "Update translations", method: :post, sm: true, data: {confirm: "Are you sure?"}
+  = bb_btn [:update_translations_cache, @handler, @group], "Update translations", method: :post, sm: true, icon: "refresh", data: {confirm: "Are you sure?"}
 
 = bb_panel "Filter" do
   = simple_form_for :q, method: :get do |f|
-    = f.input :translation_key_key_cont, label: "Key contains", input_html: {value: @ransack_params[:translation_key_key_cont]}
+    = f.input :translation_key_key_cont, label: "Key contains", input_html: {value: @ransack_params[:translation_key_key_cont]}, autofocus: true
     = f.button :submit, "Filter", class: ["btn", "btn-primary"]
 
 = form_for :group, url: handler_group_path(@handler, @group), method: :put, class: "translations" do |f|

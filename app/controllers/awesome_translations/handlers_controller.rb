@@ -23,7 +23,29 @@ class AwesomeTranslations::HandlersController < AwesomeTranslations::Application
   end
 
   def show
-    @groups = @handler.groups.order(:name)
+    if params[:q]
+      @ransack_values = params[:q]
+    else
+      @ransack_values = {
+        with_translations: "only_with"
+      }
+    end
+
+    @groups = @handler
+      .groups
+      .ransack(@ransack_values)
+      .result
+      .includes(handler_translations: :translation_key)
+      .order(:name)
+
+    puts "SQL: #{@groups.to_sql}"
+
+    case @ransack_values[:with_translations]
+    when "only_with"
+      @groups = @groups.select { |group| group.handler_translations.any? }
+    when "only_without"
+      @groups = @groups.select { |group| group.handler_translations.empty? }
+    end
   end
 
 private
