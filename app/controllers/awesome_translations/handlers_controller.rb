@@ -54,4 +54,9 @@ private
     @handler = AwesomeTranslations::CacheDatabaseGenerator::Handler.find_by(identifier: params[:id])
     raise "No such handler: #{params[:id]}" unless @handler
   end
+
+  helper_method :with_translations_collection
+  def with_translations_collection
+    {"Only with translations" => "only_with", "Only without translations" => "only_without"}
+  end
 end
