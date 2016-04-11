@@ -2,9 +2,12 @@ class AwesomeTranslations::HandlerTranslationsController < AwesomeTranslations::
   def index
     @ransack_values = params[:q] || {}
 
-    @handler_translations = AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation
+    @ransack = AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation
       .ransack(@ransack_values)
+
+    @handler_translations = @ransack
       .result
+      .includes(:group, :handler)
       .page(params[:page])
   end
 end

@@ -3,9 +3,9 @@
   = bb_btn [:update_groups_cache, @handler], "Update groups", method: :post, sm: true, icon: "refresh", data: {confirm: "Are you sure?"}
 
 = bb_panel "Filter" do
-  = simple_form_for :q, method: :get, url: @handler, defaults: {required: false} do |f|
-    = f.input :name_cont, label: "Group name", input_html: {value: @ransack_values[:name_cont]}, autofocus: true
-    = f.input :with_translations, label: "With translations", collection: {"All" => "all", "Only with translations" => "only_with", "Only without translations" => "only_without"}, include_blank: false, selected: @ransack_values[:with_translations]
+  = simple_search_form_for @ransack, url: @handler do |f|
+    = f.input :name_cont, autofocus: true
+    = f.input :with_translations, label: "With translations", collection: {"Only with translations" => "only_with", "Only without translations" => "only_without"}
     = f.button :submit, "Filter", class: ["btn", "btn-primary"]
 
 = bb_panel @handler.name, table: true do

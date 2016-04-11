@@ -9,7 +9,7 @@ class AwesomeTranslations::HandlersController < AwesomeTranslations::Application
     generator = AwesomeTranslations::CacheDatabaseGenerator.current
     generator.update_handlers
 
-    redirect_to :handlers
+    redirect_to :back
   end
 
   def update_groups_cache
@@ -19,7 +19,7 @@ class AwesomeTranslations::HandlersController < AwesomeTranslations::Application
       generator.update_groups_for_handler(handler_model)
     end
 
-    redirect_to @handler
+    redirect_to :back
   end
 
   def show
@@ -31,9 +31,11 @@ class AwesomeTranslations::HandlersController < AwesomeTranslations::Application
       }
     end
 
-    @groups = @handler
+    @ransack = @handler
       .groups
       .ransack(@ransack_values)
+
+    @groups = @ransack
       .result
       .includes(handler_translations: :translation_key)
       .order(:name)

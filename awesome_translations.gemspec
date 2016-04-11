@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", ">= 3.0.0", "< 5.0.0"
   s.add_dependency "string-cases", ">= 0.0.3"
   s.add_dependency "baza", ">= 0.0.20"
-  s.add_dependency "baza_models", ">= 0.0.5"
+  s.add_dependency "baza_models", ">= 0.0.6"
   s.add_dependency "baza_migrations", ">= 0.0.1"
   s.add_dependency "bootstrap_builders", "0.0.5"
   s.add_dependency "array_enumerator", "~> 0.0.10"
@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
   s.add_dependency "coffee-rails", ">= 0"
   s.add_dependency "sass-rails", "~> 4.0.5"
   s.add_dependency "simple_form", ">= 0"
+  s.add_dependency "simple_form_ransack", ">= 0.0.16"
   s.add_dependency "jquery-rails", ">= 0"
   s.add_dependency "auto_autoloader", ">= 0"
   s.add_dependency "active-record-transactioner", ">= 0"
@@ -53,4 +54,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "haml_lint", "0.17.0"
   s.add_development_dependency "coffeelint", "1.14.0"
   s.add_development_dependency "rails_best_practices", ">= 0.0.8"
+  s.add_development_dependency "will_paginate", "~> 3.1.0"
 end

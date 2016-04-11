@@ -6,8 +6,10 @@ source "https://rubygems.org"
 gemspec
 
 # gem "baza", path: "/home/kaspernj/Dev/Ruby/baza"
-# gem "baza_models", github: "kaspernj/baza_models" # path: "/home/kaspernj/Dev/Ruby/baza_models"
+# gem "baza_models", path: "/Users/kaspernj/Dev/Ruby/baza_models" # github: "kaspernj/baza_models"
 # gem "baza_migrations", path: "/home/kaspernj/Dev/Ruby/baza_migrations"
+
+# gem "simple_form_ransack", path: "/Users/kaspernj/Dev/Rails/simple_form_ransack"
 
 # Declare any dependencies that are still in development here instead of in
 # your gemspec. These might include edge Rails or gems from your path or

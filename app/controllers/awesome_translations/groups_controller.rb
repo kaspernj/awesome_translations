@@ -26,7 +26,7 @@ class AwesomeTranslations::GroupsController < AwesomeTranslations::ApplicationCo
     generator = AwesomeTranslations::CacheDatabaseGenerator.current
     generator.update_translations_for_group(@handler, @group)
 
-    redirect_to handler_group_path(@handler, @group)
+    redirect_to :back
   end
 
 private

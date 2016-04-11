@@ -74,6 +74,7 @@ describe AwesomeTranslations::GroupsController do
   end
 
   it "#update_translations_cache" do
+    request.env["HTTP_REFERER"] = handler_group_path("rails_handler", "date_time")
     post :update_translations_cache, handler_id: "rails_handler", id: "date_time"
     expect(response).to redirect_to handler_group_path("rails_handler", "date_time")
   end
