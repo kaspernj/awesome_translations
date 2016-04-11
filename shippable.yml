@@ -9,7 +9,8 @@ script:
   - CODECLIMATE_REPO_TOKEN=6ce9528867413dd59d35477770932ca5dd37de1688c07a1f46458fc645df3fac bundle exec rspec
   - bundle exec rubocop
   - bundle exec haml-lint app/ spec/dummy/app
-  - bundle exec scss-lint app/assets/stylesheets spec/dummy/app/assets/stylesheets
+  - gem install scss_lint
+  - scss-lint app/assets/stylesheets spec/dummy/app/assets/stylesheets
   - DIRS=app/assets/javascripts/:spec/dummy/app/assets/javascripts/ bundle exec rake best_practice_project:run_coffee_lint
   - bundle exec rails_best_practices
 notifications:
