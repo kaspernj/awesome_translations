@@ -1,36 +1,44 @@
 !!! 5
-%html
-%head
-  %title AwesomeTranslations
+%html{lang: I18n.locale}
+  %head
+    %meta{charset: "utf-8"}
+    %meta{content: "IE=Edge,chrome=1", http: {equiv: "X-UA-Compatible"}}
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1.0"}
 
-  = stylesheet_link_tag "awesome_translations/application", media: "all"
-  = stylesheet_link_tag "http://fonts.googleapis.com/css?family=Open+Sans:400"
-  = stylesheet_link_tag "http://fonts.googleapis.com/css?family=Raleway:400"
+    %title= content_for?(:header_title) ? content_for(:header_title) : "AwesomeTranslations"
 
-  = javascript_include_tag "awesome_translations/application"
+    = csrf_meta_tags
+    = favicon_link_tag
+    = stylesheet_link_tag "awesome_translations/application", media: "all"
+    = javascript_include_tag "awesome_translations/application", defer: true
+    = content_for(:header_script)
 
-  = csrf_meta_tags
+  %body{class: ["controller-#{controller_name}", "action-#{action_name}"]}
+    .navbar.navbar-default.navbar-static-top
+      .container
+        %button.navbar-toggle{type: "button", data: {toggle: "collapse", target: ".navbar-responsive-collapse"}}
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
 
-%body{class: ["controller_#{controller_name}", "action_#{action_name}"]}
-  %table.main-table
-    %tbody
-      %tr
-        %td.main-logo Awesome Translations
-      %tr
-        %td.main-menu
-          .menu-item= link_to "Handlers", handlers_path
-          .menu-item= link_to "Clean Up", new_clean_up_path
-          .menu-item= link_to "Migrate", new_migration_path
-          .menu-item= link_to "Cache", caches_path
-      %tr
-        %td.main-content
-          %table{width: "100%"}
-            %tbody
-              %tr
-                %td
-                  - if content_for(:header_title)
-                    %h1= content_for(:header_title)
-                %td{align: "right", width: "170px"}
-                  = content_for(:header_right)
+        = link_to "Awesome Translations", "/awesome_translations", class: "navbar-brand"
 
-          = yield
+        .navbar-collapse.collapse.navbar-responsive-collapse
+          %ul.nav.navbar-nav
+            %li= link_to "Handlers", handlers_path
+            %li= link_to "Translations", handler_translations_path
+            %li= link_to "Clean Up", new_clean_up_path
+            %li= link_to "Migrate", new_migration_path
+            %li= link_to "Cache", caches_path
+
+    .container
+      - if content_for?(:header_title)
+        .row
+          .col-md-9
+            %h1= content_for(:header_title)
+          - if content_for?(:header_right)
+            .col-md-3
+              .pull-right
+                = content_for(:header_right)
+      = bootstrap_flash
+      = yield

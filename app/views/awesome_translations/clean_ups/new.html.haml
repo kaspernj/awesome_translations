@@ -1,7 +1,7 @@
 - content_for(:header_title) { "Clean Up" }
 
 = form_for :clean_ups, url: clean_ups_path do |f|
-  %table
+  = bb_panel "Clean Up", table: true do
     %thead
       %th{colspan: 2} Key
       %th File
@@ -15,4 +15,4 @@
         %tr
           %td{colspan: 3} No translations were found
 
-  = f.submit "Delete"
+  = f.submit "Delete", class: ["btn", "btn-danger"]

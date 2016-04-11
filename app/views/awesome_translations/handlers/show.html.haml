@@ -1,20 +1,26 @@
 - content_for(:header_title) { "Show handler: #{@handler.name}" }
 - content_for(:header_right) do
-  = link_to "Update groups", [:update_groups_cache, @handler], method: :post, class: "button", data: {confirm: "Are you sure?"}
+  = bb_btn [:update_groups_cache, @handler], "Update groups", method: :post, sm: true, icon: "refresh", data: {confirm: "Are you sure?"}
 
-%table
+= bb_panel "Filter" do
+  = simple_search_form_for @ransack, url: @handler do |f|
+    = f.input :name_cont, autofocus: true
+    = f.input :with_translations, label: "With translations", collection: with_translations_collection
+    = f.button :submit, "Filter", class: ["btn", "btn-primary"]
+
+= bb_panel @handler.name, table: true do
   %thead
     %th Group
-    %th Translations
-    %th Finished
-    %th Unfinished
+    %th.text-right Translations
+    %th.text-right.hidden-xs-down Finished
+    %th.text-right.hidden-md-down Unfinished
   %tbody
-    - @groups.includes(handler_translations: :translation_key).each do |group|
+    - @groups.each do |group|
       %tr
         %td= link_to group.name, handler_group_path(@handler, group)
-        %td= group.handler_translations.count
-        %td= group.handler_translations.count(&:finished?)
-        %td= group.handler_translations.count(&:unfinished?)
+        %td.text-right= group.handler_translations.count
+        %td.text-right.hidden-xs-down= group.handler_translations.count(&:finished?)
+        %td.text-right.hidden-md-down= group.handler_translations.count(&:unfinished?)
     - if @groups.empty?
       %tr
         %td.error{colspan: 4} No groups were found.

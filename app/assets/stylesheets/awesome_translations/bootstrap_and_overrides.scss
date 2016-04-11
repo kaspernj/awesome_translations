@@ -1,0 +1,41 @@
+//= require twitter-bootstrap-static/bootstrap
+//
+// Use Font Awesome icons (default)
+// To use Glyphicons sprites instead of Font Awesome, replace with "require twitter-bootstrap-static/sprites"
+//= require twitter-bootstrap-static/fontawesome
+
+@import "twitter-bootstrap-static/bootstrap";
+
+// scss-lint:disable PlaceholderInExtend
+.hidden-lg-down {
+  @extend .hidden-lg, .hidden-md, .hidden-sm, .hidden-xs;
+}
+
+.hidden-md-down {
+  @extend .hidden-md, .hidden-sm, .hidden-xs;
+}
+
+.hidden-sm-down {
+  @extend .hidden-sm, .hidden-xs;
+}
+
+.hidden-xs-down {
+  @extend .hidden-xs;
+}
+
+.hidden-lg-up {
+  @extend .hidden-lg;
+}
+
+.hidden-md-up {
+  @extend .hidden-lg, .hidden-md;
+}
+
+.hidden-sm-up {
+  @extend .hidden-lg, .hidden-md, .hidden-sm;
+}
+
+.hidden-xs-up {
+  @extend .hidden-lg, .hidden-md, .hidden-sm, .hidden-xs;
+}
+// scss-lint:enable PlaceholderInExtend

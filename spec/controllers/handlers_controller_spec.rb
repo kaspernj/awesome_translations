@@ -17,11 +17,13 @@ describe AwesomeTranslations::HandlersController do
   end
 
   it "#update_cache" do
+    request.env["HTTP_REFERER"] = handlers_path
     post :update_cache
     expect(response).to redirect_to :handlers
   end
 
   it "#update_groups_cache" do
+    request.env["HTTP_REFERER"] = handler_path("rails_handler")
     post :update_groups_cache, id: "rails_handler"
     expect(response).to redirect_to handler_path("rails_handler")
   end

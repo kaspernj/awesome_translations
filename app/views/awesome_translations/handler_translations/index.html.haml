@@ -1,0 +1,26 @@
+- content_for(:header_title) { "Translations" }
+
+= bb_panel "Filter" do
+  = simple_search_form_for @ransack do |f|
+    = f.input :translation_key_key_cont, label: "Key", autofocus: true
+    = f.input :handler_name_cont
+    = f.input :group_name_cont
+    = f.button :submit, "Filter", class: ["btn", "btn-primary"]
+
+= bb_panel "Translations", table: true do
+  %thead
+    %tr
+      %th Key
+      %th.hidden-sm-down Handler
+      %th.hidden-xs-down Group
+  %tbody
+    - @handler_translations.each do |handler_translation|
+      %tr
+        %td= link_to handler_translation.key, [handler_translation.handler, handler_translation.group]
+        %td.hidden-sm-down= link_to handler_translation.handler.name, handler_translation.handler
+        %td.hidden-xs-down= link_to handler_translation.group.name, [handler_translation.handler, handler_translation.group]
+    - if @handler_translations.empty?
+      %tr
+        %td{colspan: 3} No translations
+
+= will_paginate @handler_translations

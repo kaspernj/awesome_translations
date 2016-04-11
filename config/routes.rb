@@ -11,6 +11,7 @@ AwesomeTranslations::Engine.routes.draw do
     end
   end
 
+  resources :handler_translations, only: :index
   resources :migrations, only: [:new, :create]
 
   root to: "handlers#index"

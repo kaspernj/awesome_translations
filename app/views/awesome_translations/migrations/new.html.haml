@@ -1,7 +1,7 @@
 - content_for(:header_title) { "Migrate translations into AwesomeTranslations" }
 
 = form_for :migration, url: migrations_path do |f|
-  %table
+  = bb_panel "Migrate", table: true do
     %thead
       %tr
         %th{colspan: 2} Key
@@ -18,4 +18,4 @@
         %tr
           %td{colspan: 4} No translations were found
 
-  = f.submit "Migrate"
+  = f.submit "Migrate", class: ["btn", "btn-danger"]
