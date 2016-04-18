@@ -31,6 +31,10 @@ class AwesomeTranslations::ErbInspector::TranslationInspector
     !key.start_with?(".")
   end
 
+  def contains_interpolations?
+    key =~ /#\{(.+?)\}/
+  end
+
 private
 
   def generate_full_key

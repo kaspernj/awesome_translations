@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", ">= 3.0.0", "< 5.0.0"
   s.add_dependency "string-cases", ">= 0.0.3"
-  s.add_dependency "baza", ">= 0.0.20"
+  s.add_dependency "baza", ">= 0.0.21"
   s.add_dependency "baza_models", ">= 0.0.6"
   s.add_dependency "baza_migrations", ">= 0.0.1"
   s.add_dependency "bootstrap_builders", "0.0.5"
@@ -29,10 +29,9 @@ Gem::Specification.new do |s|
   s.add_dependency "simple_form", ">= 0"
   s.add_dependency "simple_form_ransack", ">= 0.0.16"
   s.add_dependency "jquery-rails", ">= 0"
-  s.add_dependency "auto_autoloader", ">= 0"
+  s.add_dependency "auto_autoloader", ">= 0.0.4"
   s.add_dependency "active-record-transactioner", ">= 0"
   s.add_dependency "twitter-bootstrap-rails", ">= 3.2.2"
-  s.add_dependency "will_paginate", ">= 3.1.0"
 
   if RUBY_ENGINE == "jruby"
     s.add_dependency "activerecord-jdbcsqlite3-adapter"

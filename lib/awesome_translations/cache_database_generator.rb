@@ -1,3 +1,5 @@
+require "baza_models"
+
 class AwesomeTranslations::CacheDatabaseGenerator
   AutoAutoloader.autoload_sub_classes(self, __FILE__)
 

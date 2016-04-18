@@ -1,4 +1,4 @@
-module AwesomeTranslations::ApplicationHelper
+module ::AwesomeTranslations::ApplicationHelper
   include BootstrapBuilders::ApplicationHelper
   include SimpleFormRansackHelper
 

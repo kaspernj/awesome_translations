@@ -4,6 +4,7 @@ CodeClimate::TestReporter.start
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= "test"
 require_relative "dummy/config/environment"
+
 require "rspec/rails"
 require "database_cleaner"
 require "capybara"
@@ -71,5 +72,6 @@ RSpec.configure do |config|
 
     at_dir = Rails.root.join("config", "locales", "awesome_translations").to_s
     FileUtils.rm_rf(at_dir) if File.exist?(at_dir)
+    FileUtils.touch(Rails.root.join("config", "locales", ".keep").to_s)
   end
 end

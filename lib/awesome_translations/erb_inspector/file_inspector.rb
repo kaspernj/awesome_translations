@@ -74,10 +74,11 @@ private
       key: key
     )
 
-    unless translation_with_key_exists?(translations_found, translation_inspector.full_key)
-      yielder << translation_inspector
-      translations_found << translation_inspector
-    end
+    return if translation_inspector.contains_interpolations?
+    return if translation_with_key_exists?(translations_found, translation_inspector.full_key)
+
+    yielder << translation_inspector
+    translations_found << translation_inspector
   end
 
   def translation_with_key_exists?(translations_found, translation_full_key)
