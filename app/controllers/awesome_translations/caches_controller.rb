@@ -3,7 +3,7 @@ class AwesomeTranslations::CachesController < AwesomeTranslations::ApplicationCo
   end
 
   def create
-    cache_db_generator = AwesomeTranslations::CacheDatabaseGenerator.new(debug: false)
+    cache_db_generator = AwesomeTranslations::CacheDatabaseGenerator.new(debug: true)
     cache_db_generator.cache_translations
 
     flash[:notice] = "The cache was updated"
