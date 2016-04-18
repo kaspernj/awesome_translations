@@ -19,8 +19,8 @@
       %tr
         %td= link_to group.name, handler_group_path(@handler, group)
         %td.text-right= group.handler_translations.count
-        %td.text-right.hidden-xs-down= group.handler_translations.count(&:finished?)
-        %td.text-right.hidden-md-down= group.handler_translations.count(&:unfinished?)
+        %td.text-right.hidden-xs-down= group.handler_translations.select(&:finished?).length
+        %td.text-right.hidden-md-down= group.handler_translations.select(&:unfinished?).length
     - if @groups.empty?
       %tr
         %td.error{colspan: 4} No groups were found.
