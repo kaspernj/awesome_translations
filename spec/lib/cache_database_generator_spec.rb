@@ -45,6 +45,7 @@ describe AwesomeTranslations::CacheDatabaseGenerator do
     end
 
     it "#cache_handler_translations" do
+      # AwesomeTranslations::CacheDatabaseGenerator::ScannedFile.all.destroy_all
       cache_database_generator.cache_handler_translations
 
       translation = AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation

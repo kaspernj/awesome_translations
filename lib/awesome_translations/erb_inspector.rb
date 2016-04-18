@@ -38,15 +38,34 @@ private
       file_path << "/" unless file_path.empty?
       file_path << file
 
+      file_path_with_path = "#{path}/#{file_path}"
+
       full_path = "#{root_path}/#{file_path}"
       ext = File.extname(file_path)
 
       if File.directory?(full_path)
         scan_dir(file_path, root_path, yielder)
       elsif @args[:exts].include?(ext)
+        scanned_file = AwesomeTranslations::CacheDatabaseGenerator::ScannedFile.find_or_initialize_by(file_path: file_path_with_path)
+        file_size = File.size(full_path)
+        last_changed_at = File.mtime(full_path)
+
+        changed = false
+        changed = true unless file_size == scanned_file.file_size
+        changed = true unless last_changed_at.to_s == scanned_file.last_changed_at.to_s
+
+        if changed
+          scanned_file.assign_attributes(
+            file_size: file_size,
+            last_changed_at: last_changed_at
+          )
+          scanned_file.save!
+        end
+
         yielder << AwesomeTranslations::ErbInspector::FileInspector.new(
           file_path: file_path,
-          root_path: root_path
+          root_path: root_path,
+          changed: changed
         )
       end
     end

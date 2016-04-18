@@ -33,12 +33,16 @@ class AwesomeTranslations::ErbInspector::FileInspector
     File.basename(@file_path).match(/\A(.+?)\./)[1]
   end
 
+  def changed?
+    @args.fetch(:changed)
+  end
+
 private
 
   def parse_content(line_no, line, translations_found, yielder)
     METHOD_NAMES.each do |method_name|
-      if match = line.match(/def\s+(.+?)(\(|\n|\r\n)/)
-        @last_method = match[1]
+      if (last_method_match = line.match(/def\s+(.+?)(\(|\n|\r\n)/))
+        @last_method = last_method_match[1]
       end
 
       # Scan for the various valid formats.

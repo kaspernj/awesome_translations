@@ -19,13 +19,16 @@ class AwesomeTranslations::CacheDatabaseGenerator
 
   def init_database
     @initialized = true
-    @db = Baza::Db.new(type: :sqlite3, path: database_path, debug: false)
+    @db = Baza::Db.new(type: :sqlite3, path: database_path, debug: false, type_translation: true)
 
     AwesomeTranslations::CacheDatabaseGenerator::Group.db = @db
     AwesomeTranslations::CacheDatabaseGenerator::Group.table_name = "groups"
 
     AwesomeTranslations::CacheDatabaseGenerator::Handler.db = @db
     AwesomeTranslations::CacheDatabaseGenerator::Handler.table_name = "handlers"
+
+    AwesomeTranslations::CacheDatabaseGenerator::ScannedFile.db = @db
+    AwesomeTranslations::CacheDatabaseGenerator::ScannedFile.table_name = "scanned_files"
 
     AwesomeTranslations::CacheDatabaseGenerator::TranslationKey.db = @db
     AwesomeTranslations::CacheDatabaseGenerator::TranslationKey.table_name = "translation_keys"

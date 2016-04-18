@@ -37,8 +37,6 @@ class AwesomeTranslations::Handlers::ErbHandler < AwesomeTranslations::Handlers:
 private
 
   def erb_inspector
-    @erb_inspector ||= AwesomeTranslations::ErbInspector.new(
-      exts: [".erb", ".haml"]
-    )
+    @erb_inspector ||= AwesomeTranslations::ErbInspector.new(exts: [".erb", ".haml"])
   end
 end
