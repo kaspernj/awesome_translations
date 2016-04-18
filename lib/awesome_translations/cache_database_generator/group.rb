@@ -1,4 +1,6 @@
 class AwesomeTranslations::CacheDatabaseGenerator::Group < BazaModels::Model
+  attr_writer :at_group
+
   belongs_to :handler, class_name: "AwesomeTranslations::CacheDatabaseGenerator::Handler"
 
   has_many :handler_translations, dependent: :destroy, foreign_key: "group_id", class_name: "AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation"

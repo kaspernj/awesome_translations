@@ -90,6 +90,7 @@ class AwesomeTranslations::CacheDatabaseGenerator
     @handlers_found ||= {}
 
     AwesomeTranslations::Handler.all.each do |handler|
+      debug "Updating handler: #{handler.name}"
       handler_model = AwesomeTranslations::CacheDatabaseGenerator::Handler.find_or_initialize_by(identifier: handler.id)
       handler_model.assign_attributes(name: handler.name)
       handler_model.save!
@@ -105,6 +106,7 @@ class AwesomeTranslations::CacheDatabaseGenerator
     handler = handler_model.at_handler
 
     handler.groups.each do |group|
+      debug "Updating group: #{group.name}"
       group_model = AwesomeTranslations::CacheDatabaseGenerator::Group.find_or_initialize_by(
         handler_id: handler_model.id,
         identifier: group.id
@@ -114,6 +116,7 @@ class AwesomeTranslations::CacheDatabaseGenerator
 
       @groups_found[group_model.id] = true
 
+      group_model.at_group = group
       yield group_model if block_given?
     end
   end
@@ -124,6 +127,8 @@ class AwesomeTranslations::CacheDatabaseGenerator
     @handler_translations_found ||= {}
 
     group.translations.each do |translation|
+      debug "Updating translation: #{translation.key}"
+
       translation_key = AwesomeTranslations::CacheDatabaseGenerator::TranslationKey.find_or_initialize_by(key: translation.key)
       translation_key.assign_attributes(group_id: group_model.id, handler_id: handler_model.id)
       translation_key.save!
@@ -159,9 +164,7 @@ class AwesomeTranslations::CacheDatabaseGenerator
 private
 
   def debug(message)
-    # rubocop:disable Rails/Output
-    puts message.to_s if @debug
-    # rubocop:enable Rails/Output
+    puts message.to_s if @debug # rubocop:disable Rails/Output
   end
 
   def execute_migrations
@@ -210,6 +213,8 @@ private
     i18n_hash.each do |locale, translations|
       cache_translations_in_hash(file_path, locale, translations)
     end
+
+    debug "Done caching translations in #{file_path}"
   end
 
   def cache_translations_in_hash(file_path, locale, i18n_hash, keys = [])
@@ -245,6 +250,8 @@ private
   end
 
   def clean_up_not_found
+    debug "Cleaning up not found"
+
     @db.transaction do
       AwesomeTranslations::CacheDatabaseGenerator::Handler
         .where.not(id: @handlers_found.keys)
