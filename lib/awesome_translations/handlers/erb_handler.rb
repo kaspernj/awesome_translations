@@ -28,7 +28,7 @@ class AwesomeTranslations::Handlers::ErbHandler < AwesomeTranslations::Handlers:
       # Parse views for translations.
       file = erb_inspector.file(group.data.fetch(:root_path), group.data.fetch(:file_path))
       file.translations.each do |translation|
-        next if translation.global?
+        next unless translation.relative?
         yielder << translation.model
       end
     end
