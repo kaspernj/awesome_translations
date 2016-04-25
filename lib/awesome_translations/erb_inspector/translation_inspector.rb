@@ -28,7 +28,11 @@ class AwesomeTranslations::ErbInspector::TranslationInspector
   end
 
   def global?
-    !key.start_with?(".")
+    !relative? && !key.include?(".")
+  end
+
+  def relative?
+    key.start_with?(".")
   end
 
   def contains_interpolations?

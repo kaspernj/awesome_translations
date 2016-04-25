@@ -16,4 +16,8 @@ describe AwesomeTranslations::Handlers::GlobalHandler do
   it "sets the correct translation path" do
     expect(yes_translation.dir).to eq "#{Rails.root}/config/locales/awesome_translations"
   end
+
+  it "doesn't detect absolute existing direct translations" do
+    expect(translations.map(&:key)).to_not include "activerecord.attributes.users.email"
+  end
 end
