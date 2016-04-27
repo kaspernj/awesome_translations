@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency "baza", ">= 0.0.21"
   s.add_dependency "baza_models", ">= 0.0.6"
   s.add_dependency "baza_migrations", ">= 0.0.1"
-  s.add_dependency "bootstrap_builders", "0.0.5"
+  s.add_dependency "bootstrap_builders", ">= 0.0.5"
   s.add_dependency "array_enumerator", "~> 0.0.10"
   s.add_dependency "haml-rails", ">= 0"
   s.add_dependency "coffee-rails", ">= 0"
