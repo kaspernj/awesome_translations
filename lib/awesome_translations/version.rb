@@ -1,3 +1,3 @@
 module AwesomeTranslations
-  VERSION = "0.0.28".freeze
+  VERSION = "0.0.29".freeze
 end
