@@ -31,7 +31,6 @@ Gem::Specification.new do |s|
   s.add_dependency "jquery-rails", ">= 0"
   s.add_dependency "auto_autoloader", ">= 0.0.4"
   s.add_dependency "active-record-transactioner", ">= 0"
-  s.add_dependency "twitter-bootstrap-rails", ">= 3.2.2"
 
   if RUBY_ENGINE == "jruby"
     s.add_dependency "activerecord-jdbcsqlite3-adapter"

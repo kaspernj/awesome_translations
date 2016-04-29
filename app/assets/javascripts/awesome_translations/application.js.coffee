@@ -1,4 +1,4 @@
 #= require jquery
 #= require jquery_ujs
-#= require twitter/bootstrap
+#= require awesome_translations/bootstrap.min
 #= require_tree .

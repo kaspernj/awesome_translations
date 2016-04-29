@@ -8,7 +8,7 @@ PATH
       baza (>= 0.0.21)
       baza_migrations (>= 0.0.1)
       baza_models (>= 0.0.6)
-      bootstrap_builders (= 0.0.5)
+      bootstrap_builders (>= 0.0.5)
       coffee-rails
       haml-rails
       jquery-rails
@@ -18,7 +18,6 @@ PATH
       simple_form_ransack (>= 0.0.16)
       sqlite3
       string-cases (>= 0.0.3)
-      twitter-bootstrap-rails (>= 3.2.2)
 
 GEM
   remote: https://rubygems.org/
@@ -86,7 +85,7 @@ GEM
       string-cases (>= 0.0.3)
     best_practice_project (0.0.8)
       auto_autoloader
-    bootstrap_builders (0.0.5)
+    bootstrap_builders (0.0.6)
       html_gen (>= 0.0.11)
       rails (>= 4.0.0)
     builder (3.2.2)
@@ -116,7 +115,6 @@ GEM
       execjs
       json
     colored (1.2)
-    commonjs (0.2.7)
     concurrent-ruby (1.0.1)
     database_cleaner (1.5.1)
     datet (0.0.25)
@@ -163,13 +161,6 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.3)
     json (1.8.3-java)
-    less (2.6.0)
-      commonjs (~> 0.2.7)
-    less-rails (2.7.1)
-      actionpack (>= 4.0)
-      less (~> 2.6.0)
-      sprockets (> 2, < 4)
-      tilt
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -258,7 +249,7 @@ GEM
     ruby-progressbar (1.7.5)
     ruby_parser (3.8.1)
       sexp_processor (~> 4.1)
-    sass (3.4.21)
+    sass (3.4.22)
     sass-rails (5.0.4)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)
@@ -292,11 +283,6 @@ GEM
     thread_safe (0.3.5)
     thread_safe (0.3.5-java)
     tilt (1.4.1)
-    twitter-bootstrap-rails (3.2.2)
-      actionpack (>= 3.1)
-      execjs (>= 2.2.2, >= 2.2)
-      less-rails (>= 2.5.0)
-      railties (>= 3.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     unicode-display_width (1.0.3)
