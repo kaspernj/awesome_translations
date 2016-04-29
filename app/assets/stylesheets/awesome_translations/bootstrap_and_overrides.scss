@@ -1,10 +1,4 @@
-//= require twitter-bootstrap-static/bootstrap
-//
-// Use Font Awesome icons (default)
-// To use Glyphicons sprites instead of Font Awesome, replace with "require twitter-bootstrap-static/sprites"
-//= require twitter-bootstrap-static/fontawesome
-
-@import "twitter-bootstrap-static/bootstrap";
+@import "bootstrap.min";
 
 // scss-lint:disable PlaceholderInExtend
 .hidden-lg-down {

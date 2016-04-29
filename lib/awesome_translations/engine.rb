@@ -4,7 +4,6 @@ require "sass-rails"
 require "jquery-rails"
 require "simple_form"
 require "simple_form_ransack"
-require "twitter-bootstrap-rails"
 
 module AwesomeTranslations; end
 
