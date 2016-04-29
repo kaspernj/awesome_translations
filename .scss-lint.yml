@@ -1,4 +1,8 @@
 ---
+exclude:
+  - app/assets/stylesheets/awesome_translations/bootstrap.min.css
+  - app/assets/stylesheets/awesome_translations/font-awesome/font-awesome.min.css
+
 linters:
   ColorKeyword:
     enabled: false
