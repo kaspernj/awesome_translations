@@ -25,7 +25,7 @@ class AwesomeTranslations::Handlers::LibraryHandler < AwesomeTranslations::Handl
       file = erb_inspector.file(group.data[:root_path], group.data[:file_path])
 
       file.translations.each do |translation|
-        next if translation.global?
+        next unless translation.relative?
         yielder << translation.model
       end
     end

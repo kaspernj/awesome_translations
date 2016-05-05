@@ -43,7 +43,7 @@ gem 'awesome_translations'
 The t-method translates like from inside a view in Rails. To get around this, you can call 'helper_t' instead. Start by including that method in your helpers by adding this to ApplicationHelper:
 ```ruby
 module ApplicationHelper
-  include AwesomeTranslations::ApplicationHelper
+  include AwesomeTranslations::ViewsHelper
 end
 ```
 

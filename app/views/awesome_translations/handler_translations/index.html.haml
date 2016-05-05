@@ -13,12 +13,18 @@
       %th Key
       %th.hidden-sm-down Handler
       %th.hidden-xs-down Group
+      %th.hidden-md-down Finished?
+      %th.hidden-sm-down= bm_sort_link @ransack, :created_at
   %tbody
     - @handler_translations.each do |handler_translation|
       %tr
         %td= link_to handler_translation.key, [handler_translation.handler, handler_translation.group]
         %td.hidden-sm-down= link_to handler_translation.handler.name, handler_translation.handler
         %td.hidden-xs-down= link_to handler_translation.group.name, [handler_translation.handler, handler_translation.group]
+        %td.hidden-md-down= handler_translation.finished? ? "Yes" : "No"
+        %td.hidden-sm-down= l(handler_translation.created_at, format: :short)
     - if @handler_translations.empty?
       %tr
-        %td{colspan: 3} No translations
+        %td{colspan: 5} No translations
+
+= bm_paginate_content @handler_translations

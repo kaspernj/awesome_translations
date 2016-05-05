@@ -8,5 +8,6 @@ class AwesomeTranslations::HandlerTranslationsController < AwesomeTranslations::
     @handler_translations = @ransack
       .result
       .includes(:group, :handler)
+      .page(params[:page])
   end
 end
