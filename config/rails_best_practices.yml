@@ -23,7 +23,7 @@ RemoveEmptyHelpersCheck: { }
 #RemoveTabCheck: { }
 RemoveTrailingWhitespaceCheck: { }
 RemoveUnusedMethodsInControllersCheck: { except_methods: [] }
-RemoveUnusedMethodsInHelpersCheck: { except_methods: ["ApplicationHelper#helper_t"] }
+RemoveUnusedMethodsInHelpersCheck: { except_methods: ["ViewsHelper#helper_t"] }
 RemoveUnusedMethodsInModelsCheck: { except_methods: ["Translation#translated_values"] }
 ReplaceComplexCreationWithFactoryMethodCheck: { attribute_assignment_count: 2 }
 ReplaceInstanceVariableWithLocalVariableCheck: { }
