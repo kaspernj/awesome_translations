@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    awesome_translations (0.0.30)
+    awesome_translations (0.0.31)
       active-record-transactioner
       array_enumerator (~> 0.0.10)
       auto_autoloader (>= 0.0.4)
