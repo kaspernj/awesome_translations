@@ -1,13 +1,13 @@
 PATH
   remote: .
   specs:
-    awesome_translations (0.0.29)
+    awesome_translations (0.0.31)
       active-record-transactioner
       array_enumerator (~> 0.0.10)
       auto_autoloader (>= 0.0.4)
       baza (>= 0.0.21)
       baza_migrations (>= 0.0.1)
-      baza_models (>= 0.0.6)
+      baza_models (>= 0.0.7)
       bootstrap_builders (>= 0.0.5)
       coffee-rails
       haml-rails
@@ -75,7 +75,7 @@ GEM
       auto_autoloader
       baza (~> 0.0.20)
       string-cases (~> 0.0.1)
-    baza_models (0.0.6)
+    baza_models (0.0.7)
       array_enumerator (>= 0.0.10)
       auto_autoloader (>= 0.0.1)
       baza (~> 0.0.21)

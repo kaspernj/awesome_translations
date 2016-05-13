@@ -1,4 +1,4 @@
-class AwesomeTranslations::Handlers::LibraryHandler < AwesomeTranslations::Handlers::BaseHandler
+class AwesomeTranslations::Handlers::FileHandler < AwesomeTranslations::Handlers::BaseHandler
   def groups
     ArrayEnumerator.new do |yielder|
       erb_inspector.files.each do |file|
@@ -22,10 +22,13 @@ class AwesomeTranslations::Handlers::LibraryHandler < AwesomeTranslations::Handl
 
   def translations_for_group(group)
     ArrayEnumerator.new do |yielder|
-      file = erb_inspector.file(group.data[:root_path], group.data[:file_path])
+      translations_found = {}
 
+      file = erb_inspector.file(group.data.fetch(:root_path), group.data.fetch(:file_path))
       file.translations.each do |translation|
-        next if translation.global?
+        next if !translation.global? && !translation.relative?
+        next if translations_found.key?(translation.full_key)
+        translations_found[translation.full_key] = true
         yielder << translation.model
       end
     end
@@ -34,8 +37,6 @@ class AwesomeTranslations::Handlers::LibraryHandler < AwesomeTranslations::Handl
 private
 
   def erb_inspector
-    @erb_inspector ||= AwesomeTranslations::ErbInspector.new(
-      exts: [".rb", ".rake"]
-    )
+    @erb_inspector ||= AwesomeTranslations::ErbInspector.new
   end
 end

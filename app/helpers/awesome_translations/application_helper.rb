@@ -1,10 +1,9 @@
+require "baza_models"
+
 module ::AwesomeTranslations::ApplicationHelper
+  include BazaModels::Helpers::RansackerHelper
   include BootstrapBuilders::ApplicationHelper
   include SimpleFormRansackHelper
-
-  def helper_t(key, args = {})
-    AwesomeTranslations::GlobalTranslator.translate(key, helper: true, caller_number: 1, translation_args: [args])
-  end
 
   def path_without_root(path)
     path.gsub(/\A#{Regexp.escape(Rails.root.to_s)}(\/|)/, "")
