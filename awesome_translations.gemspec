@@ -33,9 +33,9 @@ Gem::Specification.new do |s|
   s.add_dependency "active-record-transactioner", ">= 0"
 
   if RUBY_ENGINE == "jruby"
-    s.add_dependency "activerecord-jdbcsqlite3-adapter"
+    s.add_development_dependency "activerecord-jdbcsqlite3-adapter"
   else
-    s.add_dependency "sqlite3"
+    s.add_development_dependency "sqlite3"
   end
 
   s.add_development_dependency "rspec-rails", "3.4.2"

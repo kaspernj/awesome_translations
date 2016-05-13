@@ -16,7 +16,6 @@ PATH
       sass-rails (>= 4.0.5)
       simple_form
       simple_form_ransack (>= 0.0.16)
-      sqlite3
       string-cases (>= 0.0.3)
 
 GEM
@@ -115,7 +114,7 @@ GEM
       execjs
       json
     colored (1.2)
-    concurrent-ruby (1.0.1)
+    concurrent-ruby (1.0.2)
     database_cleaner (1.5.1)
     datet (0.0.25)
     diff-lcs (1.2.5)
@@ -310,6 +309,7 @@ DEPENDENCIES
   rails_best_practices (>= 0.0.8)
   rspec-rails (= 3.4.2)
   rubocop (= 0.39.0)
+  sqlite3
 
 BUNDLED WITH
    1.11.2

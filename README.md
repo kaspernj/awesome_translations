@@ -7,8 +7,11 @@
 ## Install
 
 ```ruby
-gem 'awesome_translations', group: :development
+gem 'awesome_translations'
+gem 'sqlite3', group: :development
 ```
+
+AT uses SQLite3 for creating a database containing a farily large cache.
 
 Then run the following:
 ```
