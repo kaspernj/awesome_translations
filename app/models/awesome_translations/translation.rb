@@ -115,7 +115,7 @@ class AwesomeTranslations::Translation
       end
     end
 
-    raise "Could not find line #{@line_no}. Read #{count}"
+    nil
   end
 
   def to_s
