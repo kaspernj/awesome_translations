@@ -241,12 +241,10 @@ private
 
         translation_value = AwesomeTranslations::CacheDatabaseGenerator::TranslationValue.find_or_initialize_by(
           translation_key_id: translation_key.id,
-          locale: locale
+          locale: locale,
+          file_path: file_path
         )
-        translation_value.assign_attributes(
-          file_path: file_path,
-          value: value
-        )
+        translation_value.assign_attributes(value: value)
         translation_value.save!
 
         @translation_values_found[translation_value.id] = true

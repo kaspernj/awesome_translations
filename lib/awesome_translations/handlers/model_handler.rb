@@ -13,7 +13,7 @@ class AwesomeTranslations::Handlers::ModelHandler < AwesomeTranslations::Handler
   def translations_for_group(group)
     ArrayEnumerator.new do |yielder|
       model_inspector = AwesomeTranslations::ModelInspector.model_classes.find { |model_inspector| model_inspector.clazz.name == group.name }
-      raise "No inspector by that name: #{model_inspector.clazz.name}" unless model_inspector
+      raise "No inspector by that name: #{group.name}" unless model_inspector
 
       model_names(model_inspector).each { |translation| yielder << translation }
       active_record_attributes(model_inspector).each { |translation| yielder << translation }
