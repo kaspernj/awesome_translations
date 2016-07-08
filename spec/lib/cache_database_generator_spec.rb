@@ -34,7 +34,7 @@ describe AwesomeTranslations::CacheDatabaseGenerator do
 
   describe "#cache_translations" do
     it "#cache_yml_translations" do
-      cache_database_generator.cache_yml_translations
+      cache_database_generator.cache_translations
 
       translation = AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation
         .joins(:translation_key)

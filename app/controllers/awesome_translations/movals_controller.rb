@@ -6,7 +6,8 @@ class AwesomeTranslations::MovalsController < AwesomeTranslations::ApplicationCo
         INNER JOIN handler_translations ON
           handler_translations.translation_key_id = translation_values.translation_key_id
       ")
-      .where("translation_values.file_path NOT LIKE '%' || handler_translations.dir || '%'")
+      .where("translation_values.file_path NOT LIKE handler_translations.dir || '%'")
+      .group("translation_values.id")
   end
 
   def create

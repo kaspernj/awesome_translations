@@ -12,6 +12,7 @@ describe AwesomeTranslations::HandlersController do
   end
 
   it "#show" do
+    AwesomeTranslations::CacheDatabaseGenerator.current.cache_translations
     get :show, id: "model_handler"
     expect(response).to be_success
   end
@@ -23,6 +24,7 @@ describe AwesomeTranslations::HandlersController do
   end
 
   it "#update_groups_cache" do
+    AwesomeTranslations::CacheDatabaseGenerator.current.cache_translations
     request.env["HTTP_REFERER"] = handler_path("rails_handler")
     post :update_groups_cache, id: "rails_handler"
     expect(response).to redirect_to handler_path("rails_handler")

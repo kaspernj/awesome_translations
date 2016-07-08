@@ -23,6 +23,8 @@ class AwesomeTranslations::CacheDatabaseGenerator
     @initialized = true
     @db = Baza::Db.new(type: :sqlite3, path: database_path, debug: false, type_translation: true)
 
+    BazaModels.primary_db = @db
+
     AwesomeTranslations::CacheDatabaseGenerator::Group.db = @db
     AwesomeTranslations::CacheDatabaseGenerator::Group.table_name = "groups"
 
