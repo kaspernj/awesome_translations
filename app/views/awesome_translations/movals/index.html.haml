@@ -1,6 +1,8 @@
 - content_for(:header_title) { "Movals" }
 
 = simple_form_for :movals do |f|
+  - count = 0
+
   = bb_panel table: true do
     %thead
       %tr
@@ -11,12 +13,17 @@
     %tbody
       - @movals.each do |moval|
         - handler_translation = AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation.find(moval.handler_translation_id)
+        - count += 1
 
         %tr
           %td= check_box_tag "m[#{moval.id}]", handler_translation.id, true
           %td= moval.key
           %td= path_without_root_or_locales moval.file_path
           %td= path_without_root_or_locales "#{handler_translation.dir}/#{moval.locale}.yml"
+      - if count <= 0
+        %tr
+          %td{colspan: 4} No wrongly placed translations was found
 
-  = bb_panel do
-    = f.button :submit, "Move"
+  - if count > 0
+    = bb_panel do
+      = f.button :submit, "Move"
