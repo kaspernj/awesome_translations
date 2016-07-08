@@ -9,6 +9,8 @@ describe AwesomeTranslations::GroupsController do
   let(:date_time_path) { Rails.root.join("config", "locales", "awesome_translations", "date_time", "da.yml").to_s }
 
   before do
+    AwesomeTranslations::CacheDatabaseGenerator.current.cache_translations
+
     FileUtils.rm_f(model_locales_path) if File.exist?(model_locales_path)
     FileUtils.rm_f(date_time_path) if File.exist?(date_time_path)
 

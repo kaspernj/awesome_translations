@@ -23,6 +23,8 @@ class AwesomeTranslations::CacheDatabaseGenerator
     @initialized = true
     @db = Baza::Db.new(type: :sqlite3, path: database_path, debug: false, type_translation: true)
 
+    BazaModels.primary_db = @db
+
     AwesomeTranslations::CacheDatabaseGenerator::Group.db = @db
     AwesomeTranslations::CacheDatabaseGenerator::Group.table_name = "groups"
 
@@ -241,12 +243,10 @@ private
 
         translation_value = AwesomeTranslations::CacheDatabaseGenerator::TranslationValue.find_or_initialize_by(
           translation_key_id: translation_key.id,
-          locale: locale
+          locale: locale,
+          file_path: file_path
         )
-        translation_value.assign_attributes(
-          file_path: file_path,
-          value: value
-        )
+        translation_value.assign_attributes(value: value)
         translation_value.save!
 
         @translation_values_found[translation_value.id] = true

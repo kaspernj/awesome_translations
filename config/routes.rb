@@ -1,6 +1,7 @@
 AwesomeTranslations::Engine.routes.draw do
   resources :caches
   resources :clean_ups, only: [:new, :create]
+  resources :duplicates, only: [:index, :create]
 
   resources :handlers, only: [:index, :show] do
     post :update_cache, on: :collection
@@ -13,6 +14,7 @@ AwesomeTranslations::Engine.routes.draw do
 
   resources :handler_translations, only: :index
   resources :migrations, only: [:new, :create]
+  resources :movals, only: [:index, :create]
 
   root to: "handlers#index"
 end
