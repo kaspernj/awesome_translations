@@ -92,8 +92,8 @@ class AwesomeTranslations::ModelInspector
   end
 
   def self.find_subclasses(clazz, &blk)
-    return if @scanned[clazz]
-    @scanned[clazz] = true
+    return if @scanned[clazz.name]
+    @scanned[clazz.name] = true
 
     clazz.subclasses.each do |subclass|
       blk.call ::AwesomeTranslations::ModelInspector.new(subclass)

@@ -6,6 +6,7 @@ ENV["RAILS_ENV"] ||= "test"
 require_relative "dummy/config/environment"
 
 require "rspec/rails"
+require "baza_models"
 require "database_cleaner"
 require "capybara"
 require "capybara-webkit"
@@ -44,8 +45,13 @@ RSpec.configure do |config|
 
   config.before(:each) do
     Capybara.reset_sessions!
+
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.start
+
+    AwesomeTranslations::CacheDatabaseGenerator.current.init_database
+
+    BazaModels::TestDatabaseCleaner.clean
   end
 
   config.before(:each, js: true) do
@@ -58,9 +64,6 @@ RSpec.configure do |config|
 
   config.before do
     I18n.load_path.delete_if { |path| !File.exist?(path) }
-
-    generator = AwesomeTranslations::CacheDatabaseGenerator.current
-    generator.init_database
   end
 
   config.after do
