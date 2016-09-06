@@ -1,6 +1,6 @@
 class AwesomeTranslations::Handlers::SimpleFormHandler < AwesomeTranslations::Handlers::BaseHandler
   def enabled?
-    true
+    ::Object.const_defined?(:SimpleForm)
   end
 
   def groups
