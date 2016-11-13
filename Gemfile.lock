@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    awesome_translations (0.0.36)
+    awesome_translations (0.0.37)
       active-record-transactioner (>= 0.0.7)
       array_enumerator (~> 0.0.10)
       auto_autoloader (>= 0.0.4)
@@ -84,7 +84,7 @@ GEM
       string-cases (>= 0.0.3)
     best_practice_project (0.0.8)
       auto_autoloader
-    bootstrap_builders (0.0.22)
+    bootstrap_builders (0.0.27)
       html_gen (>= 0.0.13)
       rails (>= 4.0.0)
     builder (3.2.2)
@@ -115,7 +115,6 @@ GEM
       json
     colored (1.2)
     concurrent-ruby (1.0.2)
-    concurrent-ruby (1.0.2-java)
     database_cleaner (1.5.1)
     datet (0.0.25)
     diff-lcs (1.2.5)
@@ -247,7 +246,7 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.7.5)
-    ruby_parser (3.8.2)
+    ruby_parser (3.8.3)
       sexp_processor (~> 4.1)
     sass (3.4.22)
     sass-rails (5.0.6)
