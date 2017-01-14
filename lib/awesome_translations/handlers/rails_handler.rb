@@ -50,6 +50,10 @@ private
             not_an_integer: "must be an integer",
             odd: "must be odd",
             record_invalid: "Validation failed: %{errors}",
+            restrict_dependent_destroy: {
+              one: "Cannot delete record because a dependent %{record} exists",
+              other: "Cannot delete record because dependent %{record} exist"
+            },
             taken: "has already been taken",
             too_long: {
               one: "is too long (maximum is 1 character)",
