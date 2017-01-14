@@ -29,6 +29,8 @@ class AwesomeTranslations::Handlers::ValidationsHandler < AwesomeTranslations::H
             translations_for_email_validator(validator, model_inspector, attribute_name, yielder)
           elsif validator.class.name == "ActiveModel::Validations::ConfirmationValidator"
             translations_for_confirmation_validator(validator, model_inspector, attribute_name, yielder)
+          else
+            puts "Unhandeled validator: #{validator.class.name}"
           end
         end
       end
@@ -72,6 +74,7 @@ private
 
     yielder << AwesomeTranslations::Translation.new(
       key: "activerecord.attributes.#{snake_clazz_name}.#{attribute_name}_confirmation",
+      key_show: "#{snake_clazz_name}.#{attribute_name}_confirmation",
       dir: "#{Rails.root}/config/locales/awesome_translations/models/#{snake_clazz_name}"
     )
   end
@@ -81,6 +84,7 @@ private
 
     yielder << AwesomeTranslations::Translation.new(
       key: "activerecord.errors.models.#{snake_clazz_name}.attributes.#{attribute_name}.#{key}",
+      key_show: "#{attribute_name}.#{key}",
       dir: "#{Rails.root}/config/locales/awesome_translations/models/#{snake_clazz_name}"
     )
   end
