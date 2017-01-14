@@ -115,6 +115,7 @@ GEM
       json
     colored (1.2)
     concurrent-ruby (1.0.2)
+    concurrent-ruby (1.0.2-java)
     database_cleaner (1.5.1)
     datet (0.0.25)
     diff-lcs (1.2.5)
@@ -312,4 +313,4 @@ DEPENDENCIES
   sqlite3
 
 BUNDLED WITH
-   1.13.6
+   1.13.7
