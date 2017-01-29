@@ -40,12 +40,8 @@ class AwesomeTranslations::HandlersController < AwesomeTranslations::Application
       .includes(handler_translations: :translation_key)
       .order(:name)
 
-    case @ransack_values[:with_translations]
-    when "only_with"
-      @groups = @groups.select { |group| group.handler_translations.any? }
-    when "only_without"
-      @groups = @groups.select { |group| group.handler_translations.empty? }
-    end
+    filter_with_translations
+    filter_with_missing_translations
   end
 
 private
@@ -58,5 +54,31 @@ private
   helper_method :with_translations_collection
   def with_translations_collection
     {"Only with translations" => "only_with", "Only without translations" => "only_without"}
+  end
+
+  def filter_with_translations
+    case @ransack_values[:with_translations]
+    when "only_with"
+      @groups = @groups.select { |group| group.handler_translations.any? }
+    when "only_without"
+      @groups = @groups.select { |group| group.handler_translations.empty? }
+    end
+  end
+
+  def filter_with_missing_translations
+    case @ransack_values[:with_missing_translations]
+    when "only_with"
+      @groups = @groups.select { |group| group.handler_translations.to_a.any?(&:unfinished?) }
+    when "only_without"
+      @groups = @groups.select { |group| group.handler_translations.to_a.all?(&:finished?) }
+    end
+  end
+
+  helper_method :with_missing_translations_collection
+  def with_missing_translations_collection
+    {
+      "Only with missing translations" => "only_with",
+      "Only where everything is translated" => "only_without"
+    }
   end
 end

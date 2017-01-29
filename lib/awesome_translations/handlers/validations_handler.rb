@@ -30,7 +30,7 @@ class AwesomeTranslations::Handlers::ValidationsHandler < AwesomeTranslations::H
           elsif validator.class.name == "ActiveModel::Validations::ConfirmationValidator"
             translations_for_confirmation_validator(validator, model_inspector, attribute_name, yielder)
           else
-            puts "Unhandeled validator: #{validator.class.name}"
+            Rails.logger.error "Unhandeled validator: #{validator.class.name}"
           end
         end
       end

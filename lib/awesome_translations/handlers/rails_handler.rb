@@ -24,7 +24,7 @@ class AwesomeTranslations::Handlers::RailsHandler < AwesomeTranslations::Handler
 
 private
 
-  def translations_for_errors(dir, group, yielder)
+  def translations_for_errors(dir, group, yielder) # rubocop:disable Metrics/MethodLength
     add_translations_for_hash(
       dir,
       group,

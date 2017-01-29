@@ -31,26 +31,4 @@ Gem::Specification.new do |s|
   s.add_dependency "jquery-rails", ">= 0"
   s.add_dependency "auto_autoloader", ">= 0.0.4"
   s.add_dependency "active-record-transactioner", ">= 0.0.7"
-
-  if RUBY_ENGINE == "jruby"
-    s.add_development_dependency "activerecord-jdbcsqlite3-adapter"
-  else
-    s.add_development_dependency "sqlite3"
-  end
-
-  s.add_development_dependency "rspec-rails", "3.4.2"
-  s.add_development_dependency "capybara", "2.6.2"
-  s.add_development_dependency "capybara-webkit", "1.8.0"
-  s.add_development_dependency "database_cleaner", "1.5.1"
-  s.add_development_dependency "forgery", "0.6.0"
-  s.add_development_dependency "factory_girl_rails", "4.6.0"
-  s.add_development_dependency "codeclimate-test-reporter", "0.5.0"
-  s.add_development_dependency "money-rails", "1.6.0"
-  s.add_development_dependency "globalize", "5.0.1"
-  s.add_development_dependency "best_practice_project"
-  s.add_development_dependency "rubocop", "0.39.0"
-  # s.add_development_dependency "scss_lint", "0.47.1"
-  s.add_development_dependency "haml_lint", "0.17.0"
-  s.add_development_dependency "coffeelint", "1.14.0"
-  s.add_development_dependency "rails_best_practices", ">= 0.0.8"
 end
