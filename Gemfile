@@ -24,6 +24,7 @@ group :development, :test do
   gem "globalize", "5.0.1"
   gem "haml_lint", "0.17.0"
   gem "money-rails", "1.6.0"
+  gem "pry", "0.10.4"
   gem "rails_best_practices", ">= 0.0.8"
   gem "rspec-rails", "3.4.2"
   gem "rubocop", "0.39.0"
