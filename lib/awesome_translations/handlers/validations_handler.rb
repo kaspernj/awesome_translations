@@ -70,13 +70,7 @@ private
   end
 
   def translations_for_confirmation_validator(_validator, model_inspector, attribute_name, yielder)
-    snake_clazz_name = StringCases.camel_to_snake(model_inspector.clazz.name)
-
-    yielder << AwesomeTranslations::Translation.new(
-      key: "activerecord.attributes.#{snake_clazz_name}.#{attribute_name}_confirmation",
-      key_show: "#{snake_clazz_name}.#{attribute_name}_confirmation",
-      dir: "#{Rails.root}/config/locales/awesome_translations/models/#{snake_clazz_name}"
-    )
+    add_translation("confirmation", model_inspector, "#{attribute_name}_confirmation", yielder)
   end
 
   def add_translation(key, model_inspector, attribute_name, yielder)
