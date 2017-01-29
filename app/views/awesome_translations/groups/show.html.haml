@@ -28,7 +28,10 @@
             %td.line-content{colspan: 1 + I18n.available_locales.length}
               .code-container
                 - if translation.file_line_content?
-                  %pre= translation.file_line_content
+                  %pre
+                    %p{style: "font-weight: bold;"} #{translation.file_path}:#{translation.line_no}
+
+                    = translation.file_line_content
                 - elsif translation.default.present?
                   Default: #{translation.default}
       - if @translations.empty?
