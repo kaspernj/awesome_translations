@@ -295,6 +295,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-jdbcsqlite3-adapter
   awesome_translations!
   best_practice_project
   capybara (= 2.6.2)
