@@ -25,7 +25,7 @@ describe AwesomeTranslations::Handlers::ValidationsHandler do
     it "finds confirmation translations" do
       confirmation_translation = user_group.translations.find { |translation| translation.key.include? "email_confirmation" }
       expect(confirmation_translation).to_not be_blank
-      expect(confirmation_translation.key).to eq "activerecord.attributes.user.email_confirmation"
+      expect(confirmation_translation.key).to eq "activerecord.errors.models.user.attributes.email_confirmation.confirmation"
     end
   end
 end
