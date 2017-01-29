@@ -4,8 +4,11 @@
 
 = bb_panel "Filter" do
   = simple_search_form_for @ransack, url: @handler do |f|
-    = f.input :name_cont, autofocus: true
-    = f.input :with_translations, label: "With translations", collection: with_translations_collection
+    .row
+      .col-md-4= f.input :name_cont, autofocus: true
+      .col-md-4= f.input :with_translations, label: "With translations", collection: with_translations_collection
+      .col-md-4= f.input :with_missing_translations, label: "Missing translations", collection: with_missing_translations_collection
+
     = f.button :submit, "Filter", class: ["btn", "btn-primary"]
 
 = bb_panel @handler.name, table: true do

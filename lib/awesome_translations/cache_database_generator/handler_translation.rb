@@ -24,7 +24,8 @@ class AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation < BazaMode
   end
 
   def finished?
-    @finished ||= translation.finished?
+    @_finished = translation.finished? if @finished.nil?
+    @_finished
   end
 
   def unfinished?
