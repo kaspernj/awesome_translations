@@ -5,13 +5,11 @@ describe AwesomeTranslations::ModelInspector do
   let(:model_classes) { AwesomeTranslations::ModelInspector.model_classes.map(&:clazz).select { |clazz| !clazz.name.end_with?("::Translation") } }
 
   it "#model_classes" do
-    require "jquery-rails"
-
     expect(model_classes.to_a.sort { |class1, class2| class1.name <=> class2.name }).to eq [Role, User]
   end
 
   it "#engines" do
-    expected = [AwesomeTranslations::Engine, BootstrapBuilders::Engine, Haml::Rails::Engine, Jquery::Rails::Engine, MoneyRails::Engine]
+    expected = [AwesomeTranslations::Engine, BootstrapBuilders::Engine, Haml::Rails::Engine, MoneyRails::Engine]
     expect(AwesomeTranslations::ModelInspector.engines.map(&:class).sort { |class1, class2| class1.name <=> class2.name }).to eq expected
   end
 

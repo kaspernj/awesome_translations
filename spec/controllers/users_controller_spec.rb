@@ -6,8 +6,6 @@ describe UsersController do
   render_views
 
   before do
-    require "jquery-rails"
-
     I18n.locale = :en
   end
 
