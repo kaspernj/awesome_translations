@@ -1,35 +1,29 @@
-@import "bootstrap.min";
+$screen-md-max: 1199px;
+$screen-sm-max: 991px;
 
-// scss-lint:disable PlaceholderInExtend
-.hidden-lg-down {
-  @extend .hidden-lg, .hidden-md, .hidden-sm, .hidden-xs;
-}
+$screen-md-min: 992px;
+$screen-sm-min: 768px;
 
 .hidden-md-down {
-  @extend .hidden-md, .hidden-sm, .hidden-xs;
+  @media (max-width: $screen-md-max) {
+    display: none;
+  }
 }
 
 .hidden-sm-down {
-  @extend .hidden-sm, .hidden-xs;
-}
-
-.hidden-xs-down {
-  @extend .hidden-xs;
-}
-
-.hidden-lg-up {
-  @extend .hidden-lg;
+  @media (max-width: $screen-sm-max) {
+    display: none;
+  }
 }
 
 .hidden-md-up {
-  @extend .hidden-lg, .hidden-md;
+  @media (max-width: $screen-md-min) {
+    display: none;
+  }
 }
 
 .hidden-sm-up {
-  @extend .hidden-lg, .hidden-md, .hidden-sm;
+  @media (max-width: $screen-sm-min) {
+    display: none;
+  }
 }
-
-.hidden-xs-up {
-  @extend .hidden-lg, .hidden-md, .hidden-sm, .hidden-xs;
-}
-// scss-lint:enable PlaceholderInExtend
