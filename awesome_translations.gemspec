@@ -24,11 +24,9 @@ Gem::Specification.new do |s|
   s.add_dependency "bootstrap_builders", ">= 0.0.5"
   s.add_dependency "array_enumerator", "~> 0.0.10"
   s.add_dependency "haml-rails", ">= 0"
-  s.add_dependency "coffee-rails", ">= 0"
   s.add_dependency "sass-rails", ">= 4.0.5"
   s.add_dependency "simple_form", ">= 0"
   s.add_dependency "simple_form_ransack", ">= 0.0.18"
-  s.add_dependency "jquery-rails", ">= 0"
   s.add_dependency "auto_autoloader", ">= 0.0.4"
   s.add_dependency "active-record-transactioner", ">= 0.0.7"
 end
