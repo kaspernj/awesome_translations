@@ -44,6 +44,19 @@ class AwesomeTranslations::CacheDatabaseGenerator
     AwesomeTranslations::CacheDatabaseGenerator::TranslationValue.table_name = "translation_values"
   end
 
+  def init_key_cache
+    require "model_cache"
+
+    @key_cache = ModelCache.new(
+      attributes: [:id],
+      by_keys: [
+        [:key]
+      ],
+      model: AwesomeTranslations::CacheDatabaseGenerator::TranslationKey
+    )
+    @key_cache.generate
+  end
+
   def close
     @initialized = false
 
@@ -58,6 +71,8 @@ class AwesomeTranslations::CacheDatabaseGenerator
   end
 
   def cache_translations
+    init_key_cache
+
     cache_yml_translations
     cache_handler_translations
 
@@ -113,7 +128,7 @@ class AwesomeTranslations::CacheDatabaseGenerator
     handler = handler_model.at_handler
 
     handler.groups.each do |group|
-      debug "Updating group: #{group.name}"
+      debug "Updating group: #{group.name}" if @debug
       group_model = AwesomeTranslations::CacheDatabaseGenerator::Group.find_or_initialize_by(
         handler_id: handler_model.id,
         identifier: group.id
@@ -134,21 +149,17 @@ class AwesomeTranslations::CacheDatabaseGenerator
     @handler_translations_found ||= {}
 
     group.translations.each do |translation|
-      debug "Updating translation: #{translation.key}"
+      debug "Updating translation: #{translation.key}" if @debug
 
-      translation_key = AwesomeTranslations::CacheDatabaseGenerator::TranslationKey.find_or_initialize_by(key: translation.key)
-      translation_key.assign_attributes(group_id: group_model.id, handler_id: handler_model.id)
-      translation_key.save!
+      key_id = key_id_for_key(translation.key)
+      @translation_keys_found[key_id] = true
 
-      raise "KEY ERROR: #{translation_key.inspect}" unless translation_key.id.to_i > 0
-
-      @translation_keys_found[translation_key.id] = true
-
-      handler_translation = AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation.find_or_initialize_by(
-        translation_key_id: translation_key.id,
+      handler_translation ||= AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation.find_or_initialize_by(
+        translation_key_id: key_id,
         handler_id: handler_model.id,
         group_id: group_model.id
       )
+
       handler_translation.assign_attributes(
         default: translation.default,
         file_path: translation.file_path,
@@ -158,10 +169,12 @@ class AwesomeTranslations::CacheDatabaseGenerator
         dir: translation.dir
       )
 
-      if @transactioner && handler_translation.persisted?
-        @transactioner.save!(handler_translation)
-      else
-        handler_translation.save!
+      if handler_translation.changed?
+        if @transactioner && handler_translation.persisted?
+          @transactioner.save!(handler_translation)
+        else
+          handler_translation.save!
+        end
       end
 
       @handler_translations_found[handler_translation.id] = true
@@ -230,19 +243,16 @@ private
       current_key << key
 
       if value.is_a?(Hash)
-        debug "Found new hash: #{current_key.join(".")}"
+        debug "Found new hash: #{current_key.join(".")}" if @debug
         cache_translations_in_hash(file_path, locale, value, current_key)
       else
-        debug "Found new key: #{current_key.join(".")} translated to #{value}"
+        debug "Found new key: #{current_key.join(".")} translated to #{value}" if @debug
 
         key = current_key.join(".")
-
-        translation_key = AwesomeTranslations::CacheDatabaseGenerator::TranslationKey.find_or_create_by!(key: key)
-        @translation_keys_found[translation_key.id] = true
-        raise "KEY ERROR: #{translation_key.inspect}" unless translation_key.id.to_i > 0
+        key_id = key_id_for_key(key)
 
         translation_value = AwesomeTranslations::CacheDatabaseGenerator::TranslationValue.find_or_initialize_by(
-          translation_key_id: translation_key.id,
+          translation_key_id: key_id,
           locale: locale,
           file_path: file_path
         )
@@ -277,6 +287,16 @@ private
       AwesomeTranslations::CacheDatabaseGenerator::TranslationValue
         .where.not(id: @translation_values_found.keys)
         .destroy_all
+    end
+  end
+
+  def key_id_for_key(key)
+    if (data = @key_cache.data_by_key([:key], [key]))
+      data.fetch(:id)
+    else
+      translation_key = AwesomeTranslations::CacheDatabaseGenerator::TranslationKey.find_or_create_by!(key: key)
+      @key_cache.register(translation_key)
+      translation_key.id
     end
   end
 end

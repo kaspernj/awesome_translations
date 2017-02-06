@@ -3,7 +3,7 @@ class AwesomeTranslations::CachesController < AwesomeTranslations::ApplicationCo
   end
 
   def create
-    cache_db_generator = AwesomeTranslations::CacheDatabaseGenerator.new(debug: true)
+    cache_db_generator = AwesomeTranslations::CacheDatabaseGenerator.new(debug: false)
 
     if params[:cache] && params[:cache][:type] == "yml"
       cache_db_generator.cache_yml_translations
