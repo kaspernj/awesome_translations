@@ -47,6 +47,25 @@ class AwesomeTranslations::CacheDatabaseGenerator
   def init_key_cache
     require "model_cache"
 
+    @handler_translation_cache = ModelCache.new(
+      attributes: [:id],
+      cache_keys: [
+        [
+          :translation_key_id,
+          :handler_id,
+          :group_id,
+          :default,
+          :file_path,
+          :line_no,
+          :key_show,
+          :full_path,
+          :dir
+        ]
+      ],
+      model: AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation
+    )
+    @handler_translation_cache.generate
+
     @key_cache = ModelCache.new(
       attributes: [:id],
       by_keys: [
@@ -55,6 +74,20 @@ class AwesomeTranslations::CacheDatabaseGenerator
       model: AwesomeTranslations::CacheDatabaseGenerator::TranslationKey
     )
     @key_cache.generate
+
+    @translation_values_cache = ModelCache.new(
+      attributes: [:id],
+      cache_keys: [
+        [
+          :translation_key_id,
+          :locale,
+          :file_path,
+          :value
+        ]
+      ],
+      model: AwesomeTranslations::CacheDatabaseGenerator::TranslationValue
+    )
+    @translation_values_cache.generate
   end
 
   def close
@@ -154,30 +187,42 @@ class AwesomeTranslations::CacheDatabaseGenerator
       key_id = key_id_for_key(translation.key)
       @translation_keys_found[key_id] = true
 
-      handler_translation ||= AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation.find_or_initialize_by(
-        translation_key_id: key_id,
-        handler_id: handler_model.id,
-        group_id: group_model.id
+      cache_result = @handler_translation_cache.data_by_cache_key(
+        handler_translation_cache_key_name,
+        [key_id, handler_model.id, group_model.id, translation.default, translation.file_path, translation.line_no, translation.key_show, translation.full_path, translation.dir]
       )
 
-      handler_translation.assign_attributes(
-        default: translation.default,
-        file_path: translation.file_path,
-        line_no: translation.line_no,
-        key_show: translation.key_show,
-        full_path: translation.full_path,
-        dir: translation.dir
-      )
+      if cache_result
+        debug "Found handler translation through cache: #{translation.key}" if @debug
+        handler_translation_id = cache_result.fetch(:id)
+      else
+        handler_translation ||= AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation.find_or_initialize_by(
+          translation_key_id: key_id,
+          handler_id: handler_model.id,
+          group_id: group_model.id
+        )
 
-      if handler_translation.changed?
-        if @transactioner && handler_translation.persisted?
-          @transactioner.save!(handler_translation)
-        else
-          handler_translation.save!
+        handler_translation.assign_attributes(
+          default: translation.default,
+          file_path: translation.file_path,
+          line_no: translation.line_no,
+          key_show: translation.key_show,
+          full_path: translation.full_path,
+          dir: translation.dir
+        )
+
+        if handler_translation.changed?
+          if @transactioner && handler_translation.persisted?
+            @transactioner.save!(handler_translation)
+          else
+            handler_translation.save!
+          end
         end
+
+        handler_translation_id = handler_translation.id
       end
 
-      @handler_translations_found[handler_translation.id] = true
+      @handler_translations_found[handler_translation_id] = true
     end
   end
 
@@ -251,15 +296,31 @@ private
         key = current_key.join(".")
         key_id = key_id_for_key(key)
 
-        translation_value = AwesomeTranslations::CacheDatabaseGenerator::TranslationValue.find_or_initialize_by(
-          translation_key_id: key_id,
-          locale: locale,
-          file_path: file_path
+        @translation_values_cache_key_name ||= @handler_translation_cache.cache_key_name_for(
+          [:translation_key_id, :locale, :file_path, :value]
         )
-        translation_value.assign_attributes(value: value)
-        translation_value.save!
 
-        @translation_values_found[translation_value.id] = true
+        cache_result = @translation_values_cache.data_by_cache_key(
+          @translation_values_cache_key_name,
+          [key_id, locale, file_path, value]
+        )
+
+        if cache_result
+          debug "Translation value already exists according to cache" if @debug
+          translation_value_id = cache_result.fetch(:id)
+        else
+          debug "Lookup translation value" if @debug
+          translation_value = AwesomeTranslations::CacheDatabaseGenerator::TranslationValue.find_or_initialize_by(
+            translation_key_id: key_id,
+            locale: locale,
+            file_path: file_path
+          )
+          translation_value.assign_attributes(value: value)
+          translation_value.save!
+          translation_value_id = translation_value.id
+        end
+
+        @translation_values_found[translation_value_id] = true
       end
     end
   end
@@ -290,13 +351,21 @@ private
     end
   end
 
+  def handler_translation_cache_key_name
+    @_handler_translation_cache_key_name ||= @handler_translation_cache.cache_key_name_for(
+      [:translation_key_id, :handler_id, :group_id, :default, :file_path, :line_no, :key_show, :full_path, :dir]
+    )
+  end
+
   def key_id_for_key(key)
     if (data = @key_cache.data_by_key([:key], [key]))
+      debug "Found key ID by cache: #{key}" if @debug
       data.fetch(:id)
     else
       translation_key = AwesomeTranslations::CacheDatabaseGenerator::TranslationKey.find_or_create_by!(key: key)
       @key_cache.register(translation_key)
       translation_key.id
+      debug "Found key ID by lookup: #{key}" if @debug
     end
   end
 end
