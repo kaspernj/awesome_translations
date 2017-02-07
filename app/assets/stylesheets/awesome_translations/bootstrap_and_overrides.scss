@@ -1,9 +1,3 @@
-$screen-md-max: 1199px;
-$screen-sm-max: 991px;
-
-$screen-md-min: 992px;
-$screen-sm-min: 768px;
-
 .hidden-md-down {
   @media (max-width: $screen-md-max) {
     display: none;
