@@ -1,5 +1,5 @@
-/*
- *= require_self
- *= require awesome_translations/bootstrap_and_overrides
- *= require awesome_translations/groups
-*/
+@import "bootstrap";
+@import "font-awesome";
+
+@import "awesome_translations/bootstrap_and_overrides";
+@import "awesome_translations/groups";
