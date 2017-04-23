@@ -14,12 +14,20 @@ class AwesomeTranslations::ErbInspector::FileInspector
   def translations
     Enumerator.new do |yielder|
       File.open(full_path, "r") do |fp|
+        extname = File.extname(full_path)
         translations_found = []
         line_no = 0
 
+        puts "Extname: #{extname}"
+
         fp.each_line do |line|
           line_no += 1
-          parse_content(line_no, line, translations_found, yielder)
+
+          if extname == ".liquid"
+            parse_content_liquid(line_no, line, translations_found, yielder)
+          else
+            parse_content(line_no, line, translations_found, yielder)
+          end
         end
       end
     end
@@ -38,6 +46,20 @@ class AwesomeTranslations::ErbInspector::FileInspector
   end
 
 private
+
+  def parse_content_liquid(line_no, line, translations_found, yielder)
+    puts "Line: #{line}"
+
+    line.scan(/\"([^\"]+?)\"\s+\|\s+t\s*(\%}|\}\})/) do |match|
+      puts "Match: #{match.to_a}"
+      add_translation(line_no, "t", match[0], translations_found, yielder)
+    end
+
+    line.scan(/\'([^\']+?)\'\s+\|\s+t\s*(\%}|\}\})/) do |match|
+      puts "Match: #{match.to_a}"
+      add_translation(line_no, "t", match[0], translations_found, yielder)
+    end
+  end
 
   def parse_content(line_no, line, translations_found, yielder)
     METHOD_NAMES.each do |method_name|
