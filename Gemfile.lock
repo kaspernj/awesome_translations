@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    awesome_translations (0.0.40)
+    awesome_translations (0.0.41)
       active-record-transactioner (>= 0.0.7)
       array_enumerator (~> 0.0.10)
       auto_autoloader (>= 0.0.4)
@@ -61,7 +61,7 @@ GEM
     ast (2.2.0)
     auto_autoloader (0.0.4)
       string-cases
-    baza (0.0.25)
+    baza (0.0.27)
       array_enumerator (~> 0.0.10)
       auto_autoloader (~> 0.0.1)
       datet (~> 0.0.25)
@@ -82,8 +82,8 @@ GEM
       string-cases (>= 0.0.3)
     best_practice_project (0.0.8)
       auto_autoloader
-    bootstrap_builders (0.0.33)
-      html_gen (>= 0.0.13)
+    bootstrap_builders (0.0.37)
+      html_gen (>= 0.0.15)
       rails (>= 4.0.0)
     builder (3.2.2)
     capybara (2.6.2)
@@ -102,7 +102,7 @@ GEM
       simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.1)
     colored (1.2)
-    concurrent-ruby (1.0.4)
+    concurrent-ruby (1.0.5)
     database_cleaner (1.5.1)
     datet (0.0.25)
     diff-lcs (1.2.5)
@@ -115,8 +115,8 @@ GEM
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
     forgery (0.6.0)
-    globalid (0.3.7)
-      activesupport (>= 4.1.0)
+    globalid (0.4.0)
+      activesupport (>= 4.2.0)
     globalize (5.0.1)
       activemodel (>= 4.2.0, < 4.3)
       activerecord (>= 4.2.0, < 4.3)
@@ -138,7 +138,7 @@ GEM
       haml (~> 4.0.0)
       nokogiri (~> 1.6.0)
       ruby_parser (~> 3.5)
-    html_gen (0.0.13)
+    html_gen (0.0.15)
       string-cases
     i18n (0.7.0)
     json (1.8.3)
@@ -234,7 +234,7 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.7.5)
-    ruby_parser (3.8.3)
+    ruby_parser (3.8.4)
       sexp_processor (~> 4.1)
     sass (3.4.23)
     sass-rails (5.0.6)
