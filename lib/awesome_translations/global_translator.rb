@@ -5,7 +5,12 @@ class AwesomeTranslations::GlobalTranslator
     if key.is_a?(String) && key.start_with?(".")
       caller_number = args[:caller_number] || 0
 
-      call = call_information(caller_number)
+      if args[:call]
+        call = args.fetch(:call)
+      else
+        call = call_information(caller_number)
+      end
+
       previous_file = call[:path]
 
       # Remove any Rails root.
@@ -29,6 +34,8 @@ class AwesomeTranslations::GlobalTranslator
         dir = dir.gsub(/\Aapp\/controllers(\/?)/, "")
         file = file.gsub(/_controller\Z/, "")
         is_controller = true
+      elsif dir.starts_with?("app/views")
+        dir = dir.gsub(/\Aapp\/views(\/?)/, "")
       elsif dir.starts_with?("app/")
         dir = dir.gsub(/\Aapp\//, "")
       end
