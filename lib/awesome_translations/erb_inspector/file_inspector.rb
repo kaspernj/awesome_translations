@@ -18,8 +18,6 @@ class AwesomeTranslations::ErbInspector::FileInspector
         translations_found = []
         line_no = 0
 
-        puts "Extname: #{extname}"
-
         fp.each_line do |line|
           line_no += 1
 
