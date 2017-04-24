@@ -85,7 +85,7 @@ describe AwesomeTranslations::Handlers::FileHandler do
     let(:yes_translation) { translations.find { |translation| translation.key == "yes" } }
 
     it "finds the right translations" do
-      expect(translations.length).to eq 3
+      expect(translations.length).to eq 4
     end
 
     it "reads the keys right" do
@@ -96,8 +96,8 @@ describe AwesomeTranslations::Handlers::FileHandler do
       expect(yes_translation.dir).to eq "#{Rails.root}/config/locales/awesome_translations"
     end
 
-    it "doesn't detect absolute existing direct translations" do
-      expect(translations.map(&:key)).to_not include "activerecord.attributes.users.email"
+    it "detects absolute existing direct translations" do
+      expect(translations.map(&:key)).to include "activerecord.attributes.users.email"
     end
   end
 end
