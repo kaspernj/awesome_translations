@@ -47,12 +47,12 @@ class AwesomeTranslations::GlobalTranslator
   end
 
   def translation
-    if key.is_a?(String) && key.start_with?(".")
+    if @key.is_a?(String) && @key.start_with?(".")
       # Change key to full path.
-      key = translation_key
+      @key = translation_key
     end
 
-    I18n.t(key, *args[:translation_args], &blk)
+    I18n.t(@key, *args[:translation_args], &blk)
   end
 
 private
