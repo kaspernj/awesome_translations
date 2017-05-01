@@ -2,7 +2,6 @@ class AwesomeTranslations::ErbInspector::TranslationInspector
   attr_reader :dir, :file_path, :last_method, :line_no, :method, :key, :full_key, :full_path, :root_path
 
   def initialize(args)
-    @dir = args[:dir]
     @file_path = args[:file_path]
     @full_path = args[:full_path]
     @line_no = args[:line_no]
@@ -13,8 +12,8 @@ class AwesomeTranslations::ErbInspector::TranslationInspector
 
     @full_path = "#{@root_path}/#{@file_path}"
 
-    generate_dir
     generate_full_key
+    generate_dir
   end
 
   def model
@@ -91,12 +90,11 @@ private
   end
 
   def generate_dir
-    if @key.start_with?(".")
-      file_base_name = File.basename(@file_path).match(/\A(.+?)\./)[1]
+    parts = %w(config locales awesome_translations)
 
-      @dir = Rails.root.join("config", "locales", "awesome_translations", File.dirname(@file_path), file_base_name).to_s
-    else
-      @dir = Rails.root.join("config", "locales", "awesome_translations").to_s
-    end
+    key_parts = @full_key.split(".").reject(&:blank?)
+    key_parts.pop
+
+    @dir = Rails.root.join(*(parts + key_parts)).to_s
   end
 end
