@@ -36,7 +36,7 @@ describe AwesomeTranslations::Handlers::FileHandler do
 
     it "sets the correct translation path" do
       danish_translation = layout_translations.find { |t| t.key == "layouts.application.danish" }
-      expect(danish_translation.dir).to eq "#{Rails.root}/config/locales/awesome_translations/app/views/layouts/application"
+      expect(danish_translation.dir).to eq "#{Rails.root}/config/locales/awesome_translations/layouts/application"
     end
   end
 
@@ -53,7 +53,7 @@ describe AwesomeTranslations::Handlers::FileHandler do
     it "finds translations made with the t method" do
       expect(admin_translation).to_not eq nil
       expect(admin_translation.key).to eq "models.role.administrator"
-      expect(admin_translation.dir).to end_with "spec/dummy/config/locales/awesome_translations/app/models/role"
+      expect(admin_translation.dir).to end_with "spec/dummy/config/locales/awesome_translations/models/role"
     end
 
     it "generates keys with method-name for mailers" do
@@ -75,7 +75,7 @@ describe AwesomeTranslations::Handlers::FileHandler do
     it "finds translations with the controller_t-method" do
       expect(update_saved_translation).to_not eq nil
       expect(update_saved_translation.key).to eq "users.user_was_updated"
-      expect(update_saved_translation.dir).to end_with "spec/dummy/config/locales/awesome_translations/app/controllers/users_controller"
+      expect(update_saved_translation.dir).to end_with "spec/dummy/config/locales/awesome_translations/users"
     end
   end
 

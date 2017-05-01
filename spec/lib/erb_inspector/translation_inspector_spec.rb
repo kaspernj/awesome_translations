@@ -27,7 +27,7 @@ describe AwesomeTranslations::ErbInspector::TranslationInspector do
     expect(hello_world_translation.full_path).to eq Rails.root.join("app", "views", "users", "index.html.haml").to_s
   end
 
-  it '#dir' do
-    expect(user_was_created_translation.dir).to end_with "spec/dummy/config/locales/awesome_translations/app/controllers/users_controller"
+  it "#dir" do
+    expect(user_was_created_translation.dir).to end_with "spec/dummy/config/locales/awesome_translations/users/create"
   end
 end
