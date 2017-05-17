@@ -22,8 +22,6 @@ describe AwesomeTranslations::ErbInspector::FileInspector do
     it "finds liquid translations" do
       translation_keys = user_edit_inspector.translations.map(&:key)
 
-      puts "TranslationKeys: #{translation_keys}"
-
       expect(translation_keys).to include ".edit_user"
       expect(translation_keys).to include ".test_for_liquid_templates"
       expect(translation_keys).to include ".test_for_liquid_templates_with_var_double_quotes"
