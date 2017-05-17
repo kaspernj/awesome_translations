@@ -53,6 +53,14 @@ private
     line.scan(/\'([^\']+?)\'\s+\|\s+t\s*(\%}|\}\})/) do |match|
       add_translation(line_no, "t", match[0], translations_found, yielder)
     end
+
+    line.scan(/\"([^\"]+?)\"\s+\|\s+val:\s*\"([^\"]+?)\"\s*,\s*(.+?)\s*\|\s+t\s*/) do |match|
+      add_translation(line_no, "t", match[0], translations_found, yielder)
+    end
+
+    line.scan(/'([^\"]+?)'\s+\|\s+val:\s*'([^\"]+?)'\s*,\s*(.+?)\s*\|\s+t\s*/) do |match|
+      add_translation(line_no, "t", match[0], translations_found, yielder)
+    end
   end
 
   def parse_content(line_no, line, translations_found, yielder)
