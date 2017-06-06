@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", ">= 3.0.0"
   s.add_dependency "string-cases", ">= 0.0.3"
   s.add_dependency "baza", ">= 0.0.21"
-  s.add_dependency "baza_models", ">= 0.0.9"
+  s.add_dependency "baza_models", ">= 0.0.10"
   s.add_dependency "baza_migrations", ">= 0.0.1"
   s.add_dependency "bootstrap-sass", ">= 3.0.0"
   s.add_dependency "bootstrap_builders", ">= 0.0.5"
