@@ -26,6 +26,8 @@ describe AwesomeTranslations::ErbInspector::FileInspector do
       expect(translation_keys).to include ".test_for_liquid_templates"
       expect(translation_keys).to include ".test_for_liquid_templates_with_var_double_quotes"
       expect(translation_keys).to include ".test_for_liquid_templates_with_var_single_quotes"
+      expect(translation_keys).to include ".test_for_liquid_templates_with_escape"
+      expect(translation_keys).to include ".test_for_liquid_templates_with_var_escape"
     end
   end
 end

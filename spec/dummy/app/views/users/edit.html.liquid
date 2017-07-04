@@ -1,5 +1,7 @@
 <h1>{{ ".edit_user" | t }}</h1>
 
 {{ '.test_for_liquid_templates' | t }}
+{{ ".test_for_liquid_templates_with_escape" | t | escape }}
+{{ ".test_for_liquid_templates_with_var_escape" | val: "something", something | t | escape }}
 {{ ".test_for_liquid_templates_with_var_double_quotes" | val: "something", something | t }}
 {{ '.test_for_liquid_templates_with_var_single_quotes' | val: 'something', something | t }}

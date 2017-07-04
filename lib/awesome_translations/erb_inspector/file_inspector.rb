@@ -46,11 +46,11 @@ class AwesomeTranslations::ErbInspector::FileInspector
 private
 
   def parse_content_liquid(line_no, line, translations_found, yielder)
-    line.scan(/\"([^\"]+?)\"\s+\|\s+t\s*(\%}|\}\})/) do |match|
+    line.scan(/\"([^\"]+?)\"\s+\|\s+t\s*(\%}|\}\}|\|)/) do |match|
       add_translation(line_no, "t", match[0], translations_found, yielder)
     end
 
-    line.scan(/\'([^\']+?)\'\s+\|\s+t\s*(\%}|\}\})/) do |match|
+    line.scan(/\'([^\']+?)\'\s+\|\s+t\s*(\%}|\}\}|\|)/) do |match|
       add_translation(line_no, "t", match[0], translations_found, yielder)
     end
 
