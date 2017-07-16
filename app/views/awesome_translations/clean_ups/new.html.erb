@@ -1,30 +1,40 @@
 <% content_for(:header_title) { "Clean Up" } %>
 <%= form_for :clean_ups, url: clean_ups_path do |f| %>
-  <%= bb_panel "Clean Up", table: true do %>
-    <thead>
-      <th colspan="2">Key</th>
-      <th>File</th>
-    </thead>
-    <tbody>
-      <% translations_to_clean_up.each do |translation| %>
-        <tr class="translation-value" data-id="<%= translation.id %>">}
-          <td>
-            <%= check_box_tag("c[#{translation.id}]", 1, true) %>
-          </td>
-          <td>
-            <%= translation.key %>
-          </td>
-          <td>
-            <%= path_without_root_or_locales(translation.file_path) %>
-          </td>
-        </tr>
-      <% end %>
-      <% if translations_to_clean_up.empty? %>
-        <tr>
-          <td colspan="3">No translations were found</td>
-        </tr>
-      <% end %>
-    </tbody>
-  <% end %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">
+        Clean Up
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-hover table-striped">
+        <thead>
+          <th colspan="2">Key</th>
+          <th>File</th>
+        </thead>
+        <tbody>
+          <% translations_to_clean_up.each do |translation| %>
+            <tr class="translation-value" data-id="<%= translation.id %>">}
+              <td>
+                <%= check_box_tag("c[#{translation.id}]", 1, true) %>
+              </td>
+              <td>
+                <%= translation.key %>
+              </td>
+              <td>
+                <%= path_without_root_or_locales(translation.file_path) %>
+              </td>
+            </tr>
+          <% end %>
+          <% if translations_to_clean_up.empty? %>
+            <tr>
+              <td colspan="3">No translations were found</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
   <%= f.submit "Delete", class: ["btn", "btn-danger"] %>
 <% end %>

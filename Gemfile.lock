@@ -8,7 +8,6 @@ PATH
       baza (>= 0.0.21)
       baza_migrations (>= 0.0.1)
       baza_models (>= 0.0.10)
-      bootstrap_builders (>= 0.0.5)
       rails (>= 3.0.0)
       sass-rails (>= 4.0.5)
       simple_form
@@ -86,9 +85,6 @@ GEM
       string-cases (>= 0.0.3)
     best_practice_project (0.0.8)
       auto_autoloader
-    bootstrap_builders (0.0.43)
-      html_gen (>= 0.0.15)
-      rails (>= 4.0.0)
     builder (3.2.2)
     capybara (2.6.2)
       addressable

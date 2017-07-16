@@ -1,44 +1,53 @@
 <% content_for(:header_title) { "Movals" } %>
+
 <%= simple_form_for :movals do |f| %>
   <% count = 0 %>
-  <%= bb_panel table: true do %>
-    <thead>
-      <tr>
-        <th></th>
-        <th>Key</th>
-        <th>Path</th>
-        <th>Right path</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @movals.each do |moval| %>
-        <% handler_translation = AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation.find(moval.handler_translation_id) %>
-        <% count += 1 %>
-        <tr>
-          <td>
-            <%= check_box_tag "m[#{moval.id}]", handler_translation.id, true %>
-          </td>
-          <td>
-            <%= moval.key %>
-          </td>
-          <td>
-            <%= path_without_root_or_locales moval.file_path %>
-          </td>
-          <td>
-            <%= path_without_root_or_locales "#{handler_translation.dir}/#{moval.locale}.yml" %>
-          </td>
-        </tr>
-      <% end %>
-      <% if count <= 0 %>
-        <tr>
-          <td colspan="4">No wrongly placed translations was found</td>
-        </tr>
-      <% end %>
-    </tbody>
-  <% end %>
+
+  <div class="panel panel-default">
+    <div class="table-responsive">
+      <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Key</th>
+            <th>Path</th>
+            <th>Right path</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @movals.each do |moval| %>
+            <% handler_translation = AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation.find(moval.handler_translation_id) %>
+            <% count += 1 %>
+            <tr>
+              <td>
+                <%= check_box_tag "m[#{moval.id}]", handler_translation.id, true %>
+              </td>
+              <td>
+                <%= moval.key %>
+              </td>
+              <td>
+                <%= path_without_root_or_locales moval.file_path %>
+              </td>
+              <td>
+                <%= path_without_root_or_locales "#{handler_translation.dir}/#{moval.locale}.yml" %>
+              </td>
+            </tr>
+          <% end %>
+          <% if count <= 0 %>
+            <tr>
+              <td colspan="4">No wrongly placed translations was found</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
   <% if count > 0 %>
-    <%= bb_panel do %>
-      <%= f.button :submit, "Move" %>
-    <% end %>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <%= f.button :submit, "Move" %>
+      </div>
+    </div>
   <% end %>
 <% end %>

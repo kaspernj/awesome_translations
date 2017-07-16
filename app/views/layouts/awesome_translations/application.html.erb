@@ -74,7 +74,16 @@
           <% end %>
         </div>
       <% end %>
-      <%= bb_flash %>
+
+      <% flash.each do |type, message| %>
+        <% next if message.blank? %>
+
+        <div class="alert alert-<%= flash_message_class(type) %>">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <%= message %>
+        </div>
+      <% end %>
+
       <%= yield %>
     </div>
   </body>

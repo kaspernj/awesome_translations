@@ -5,6 +5,14 @@ module ::AwesomeTranslations::ApplicationHelper
   include BootstrapBuilders::ApplicationHelper
   include SimpleFormRansackHelper
 
+  def flash_message_class(type)
+    type = type.to_s
+    type = "success" if type == "notice"
+    type = "danger" if type == "alert"
+    type = "danger" if type == "error"
+    type
+  end
+
   def path_without_root(path)
     path.gsub(/\A#{Regexp.escape(Rails.root.to_s)}(\/|)/, "")
   end

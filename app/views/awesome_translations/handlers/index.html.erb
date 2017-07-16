@@ -1,27 +1,43 @@
 <% content_for(:header_title) { "Handlers" } %>
-<% content_for(:header_right) { bb_btn update_cache_handlers_path, "Update", method: :post, sm: true, icon: "refresh", data: {confirm: "Are you sure?"} } %>
-<%= bb_panel "Handlers", table: true do %>
-  <thead>
-    <tr>
-      <th>Handler</th>
-      <th class="hidden-xs">Translations</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @handlers.each do |handler| %>
-      <tr>
-        <td>
-          <%= link_to handler.name, handler_path(handler) %>
-        </td>
-        <td class="hidden-xs">
-          <%= handler.handler_translations.length %>
-        </td>
-      </tr>
-    <% end %>
-    <% if @handlers.empty? %>
-      <tr>
-        <td class="error" colspan="2">No handlers were found.</td>
-      </tr>
-    <% end %>
-  </tbody>
+
+<% content_for(:header_right) do %>
+  <%= link_to update_cache_handlers_path, class: "btn btn-default btn-sm", method: :post, data: {confirm: "Are you sure?"} do %>
+    <i class="fa fa-refresh"></i>
+    Update
+  <% end %>
 <% end %>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title">
+      Handlers
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th>Handler</th>
+          <th class="hidden-xs">Translations</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @handlers.each do |handler| %>
+          <tr>
+            <td>
+              <%= link_to handler.name, handler_path(handler) %>
+            </td>
+            <td class="hidden-xs">
+              <%= handler.handler_translations.length %>
+            </td>
+          </tr>
+        <% end %>
+        <% if @handlers.empty? %>
+          <tr>
+            <td class="error" colspan="2">No handlers were found.</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </div>
+  </div>
+</div>
