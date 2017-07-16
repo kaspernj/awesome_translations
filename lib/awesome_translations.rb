@@ -1,8 +1,5 @@
 require "array_enumerator"
 require "auto_autoloader"
-require "bootstrap-sass"
-require "font-awesome-rails"
-require "jquery-rails"
 require "string-cases"
 require_relative "awesome_translations/engine"
 

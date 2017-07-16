@@ -1,0 +1,44 @@
+<% content_for(:header_title) { "Duplicates" } %>
+<%= simple_form_for :duplicates do |f| %>
+  <% count = 0 %>
+  <%= bb_panel table: true do %>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Key</th>
+        <th>Path</th>
+        <th>Other path</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @duplicates.each do |duplicate| %>
+        <% count += 1 %>
+        <% other = AwesomeTranslations::CacheDatabaseGenerator::TranslationValue.find(duplicate.duplicate_id) %>
+        <tr>
+          <td>
+            <%= check_box_tag "d[#{other.id}]", 1, true %>
+          </td>
+          <td>
+            <%= duplicate.key %>
+          </td>
+          <td>
+            <%= path_without_root_or_locales duplicate.file_path %>
+          </td>
+          <td>
+            <%= path_without_root_or_locales other.file_path %>
+          </td>
+        </tr>
+      <% end %>
+      <% if count == 0 %>
+        <tr>
+          <td colspan="4">No duplicates was found</td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% end %>
+  <% if count > 0 %>
+    <%= bb_panel do %>
+      <%= f.button :submit, "Delete duplicates" %>
+    <% end %>
+  <% end %>
+<% end %>

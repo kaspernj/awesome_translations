@@ -9,7 +9,6 @@ require "sprockets/railtie"
 
 Bundler.require(*Rails.groups)
 
-require "haml"
 require "money-rails"
 require "awesome_translations"
 

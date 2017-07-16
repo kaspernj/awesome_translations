@@ -1,0 +1,51 @@
+<% content_for(:header_title) { "Show handler: #{@handler.name}" } %>
+<% content_for(:header_right) do %>
+  <%= bb_btn [:update_groups_cache, @handler], "Update groups", method: :post, sm: true, icon: "refresh", data: {confirm: "Are you sure?"} %>
+<% end %>
+<%= bb_panel "Filter" do %>
+  <%= simple_search_form_for @ransack, url: @handler do |f| %>
+    <div class="row">
+      <div class="col-md-4">
+        <%= f.input :name_cont, autofocus: true %>
+      </div>
+      <div class="col-md-4">
+        <%= f.input :with_translations, label: "With translations", collection: with_translations_collection %>
+      </div>
+      <div class="col-md-4">
+        <%= f.input :with_missing_translations, label: "Missing translations", collection: with_missing_translations_collection %>
+      </div>
+    </div>
+    <%= f.button :submit, "Filter", class: ["btn", "btn-primary"] %>
+  <% end %>
+<% end %>
+<%= bb_panel @handler.name, table: true do %>
+  <thead>
+    <th>Group</th>
+    <th class="text-right">Translations</th>
+    <th class="text-right hidden-xs">Finished</th>
+    <th class="text-right hidden-md hidden-sm hidden-xs">Unfinished</th>
+  </thead>
+  <tbody>
+    <% @groups.each do |group| %>
+      <tr>
+        <td>
+          <%= link_to group.name, handler_group_path(@handler, group) %>
+        </td>
+        <td class="text-right">
+          <%= group.handler_translations.count %>
+        </td>
+        <td class="text-right hidden-xs">
+          <%= group.handler_translations.select(&:finished?).length %>
+        </td>
+        <td class="text-right hidden-md hidden-sm hidden-xs">
+          <%= group.handler_translations.select(&:unfinished?).length %>
+        </td>
+      </tr>
+    <% end %>
+    <% if @groups.empty? %>
+      <tr>
+        <td class="error" colspan="4">No groups were found.</td>
+      </tr>
+    <% end %>
+  </tbody>
+<% end %>

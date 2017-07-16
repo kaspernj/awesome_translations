@@ -1,5 +1,4 @@
 require "bootstrap_builders"
-require "haml-rails"
 require "sass-rails"
 require "simple_form"
 require "simple_form_ransack"

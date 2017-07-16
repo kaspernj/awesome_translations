@@ -1,0 +1,47 @@
+<% content_for(:header_title) { "Translations" } %>
+<%= bb_panel "Filter" do %>
+  <%= simple_search_form_for @ransack do |f| %>
+    <%= f.input :translation_key_key_cont, label: "Key", autofocus: true %>
+    <%= f.input :handler_name_cont %>
+    <%= f.input :group_name_cont %>
+    <%= f.button :submit, "Filter", class: ["btn", "btn-primary"] %>
+  <% end %>
+<% end %>
+<%= bb_panel "Translations", table: true do %>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th class="hidden-sm hidden-xs">Handler</th>
+      <th class="hidden-xs">Group</th>
+      <th class="hidden-md hidden-sm hidden-xs">Finished?</th>
+      <th class="hidden-sm hidden-xs">
+        <%= bm_sort_link @ransack, :created_at %>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @handler_translations.each do |handler_translation| %>
+      <tr>
+        <td>
+          <%= link_to handler_translation.key, [handler_translation.handler, handler_translation.group] %>
+        </td>
+        <td class="hidden-sm hidden-xs">
+          <%= link_to handler_translation.handler.name, handler_translation.handler %>
+        </td>
+        <td class="hidden-xs">
+          <%= link_to handler_translation.group.name, [handler_translation.handler, handler_translation.group] %>
+        </td>
+        <tdhidden>-md.hidden-sm.hidden-xs= handler_translation.finished? ? "Yes" : "No"</tdhidden>
+        <td class="hidden-sm hidden-xs">
+          <%= l(handler_translation.created_at, format: :short) %>
+        </td>
+      </tr>
+    <% end %>
+    <% if @handler_translations.empty? %>
+      <tr>
+        <td colspan="5">No translations</td>
+      </tr>
+    <% end %>
+  </tbody>
+<% end %>
+<%= bm_paginate_content @handler_translations %>

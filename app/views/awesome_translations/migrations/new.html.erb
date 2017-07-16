@@ -1,0 +1,36 @@
+<% content_for(:header_title) { "Migrate translations into AwesomeTranslations" } %>
+<%= form_for :migration, url: migrations_path do |f| %>
+  <%= bb_panel "Migrate", table: true do %>
+    <thead>
+      <tr>
+        <th colspan="2">Key</th>
+        <th>File</th>
+        <th>New file</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% translations_to_migrate.each do |translation| %>
+        <tr>
+          <td>
+            <%= check_box_tag("m[#{translation.id}]", 1, true) %>
+          </td>
+          <td>
+            <%= translation.key %>
+          </td>
+          <td>
+            <%= path_without_root_or_locales(translation.file_path) %>
+          </td>
+          <td>
+            <%= path_without_root_or_locales(translation.calculated_translation_file_path) %>
+          </td>
+        </tr>
+      <% end %>
+      <% if translations_to_migrate.empty? %>
+        <tr>
+          <td colspan="4">No translations were found</td>
+        </tr>
+      <% end %>
+    </tbody>
+  <% end %>
+  <%= f.submit "Migrate", class: ["btn", "btn-danger"] %>
+<% end %>
