@@ -47,7 +47,9 @@
             <td class="hidden-xs">
               <%= link_to handler_translation.group.name, [handler_translation.handler, handler_translation.group] %>
             </td>
-            <tdhidden>-md.hidden-sm.hidden-xs= handler_translation.finished? ? "Yes" : "No"</tdhidden>
+            <td class="hidden-md hidden-sm hidden-xs">
+              <%= handler_translation.finished? ? "Yes" : "No" %>
+            </td>
             <td class="hidden-sm hidden-xs">
               <%= l(handler_translation.created_at, format: :short) %>
             </td>
