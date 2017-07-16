@@ -1,0 +1,16 @@
+%h1= User.model_name.human(count: 2)
+
+.hello-world-i18n= t(".hello_world")
+
+%h2= t(".list_of_users")
+%table
+  %thead
+    %tr
+      %th= User.human_attribute_name(:id)
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= link_to user.id, user_path(user)
+    - unless @users.any?
+      %tr
+        %td{colspan: 1}= t(".no_users_was_found")

@@ -16,7 +16,7 @@ describe AwesomeTranslations::ErbInspector do
     end
 
     it "should find haml-files" do
-      expect(file_paths).to include "app/views/users/index.html.erb"
+      expect(file_paths).to include "app/views/users/index.html.haml"
     end
 
     it "should find erb-files" do

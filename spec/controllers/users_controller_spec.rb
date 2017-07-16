@@ -9,13 +9,6 @@ describe UsersController do
     I18n.locale = :en
   end
 
-  it "#index" do
-    user
-    get :index
-    expect(response).to be_success
-    expect(assigns(:users)).to include user
-  end
-
   it "#update" do
     patch :update, id: user.id, user: {email: "newemail@example.com"}
     expect(response).to redirect_to user_url(user)
