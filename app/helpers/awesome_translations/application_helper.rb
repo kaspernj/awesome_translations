@@ -2,7 +2,6 @@ require "baza_models"
 
 module ::AwesomeTranslations::ApplicationHelper
   include BazaModels::Helpers::RansackerHelper
-  include BootstrapBuilders::ApplicationHelper
   include SimpleFormRansackHelper
 
   def flash_message_class(type)
