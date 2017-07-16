@@ -1,0 +1,4 @@
+<h1>Cache</h1>
+
+<%= link_to "Update cache", caches_path, method: :post, class: "btn btn-primary", data: {confirm: "Are you sure?"} %>
+<%= link_to "Update YML cache", caches_path(cache: {type: "yml"}), class: "btn btn-default", method: :post, data: {confirm: "Are you sure?"} %>

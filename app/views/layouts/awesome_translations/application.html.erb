@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <meta charset="utf-8"/>
+    <meta content="IE=Edge,chrome=1" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>
+      <%= content_for?(:header_title) ? content_for(:header_title) : "AwesomeTranslations" %>
+    </title>
+    <%= csrf_meta_tags %>
+    <%= favicon_link_tag %>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <%= stylesheet_link_tag "awesome_translations/application", media: "all" %>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ujs/1.2.2/rails.min.js" integrity="sha256-BbyWhCn0G+F6xbWJ2pcI5LnnpsnpSzyjJNVtl7ABp+M=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+    <%= javascript_include_tag "awesome_translations/application" %>
+
+    <%= content_for(:header_script) %>
+  </head>
+  <body class="<%= ["controller-#{controller_name}", "action-#{action_name}"] %>">
+    <div class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <button class="navbar-toggle" data-target=".navbar-responsive-collapse" data-toggle="collapse" type="button">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <%= link_to "Awesome Translations", "/awesome_translations", class: "navbar-brand" %>
+        <div class="navbar-collapse collapse navbar-responsive-collapse">
+          <ul class="nav navbar-nav">
+            <li>
+              <%= link_to "Handlers", handlers_path %>
+            </li>
+            <li>
+              <%= link_to "Translations", handler_translations_path %>
+            </li>
+            <li>
+              <%= link_to "Clean Up", new_clean_up_path %>
+            </li>
+            <li>
+              <%= link_to "Duplicates", duplicates_path %>
+            </li>
+            <li>
+              <%= link_to "Migrate", new_migration_path %>
+            </li>
+            <li>
+              <%= link_to "Movals", movals_path %>
+            </li>
+            <li>
+              <%= link_to "Cache", caches_path %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <% if content_for?(:header_title) %>
+        <div class="row">
+          <div class="col-md-9">
+            <h1>
+              <%= content_for(:header_title) %>
+            </h1>
+          </div>
+          <% if content_for?(:header_right) %>
+            <div class="col-md-3">
+              <div class="pull-right">
+                <%= content_for(:header_right) %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+
+      <% flash.each do |type, message| %>
+        <% next if message.blank? %>
+
+        <div class="alert alert-<%= flash_message_class(type) %>">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <%= message %>
+        </div>
+      <% end %>
+
+      <%= yield %>
+    </div>
+  </body>
+</html>

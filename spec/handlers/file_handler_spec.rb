@@ -6,8 +6,8 @@ describe AwesomeTranslations::Handlers::FileHandler do
   describe "erb stuff" do
     let(:users_index_group) { handler.groups.find { |group| group.name == "app/views/users/index.html.haml" } }
     let(:users_index_translations) { users_index_group.translations }
-    let(:users_partial_test_translations) { handler.groups.find { |group| group.name == "app/views/users/_partial_test.html.haml" }.translations }
-    let(:layout_group) { handler.groups.find { |group| group.name == "app/views/layouts/application.html.haml" } }
+    let(:users_partial_test_translations) { handler.groups.find { |group| group.name == "app/views/users/_partial_test.html.erb" }.translations }
+    let(:layout_group) { handler.groups.find { |group| group.name == "app/views/layouts/application.html.erb" } }
     let(:layout_translations) { layout_group.translations }
 
     it "finds translations made with the t method" do

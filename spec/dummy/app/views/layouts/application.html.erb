@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dummy</title>
+    <%= stylesheet_link_tag "application", media: "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div class="awesome-translations">
+      <%= link_to t(".awesome_translations"), try(:awesome_translations_path) %>
+    </div>
+    <div class="language">
+      <%= link_to t(".english"), locales_path(locale: :en), method: :post %>
+      <%= link_to t(".danish"), locales_path(locale: :da), method: :post %>
+    </div>
+    <div class="current-language">
+      <%= t(".the_current_language_is", locale: I18n.locale) %>
+    </div>
+    <%= t(".hello_world") %>
+    <%= t(".hello_world") %>
+    <div class="helper_hello_world">
+      Hello world from helper
+      <%= hello_world %>
+    </div>
+    <%= yield %>
+  </body>
+</html>
