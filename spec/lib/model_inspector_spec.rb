@@ -9,7 +9,7 @@ describe AwesomeTranslations::ModelInspector do
   end
 
   it "#engines" do
-    expected = [AwesomeTranslations::Engine, BootstrapBuilders::Engine, MoneyRails::Engine]
+    expected = [AwesomeTranslations::Engine, MoneyRails::Engine]
     expect(AwesomeTranslations::ModelInspector.engines.map(&:class).sort { |class1, class2| class1.name <=> class2.name }).to eq expected
   end
 
