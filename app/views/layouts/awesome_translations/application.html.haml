@@ -1,48 +1,73 @@
-!!! 5
-%html{lang: I18n.locale}
-  %head
-    %meta{charset: "utf-8"}
-    %meta{content: "IE=Edge,chrome=1", http: {equiv: "X-UA-Compatible"}}
-    %meta{name: "viewport", content: "width=device-width, initial-scale=1.0"}
-
-    %title= content_for?(:header_title) ? content_for(:header_title) : "AwesomeTranslations"
-
-    = csrf_meta_tags
-    = favicon_link_tag
-
-    = stylesheet_link_tag "awesome_translations/application", media: "all"
-    = javascript_include_tag "awesome_translations/application"
-
-    = content_for(:header_script)
-
-  %body{class: ["controller-#{controller_name}", "action-#{action_name}"]}
-    .navbar.navbar-default.navbar-static-top
-      .container
-        %button.navbar-toggle{type: "button", data: {toggle: "collapse", target: ".navbar-responsive-collapse"}}
-          %span.icon-bar
-          %span.icon-bar
-          %span.icon-bar
-
-        = link_to "Awesome Translations", "/awesome_translations", class: "navbar-brand"
-
-        .navbar-collapse.collapse.navbar-responsive-collapse
-          %ul.nav.navbar-nav
-            %li= link_to "Handlers", handlers_path
-            %li= link_to "Translations", handler_translations_path
-            %li= link_to "Clean Up", new_clean_up_path
-            %li= link_to "Duplicates", duplicates_path
-            %li= link_to "Migrate", new_migration_path
-            %li= link_to "Movals", movals_path
-            %li= link_to "Cache", caches_path
-
-    .container
-      - if content_for?(:header_title)
-        .row
-          .col-md-9
-            %h1= content_for(:header_title)
-          - if content_for?(:header_right)
-            .col-md-3
-              .pull-right
-                = content_for(:header_right)
-      = bb_flash
-      = yield
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <meta charset="utf-8"/>
+    <meta content="IE=Edge,chrome=1" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>
+      <%= content_for?(:header_title) ? content_for(:header_title) : "AwesomeTranslations" %>
+    </title>
+    <%= csrf_meta_tags %>
+    <%= favicon_link_tag %>
+    <%= stylesheet_link_tag "awesome_translations/application", media: "all" %>
+    <%= javascript_include_tag "awesome_translations/application" %>
+    <%= content_for(:header_script) %>
+  </head>
+  <body class="<%= ["controller-#{controller_name}", "action-#{action_name}"] %>">
+    <div class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <button class="navbar-toggle" data-target=".navbar-responsive-collapse" data-toggle="collapse" type="button">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <%= link_to "Awesome Translations", "/awesome_translations", class: "navbar-brand" %>
+        <div class="navbar-collapse collapse navbar-responsive-collapse">
+          <ul class="nav navbar-nav">
+            <li>
+              <%= link_to "Handlers", handlers_path %>
+            </li>
+            <li>
+              <%= link_to "Translations", handler_translations_path %>
+            </li>
+            <li>
+              <%= link_to "Clean Up", new_clean_up_path %>
+            </li>
+            <li>
+              <%= link_to "Duplicates", duplicates_path %>
+            </li>
+            <li>
+              <%= link_to "Migrate", new_migration_path %>
+            </li>
+            <li>
+              <%= link_to "Movals", movals_path %>
+            </li>
+            <li>
+              <%= link_to "Cache", caches_path %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <% if content_for?(:header_title) %>
+        <div class="row">
+          <div class="col-md-9">
+            <h1>
+              <%= content_for(:header_title) %>
+            </h1>
+          </div>
+          <% if content_for?(:header_right) %>
+            <div class="col-md-3">
+              <div class="pull-right">
+                <%= content_for(:header_right) %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <%= bb_flash %>
+      <%= yield %>
+    </div>
+  </body>
+</html>
