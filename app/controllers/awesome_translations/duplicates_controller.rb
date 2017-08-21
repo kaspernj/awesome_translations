@@ -24,6 +24,6 @@ class AwesomeTranslations::DuplicatesController < AwesomeTranslations::Applicati
       translation_value.destroy!
     end
 
-    redirect_to :back
+    redirect_back(fallback_location: :root)
   end
 end
