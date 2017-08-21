@@ -8,7 +8,6 @@
       <%= content_for?(:header_title) ? content_for(:header_title) : "AwesomeTranslations" %>
     </title>
     <%= csrf_meta_tags %>
-    <%= favicon_link_tag %>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
@@ -21,7 +20,7 @@
 
     <%= content_for(:header_script) %>
   </head>
-  <body class="<%= ["controller-#{controller_name}", "action-#{action_name}"] %>">
+  <body class="controller-<%= controller_name %> action-<%= action_name %>">
     <div class="navbar navbar-default navbar-static-top">
       <div class="container">
         <button class="navbar-toggle" data-target=".navbar-responsive-collapse" data-toggle="collapse" type="button">
@@ -29,7 +28,9 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
+
         <%= link_to "Awesome Translations", "/awesome_translations", class: "navbar-brand" %>
+
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
             <li>
