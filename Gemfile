@@ -20,11 +20,11 @@ group :development, :test do
   gem "database_cleaner", "1.5.1"
   gem "factory_girl_rails", "4.6.0"
   gem "forgery", "0.6.0"
-  gem "globalize", "5.0.1"
+  gem "globalize", git: "https://github.com/globalize/globalize.git"
   gem "money-rails", "1.6.0"
   gem "pry", "0.10.4"
   gem "rails_best_practices", ">= 0.0.8"
-  gem "rspec-rails", "3.4.2"
+  gem "rspec-rails", "3.6.1"
   gem "rubocop", "0.39.0"
   # gem "scss_lint", "0.47.1"
   gem "sqlite3", platform: :ruby
