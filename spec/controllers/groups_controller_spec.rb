@@ -24,9 +24,9 @@ describe AwesomeTranslations::GroupsController do
     it "updates translations" do
       expect(I18n.load_path).to_not include model_locales_path
 
-      put :update, handler_id: "model_handler", id: "User", t: {
+      put :update, params: {handler_id: "model_handler", id: "User", t: {
         "activerecord.attributes.user.password" => {"da" => "Adgangskode", "de" => "Kenwort", "en" => "Password"}
-      }
+      }}
 
       danish_user_translations = YAML.load_file(user_yml_path)
       expect(danish_user_translations["da"]["activerecord"]["attributes"]["user"]["password"]).to eq "Adgangskode"
@@ -35,9 +35,9 @@ describe AwesomeTranslations::GroupsController do
     it "updates paths" do
       key_to_update = "activerecord.attributes.role.role"
 
-      put :update, handler_id: "model_handler", id: "Role", t: {
+      put :update, params: {handler_id: "model_handler", id: "Role", t: {
         key_to_update => {"da" => "Rolle", "de" => "Die type", "en" => "Role"}
-      }
+      }}
 
       da_translation_value = AwesomeTranslations::CacheDatabaseGenerator::TranslationValue
         .joins(:translation_key)
@@ -57,7 +57,7 @@ describe AwesomeTranslations::GroupsController do
     end
 
     it "handles array translations" do
-      put :update, handler_id: "rails_handler", id: "date_time", t: {
+      put :update, params: {handler_id: "rails_handler", id: "date_time", t: {
         "date.day_names" => {
           "1" => {
             "da" => "Mandag"
@@ -66,7 +66,7 @@ describe AwesomeTranslations::GroupsController do
             "da" => "Torsdag"
           }
         }
-      }
+      }}
 
       translations = YAML.load_file(date_time_path)
 
@@ -77,7 +77,7 @@ describe AwesomeTranslations::GroupsController do
 
   it "#update_translations_cache" do
     request.env["HTTP_REFERER"] = handler_group_path("rails_handler", "date_time")
-    post :update_translations_cache, handler_id: "rails_handler", id: "date_time"
+    post :update_translations_cache, params: {handler_id: "rails_handler", id: "date_time"}
     expect(response).to redirect_to handler_group_path("rails_handler", "date_time")
   end
 end

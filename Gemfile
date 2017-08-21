@@ -23,6 +23,7 @@ group :development, :test do
   gem "globalize", git: "https://github.com/globalize/globalize.git"
   gem "money-rails", "1.6.0"
   gem "pry", "0.10.4"
+  gem "rails-controller-testing", "1.0.2"
   gem "rails_best_practices", ">= 0.0.8"
   gem "rspec-rails", "3.6.1"
   gem "rubocop", "0.39.0"

@@ -10,7 +10,7 @@ describe UsersController do
   end
 
   it "#update" do
-    patch :update, id: user.id, user: {email: "newemail@example.com"}
+    patch :update, params: {id: user.id, user: {email: "newemail@example.com"}}
     expect(response).to redirect_to user_url(user)
 
     # Ensure correct key
