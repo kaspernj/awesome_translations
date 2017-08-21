@@ -41,7 +41,7 @@ class AwesomeTranslations::ErbInspector::TranslationInspector
 private
 
   def generate_full_key
-    if (@method == "t" || @method == "helper_t" || @method == "controller_t") && @key.start_with?(".")
+    if (@method == "t" || @method == "helper_t" || @method == "controller_t" || @method == "I18n-js.t") && @key.start_with?(".")
       @full_key = File.dirname(@file_path).to_s
 
       if @full_key.starts_with?("app/mailers")
@@ -67,7 +67,7 @@ private
       @full_key << ".#{@last_method}" if (is_mailer || is_controller) && @last_method && @method != "controller_t"
       @full_key << "."
       @full_key << @key.gsub(/\A\./, "")
-    elsif @method == "t" || @method == "helper_t" || @method == "controller_t"
+    elsif @method == "I18n-js.t" || @method == "t" || @method == "helper_t" || @method == "controller_t"
       @full_key = @key
     else
       raise "Unknown method-name: '#{@method}'."
