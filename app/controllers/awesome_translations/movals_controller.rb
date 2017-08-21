@@ -16,6 +16,6 @@ class AwesomeTranslations::MovalsController < AwesomeTranslations::ApplicationCo
       translation_value.migrate_to_awesome_translations_namespace!
     end
 
-    redirect_to :back
+    redirect_back(fallback_location: :root)
   end
 end

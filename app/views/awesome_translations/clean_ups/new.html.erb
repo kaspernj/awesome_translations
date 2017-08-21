@@ -1,4 +1,5 @@
 <% content_for(:header_title) { "Clean Up" } %>
+
 <%= form_for :clean_ups, url: clean_ups_path do |f| %>
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -14,7 +15,7 @@
         </thead>
         <tbody>
           <% translations_to_clean_up.each do |translation| %>
-            <tr class="translation-value" data-id="<%= translation.id %>">}
+            <tr class="translation-value" data-id="<%= translation.id %>">
               <td>
                 <%= check_box_tag("c[#{translation.id}]", 1, true) %>
               </td>

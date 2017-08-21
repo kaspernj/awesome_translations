@@ -9,7 +9,7 @@ class AwesomeTranslations::HandlersController < AwesomeTranslations::Application
     generator = AwesomeTranslations::CacheDatabaseGenerator.current
     generator.update_handlers
 
-    redirect_to :back
+    redirect_back(fallback_location: :root)
   end
 
   def update_groups_cache
@@ -19,7 +19,7 @@ class AwesomeTranslations::HandlersController < AwesomeTranslations::Application
       generator.update_groups_for_handler(handler_model)
     end
 
-    redirect_to :back
+    redirect_back(fallback_location: :root)
   end
 
   def show

@@ -1,4 +1,5 @@
 class AwesomeTranslations::ErbInspector::FileInspector
+  JS_FILE_EXTS = [".coffee", ".coffee.erb", ".es6", ".es6.erb", ".js", ".js.erb"]
   METHOD_NAMES = %w(t controller_t helper_t).freeze
   VALID_BEGINNING = '(^|\s+|\(|\{|\[|<%=\s*)'.freeze
 
@@ -23,7 +24,7 @@ class AwesomeTranslations::ErbInspector::FileInspector
 
           if extname == ".liquid"
             parse_content_liquid(line_no, line, translations_found, yielder)
-          elsif extname == ".js" || extname == ".js.erb"
+          elsif JS_FILE_EXTS.include?(extname)
             parse_content_js(line_no, line, translations_found, yielder)
           else
             parse_content(line_no, line, translations_found, yielder)
