@@ -10,7 +10,7 @@ GIT
 PATH
   remote: .
   specs:
-    awesome_translations (0.0.50)
+    awesome_translations (0.0.51)
       active-record-transactioner (>= 0.0.7)
       array_enumerator (~> 0.0.10)
       auto_autoloader (>= 0.0.4)
@@ -321,4 +321,4 @@ DEPENDENCIES
   sqlite3
 
 BUNDLED WITH
-   1.15.3
+   1.15.4
