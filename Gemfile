@@ -17,7 +17,7 @@ group :development, :test do
   gem "capybara", "2.6.2"
   gem "capybara-webkit", "1.8.0"
   gem "codeclimate-test-reporter", "0.5.0"
-  gem "database_cleaner", "1.5.1"
+  gem "database_cleaner", "1.6.1"
   gem "factory_girl_rails", "4.6.0"
   gem "forgery", "0.6.0"
   gem "globalize", git: "https://github.com/globalize/globalize.git"

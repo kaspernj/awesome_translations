@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency "array_enumerator", "~> 0.0.10"
   s.add_dependency "rails", ">= 5.0.0"
   s.add_dependency "string-cases", ">= 0.0.3"
-  s.add_dependency "baza", ">= 0.0.21"
+  s.add_dependency "baza", ">= 0.0.29"
   s.add_dependency "baza_models", ">= 0.0.10"
   s.add_dependency "baza_migrations", ">= 0.0.1"
   s.add_dependency "sass-rails", ">= 4.0.5"
