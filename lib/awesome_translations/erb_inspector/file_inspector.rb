@@ -1,5 +1,5 @@
 class AwesomeTranslations::ErbInspector::FileInspector
-  JS_FILE_EXTS = [".coffee", ".coffee.erb", ".es6", ".es6.erb", ".js", ".js.erb"]
+  JS_FILE_EXTS = [".coffee", ".coffee.erb", ".es6", ".es6.erb", ".js", ".js.erb"].freeze
   METHOD_NAMES = %w(t controller_t helper_t).freeze
   VALID_BEGINNING = '(^|\s+|\(|\{|\[|<%=\s*)'.freeze
 
@@ -21,6 +21,7 @@ class AwesomeTranslations::ErbInspector::FileInspector
 
         fp.each_line do |line|
           line_no += 1
+          line = force_utf8(line)
 
           if extname == ".liquid"
             parse_content_liquid(line_no, line, translations_found, yielder)
@@ -116,6 +117,10 @@ private
 
     yielder << translation_inspector
     translations_found << translation_inspector
+  end
+
+  def force_utf8(string)
+    string.encode("UTF-8", "binary", invalid: :replace, undef: :replace, replace: "")
   end
 
   def translation_with_key_exists?(translations_found, translation_full_key)
