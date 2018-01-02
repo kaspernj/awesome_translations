@@ -1,6 +1,3 @@
-require "codeclimate-test-reporter"
-CodeClimate::TestReporter.start
-
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= "test"
 require_relative "dummy/config/environment"
@@ -10,7 +7,7 @@ require "baza_models"
 require "database_cleaner"
 require "capybara"
 require "capybara-webkit"
-require "factory_girl"
+require "factory_bot"
 require "forgery"
 require "globalize"
 
@@ -22,8 +19,8 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
-FactoryGirl.definition_file_paths << File.join(File.dirname(__FILE__), "factories")
-FactoryGirl.find_definitions
+FactoryBot.definition_file_paths << File.join(File.dirname(__FILE__), "factories")
+FactoryBot.find_definitions
 
 AwesomeTranslations.load_object_extensions
 
@@ -32,7 +29,7 @@ Capybara.javascript_driver = :webkit
 
 RSpec.configure do |config|
   config.include AwesomeTranslations::Engine.routes.url_helpers
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
 
   config.infer_spec_type_from_file_location!
 

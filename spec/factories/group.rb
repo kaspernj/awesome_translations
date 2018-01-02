@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :group, class: "AwesomeTranslations::CacheDatabaseGenerator::Group" do
     handler
 

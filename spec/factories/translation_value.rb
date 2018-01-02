@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :translation_value, class: "AwesomeTranslations::CacheDatabaseGenerator::TranslationValue" do
     translation_key
 

@@ -13,22 +13,21 @@ gemspec
 
 group :development, :test do
   gem "activerecord-jdbcsqlite3-adapter", platform: :jruby
-  gem "best_practice_project"
-  gem "capybara", "2.6.2"
-  gem "capybara-webkit", "1.8.0"
-  gem "codeclimate-test-reporter", "0.5.0"
-  gem "database_cleaner", "1.6.1"
-  gem "factory_girl_rails", "4.6.0"
-  gem "forgery", "0.6.0"
+  gem "best_practice_project", "0.0.10"
+  gem "capybara", "2.13.0"
+  gem "capybara-webkit", "1.14.0"
+  gem "database_cleaner", "1.6.2"
+  gem "factory_bot_rails", "4.8.2"
+  gem "forgery", "0.7.0"
   gem "globalize", git: "https://github.com/globalize/globalize.git"
-  gem "money-rails", "1.6.0"
-  gem "pry", "0.10.4"
+  gem "money-rails", "1.9.0"
+  gem "pry-rails", "0.3.6"
   gem "rails-controller-testing", "1.0.2"
-  gem "rails_best_practices", ">= 0.0.8"
-  gem "rspec-rails", "3.6.1"
-  gem "rubocop", "0.39.0"
+  gem "rails_best_practices", "1.19.0"
+  gem "rspec-rails", "3.7.2"
+  gem "rubocop", "0.52.1"
   # gem "scss_lint", "0.47.1"
-  gem "sqlite3", platform: :ruby
+  gem "sqlite3", "1.3.13", platform: :ruby
 end
 
 # Declare any dependencies that are still in development here instead of in

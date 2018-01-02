@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :handler, class: "AwesomeTranslations::CacheDatabaseGenerator::Handler" do
     identifier "rails_handler"
     name "RailsHandler"
