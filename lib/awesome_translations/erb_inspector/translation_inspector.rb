@@ -90,7 +90,7 @@ private
   end
 
   def generate_dir
-    parts = %w(config locales awesome_translations)
+    parts = %w[config locales awesome_translations]
 
     key_parts = @full_key.split(".").reject(&:blank?)
     key_parts.pop

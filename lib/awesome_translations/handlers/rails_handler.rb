@@ -1,7 +1,7 @@
 class AwesomeTranslations::Handlers::RailsHandler < AwesomeTranslations::Handlers::BaseHandler
   def groups
     ArrayEnumerator.new do |yielder|
-      groups = %w(date_time errors helpers numbers support)
+      groups = ["date_time", "errors", "helpers", "numbers", "support"]
 
       groups.each do |group|
         yielder << AwesomeTranslations::Group.new(

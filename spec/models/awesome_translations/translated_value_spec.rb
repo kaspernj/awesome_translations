@@ -35,7 +35,7 @@ describe AwesomeTranslations::TranslatedValue do
     translated_value.value = "new test"
     translated_value.save!
 
-    translations = YAML.load(File.read(test_file_path))
+    translations = YAML.safe_load(File.read(test_file_path))
 
     expect(translations["da"]["activerecord"]["attributes"]["test_model"]["test"]).to eq "new test"
     expect(translations["da"]["activerecord"]["attributes"]["test_model"]["other_translation"]).to eq "En anden"
