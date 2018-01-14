@@ -10,7 +10,7 @@ GIT
 PATH
   remote: .
   specs:
-    awesome_translations (0.0.53)
+    awesome_translations (0.0.54)
       active-record-transactioner (>= 0.0.7)
       array_enumerator (~> 0.0.10)
       auto_autoloader (>= 0.0.4)
@@ -88,10 +88,10 @@ GEM
       auto_autoloader
       baza (~> 0.0.20)
       string-cases (~> 0.0.1)
-    baza_models (0.0.10)
+    baza_models (0.0.12)
       array_enumerator (>= 0.0.10)
       auto_autoloader (>= 0.0.1)
-      baza (~> 0.0.21)
+      baza (~> 0.0.31)
       html_gen (>= 0.0.12)
       simple_delegate (>= 0.0.2)
       string-cases (>= 0.0.3)
@@ -247,7 +247,7 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.9.0)
-    sass (3.5.4)
+    sass (3.5.5)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
