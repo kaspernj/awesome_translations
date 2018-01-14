@@ -1,7 +1,7 @@
 class AwesomeTranslations::ErbInspector::FileInspector
   JS_FILE_EXTS = [".coffee", ".coffee.erb", ".es6", ".es6.erb", ".js", ".js.erb"].freeze
   METHOD_NAMES = %w(t controller_t helper_t).freeze
-  VALID_BEGINNING = '(^|\s+|\(|\{|\[|<%=\s*)'.freeze
+  VALID_BEGINNING = '(^|\s+|\(|\{|\[|<%=\s*|I18n\.)'.freeze
 
   attr_reader :root_path, :file_path
 
