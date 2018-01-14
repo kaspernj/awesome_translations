@@ -15,19 +15,19 @@ describe AwesomeTranslations::Translation do
     )
   end
 
-  it '#array_key' do
+  it "#array_key" do
     expect(day_names_monday_translation.array_key).to eq "date.day_names"
   end
 
-  it '#array_translation?' do
+  it "#array_translation?" do
     expect(day_names_monday_translation.array_translation?).to eq true
   end
 
-  it '#array_no' do
+  it "#array_no" do
     expect(day_names_monday_translation.array_no).to eq 1
   end
 
-  describe '#value' do
+  describe "#value" do
     it "returns correct value when it is an array translation" do
       expect(day_names_monday_translation.value(locale: "en")).to eq "Monday"
     end
@@ -37,7 +37,7 @@ describe AwesomeTranslations::Translation do
     end
   end
 
-  describe '#value_for?' do
+  describe "#value_for?" do
     it "returns correct value when it is an array translation" do
       expect(day_names_monday_translation.value_for?("en")).to eq true
     end

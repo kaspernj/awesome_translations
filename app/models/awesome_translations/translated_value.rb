@@ -36,7 +36,7 @@ class AwesomeTranslations::TranslatedValue
     FileUtils.mkdir_p(dir) unless File.exist?(dir)
     File.open(@file, "w") { |fp| fp.write("#{@locale}:\n") } unless File.exist?(@file)
 
-    translations = YAML.load(File.read(@file))
+    translations = YAML.safe_load(File.read(@file))
     translations ||= {}
     translations[@locale.to_s] ||= {}
 

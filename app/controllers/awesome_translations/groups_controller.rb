@@ -2,8 +2,7 @@ class AwesomeTranslations::GroupsController < AwesomeTranslations::ApplicationCo
   before_action :set_handler
   before_action :set_group
 
-  def index
-  end
+  def index; end
 
   def show
     @ransack_params = params[:q] || {}

@@ -7,27 +7,51 @@ AllCops:
     - db/schema.rb
     - spec/dummy/db/schema.rb
 
-Rails:
-  Enabled: true
+Layout/AccessModifierIndentation:
+  EnforcedStyle: outdent
 
-# https://github.com/AtomLinter/linter-rubocop/issues/2
-Style/FileName:
+Layout/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+
+Layout/EmptyLines:
   Enabled: false
 
-Metrics/LineLength:
-  Max: 237
+Layout/EmptyLinesAroundArguments:
+  Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented
+
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+
+Lint/EndAlignment:
+  EnforcedStyleAlignWith: variable
+
+Metrics/BlockLength:
+  Enabled: false
+
+# Metrics/CyclomaticComplexity:
+#   Max: 10
+
+# Metrics/LineLength:
+#   Max: 160
 
 Metrics/MethodLength:
   Max: 50
 
+# Metrics/AbcSize:
+#   Max: 25
+
 Metrics/ClassLength:
   Max: 250
 
-Style/AccessModifierIndentation:
-  EnforcedStyle: outdent
-
-Style/AlignParameters:
-  EnforcedStyle: with_fixed_indentation
+# .find_each is not the same as .each
+Rails/FindEach:
+  Enabled: false
 
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact
@@ -38,11 +62,18 @@ Style/ConditionalAssignment:
 Style/Documentation:
   Enabled: false
 
-Style/EmptyLines:
+Style/FrozenStringLiteralComment:
   Enabled: false
 
-Style/MultilineMethodCallIndentation:
-  EnforcedStyle: indented
+# Will report offences for many places that are much more readable without using a guard clause
+Style/GuardClause:
+  Enabled: false
+
+Style/LambdaCall:
+  Enabled: false
+
+Style/RegexpLiteral:
+  Enabled: false
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
@@ -56,16 +87,9 @@ Style/NilComparison:
 Style/SignalException:
   EnforcedStyle: only_raise
 
-Style/MultilineOperationIndentation:
-  EnforcedStyle: indented
-
-Style/SpaceInsideHashLiteralBraces:
-  EnforcedStyle: no_space
+Style/SymbolArray:
+  Enabled: false
 
 Style/TrivialAccessors:
   ExactNameMatch: true
   Enabled: true
-
-# Disabled on purpose: https://github.com/bbatsov/rubocop/issues/1758
-Style/ClosingParenthesisIndentation:
-  Enabled: false

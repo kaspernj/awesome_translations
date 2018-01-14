@@ -1,9 +1,17 @@
 require "spec_helper"
 
 describe AwesomeTranslations::MovalsController do
-  let!(:handler_translation) { create :handler_translation, translation_key: translation_key, dir: Rails.root.join("config", "locales", "some", "right", "path") }
+  let!(:handler_translation) do
+    create :handler_translation,
+      translation_key: translation_key,
+      dir: Rails.root.join("config", "locales", "some", "right", "path")
+  end
   let!(:translation_key) { create :translation_key, key: "some.key" }
-  let!(:translation_value) { create :translation_value, translation_key: translation_key, file_path: Rails.root.join("config", "locales", "some", "wrong", "path", "en.yml") }
+  let!(:translation_value) do
+    create :translation_value,
+      translation_key: translation_key,
+      file_path: Rails.root.join("config", "locales", "some", "wrong", "path", "en.yml")
+  end
 
   let!(:handler_translation_right_path) { create :handler_translation, translation_key: translation_key_right_path, dir: "/some/path" }
   let!(:translation_key_right_path) { create :translation_key, key: "some.right.key" }

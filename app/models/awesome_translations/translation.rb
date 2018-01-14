@@ -119,7 +119,12 @@ class AwesomeTranslations::Translation
   end
 
   def to_s
-    "<AwesomeTranslations::Translation key=\"#{@key}\" dir=\"#{@dir}\" array_translation?=\"#{array_translation?}\" array_key=\"#{array_key}\" array_no=\"#{array_no}\">"
+    "<AwesomeTranslations::Translation " \
+      "key=\"#{@key}\" " \
+      "dir=\"#{@dir}\" " \
+      "array_translation?=\"#{array_translation?}\" " \
+      "array_key=\"#{array_key}\" " \
+      "array_no=\"#{array_no}\">"
   end
 
   def inspect

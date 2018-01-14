@@ -1,6 +1,5 @@
 class AwesomeTranslations::CachesController < AwesomeTranslations::ApplicationController
-  def index
-  end
+  def index; end
 
   def create
     cache_db_generator = AwesomeTranslations::CacheDatabaseGenerator.new(debug: true)

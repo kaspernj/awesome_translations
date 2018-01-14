@@ -114,10 +114,7 @@ private
 
     key_parts = translation_key.split("/")
     last_key_part = key_parts.pop
-
-    if last_key_part.start_with?("_")
-      last_key_part = last_key_part[1, last_key_part.length]
-    end
+    last_key_part = last_key_part[1, last_key_part.length] if last_key_part.start_with?("_")
 
     key_parts << last_key_part
     key_parts << call[:method] if controller? && args[:action_in_key] != false

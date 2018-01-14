@@ -76,7 +76,7 @@ GEM
     ast (2.3.0)
     auto_autoloader (0.0.5)
       string-cases
-    baza (0.0.30)
+    baza (0.0.31)
       array_enumerator (~> 0.0.10)
       auto_autoloader (~> 0.0.1)
       datet (~> 0.0.25)

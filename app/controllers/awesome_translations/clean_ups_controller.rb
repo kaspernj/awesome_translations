@@ -1,6 +1,5 @@
 class AwesomeTranslations::CleanUpsController < AwesomeTranslations::ApplicationController
-  def new
-  end
+  def new; end
 
   def create
     ids = []

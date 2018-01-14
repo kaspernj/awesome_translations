@@ -47,7 +47,7 @@ class AwesomeTranslations::CacheDatabaseGenerator
   def close
     @initialized = false
 
-    @db.close if @db
+    @db&.close
     @db = nil
 
     AwesomeTranslations::CacheDatabaseGenerator::Group.db = nil
@@ -140,7 +140,7 @@ class AwesomeTranslations::CacheDatabaseGenerator
       translation_key.assign_attributes(group_id: group_model.id, handler_id: handler_model.id)
       translation_key.save!
 
-      raise "KEY ERROR: #{translation_key.inspect}" unless translation_key.id.to_i > 0
+      raise "KEY ERROR: #{translation_key.inspect}" unless translation_key.id.to_i.positive?
 
       @translation_keys_found[translation_key.id] = true
 
@@ -239,7 +239,7 @@ private
 
         translation_key = AwesomeTranslations::CacheDatabaseGenerator::TranslationKey.find_or_create_by!(key: key)
         @translation_keys_found[translation_key.id] = true
-        raise "KEY ERROR: #{translation_key.inspect}" unless translation_key.id.to_i > 0
+        raise "KEY ERROR: #{translation_key.inspect}" unless translation_key.id.to_i.positive?
 
         translation_value = AwesomeTranslations::CacheDatabaseGenerator::TranslationValue.find_or_initialize_by(
           translation_key_id: translation_key.id,

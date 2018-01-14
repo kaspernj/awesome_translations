@@ -3,7 +3,12 @@ require "spec_helper"
 describe AwesomeTranslations::CleanUpsController do
   let!(:original_file_path) { translation_value.file_path }
   let!(:translation_key) { create :translation_key, key: "some.key" }
-  let!(:translation_value) { create :translation_value, translation_key: translation_key, locale: "da", file_path: "#{Rails.root}/config/locales/awesome_translations/some_file.yml" }
+  let!(:translation_value) do
+    create :translation_value,
+      translation_key: translation_key,
+      locale: "da",
+      file_path: "#{Rails.root}/config/locales/awesome_translations/some_file.yml"
+  end
   let(:content) do
     {
       "da" => {

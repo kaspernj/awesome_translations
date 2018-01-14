@@ -1,6 +1,5 @@
 class AwesomeTranslations::MigrationsController < AwesomeTranslations::ApplicationController
-  def new
-  end
+  def new; end
 
   def create
     params[:m].each do |translation_value_id, check_value|
