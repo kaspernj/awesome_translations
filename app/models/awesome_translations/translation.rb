@@ -23,7 +23,7 @@ class AwesomeTranslations::Translation
   end
 
   def array_translation?
-    return true if @key.match?(/\[(\d+)\]\Z/)
+    return true if @key =~ /\[(\d+)\]\Z/
     false
   end
 
