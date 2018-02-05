@@ -1,9 +1,3 @@
-language: ruby
-cache: bundler
-archive: true
-rvm:
-  - ruby-2.1.2
-  - jruby-1.7.13
 script:
   - bundle exec rake db:schema:load
   - CODECLIMATE_REPO_TOKEN=6ce9528867413dd59d35477770932ca5dd37de1688c07a1f46458fc645df3fac bundle exec rspec
@@ -11,5 +5,3 @@ script:
   - gem install scss_lint
   - scss-lint app/assets/stylesheets spec/dummy/app/assets/stylesheets
   - bundle exec rails_best_practices
-notifications:
-   email: false
