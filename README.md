@@ -31,9 +31,11 @@ If you want to do translations from your models or controllers, you will need to
 AwesomeTranslations.load_object_extensions
 ```
 
-If you don't like monkey patching the Object-class, you can also load it like this by creating 'config/initializers/awesome_translations' and insert something like this to allow t-method-calls from inside models:
+If you don't like monkey patching the Object-class, you can also include it into ApplicationRecord' by inserting something like this to allow t-method-calls from inside models:
 ```ruby
-ActiveRecord::Base.include AwesomeTranslations::TranslateFunctionality
+class ApplicationRecord < ActiveRecord::Base
+  include AwesomeTranslations::TranslateFunctionality
+ end
 ```
 
 You will also need to modify the line in your Gemfile a bit:
