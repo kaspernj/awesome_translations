@@ -35,7 +35,7 @@ If you don't like monkey patching the Object-class, you can also include it into
 ```ruby
 class ApplicationRecord < ActiveRecord::Base
   include AwesomeTranslations::TranslateFunctionality
- end
+end
 ```
 
 You will also need to modify the line in your Gemfile a bit:
