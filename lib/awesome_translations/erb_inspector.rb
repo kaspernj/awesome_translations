@@ -6,11 +6,8 @@ class AwesomeTranslations::ErbInspector
     @args = args
     @args[:exts] ||= [".erb", ".haml", ".liquid", ".markerb", ".rb", ".rake", ".slim", "."] + AwesomeTranslations::ErbInspector::FileInspector::JS_FILE_EXTS
 
-    if @args[:dirs]
-      @dirs = @args[:dirs]
-    else
-      @dirs = AwesomeTranslations.config.paths_to_translate
-    end
+    @dirs = @args[:dirs] || AwesomeTranslations.config.paths_to_translate
+    @ignored_folders = @args[:ignored_folders] || AwesomeTranslations.config.ignored_paths
   end
 
   # Yields all relevant .erb- and .haml-files.
@@ -32,7 +29,10 @@ class AwesomeTranslations::ErbInspector
 private
 
   def scan_dir(path, root_path, yielder)
-    Dir.foreach("#{root_path}/#{path}") do |file|
+    full_path = "#{root_path}/#{path}"
+    return if @ignored_folders.include?(full_path)
+
+    Dir.foreach(full_path) do |file|
       next if file == "." || file == ".."
       file_path = path.clone
       file_path << "/" unless file_path.empty?
