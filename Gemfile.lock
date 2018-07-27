@@ -10,7 +10,7 @@ GIT
 PATH
   remote: .
   specs:
-    awesome_translations (0.0.55)
+    awesome_translations (0.0.56)
       active-record-transactioner (>= 0.0.7)
       array_enumerator (~> 0.0.10)
       auto_autoloader (>= 0.0.4)
