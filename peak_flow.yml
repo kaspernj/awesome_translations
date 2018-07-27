@@ -1,5 +1,5 @@
 script:
-  - bundle exec rake db:schema:load
+  - bundle exec rails db:schema:load
   - CODECLIMATE_REPO_TOKEN=6ce9528867413dd59d35477770932ca5dd37de1688c07a1f46458fc645df3fac bundle exec rspec
   - bundle exec rubocop
   - gem install scss_lint
