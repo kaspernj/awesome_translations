@@ -29,6 +29,7 @@ describe AwesomeTranslations::ErbInspector::FileInspector do
 
       expect(translation_full_keys).to include "assets.javascripts.translations.hello_world"
       expect(translation_full_keys).to include "javascripts.absolute.key"
+      expect(translation_full_keys).to include "javascripts.absolute.key_with_args"
     end
 
     it "finds liquid translations" do
