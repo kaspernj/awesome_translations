@@ -68,11 +68,11 @@ private
   end
 
   def parse_content_js(line_no, line, translations_found, yielder)
-    line.scan(/\I18n\.t\('(.+?)'\)/) do |match|
-      add_translation(line_no, "I18n.t", match[0], translations_found, yielder)
+    line.scan(/I18n\.t\('(.+?)'\s*(\)|,)/) do |match|
+      add_translation(line_no, "I18n-js.t", match[0], translations_found, yielder)
     end
 
-    line.scan(/\I18n\.t\("(.+?)"\)/) do |match|
+    line.scan(/I18n\.t\("(.+?)"\s*(\)|,)/) do |match|
       add_translation(line_no, "I18n-js.t", match[0], translations_found, yielder)
     end
   end

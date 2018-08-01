@@ -4,7 +4,7 @@ class AwesomeTranslations::ErbInspector
 
   def initialize(args = {})
     @args = args
-    @args[:exts] ||= [".erb", ".haml", ".liquid", ".markerb", ".rb", ".rake", ".slim", "."] + AwesomeTranslations::ErbInspector::FileInspector::JS_FILE_EXTS
+    @args[:exts] ||= [".erb", ".haml", ".liquid", ".markerb", ".rb", ".rake", ".slim"] + AwesomeTranslations::ErbInspector::FileInspector::JS_FILE_EXTS
 
     @dirs = @args[:dirs] || AwesomeTranslations.config.paths_to_translate
     @ignored_folders = @args[:ignored_folders] || AwesomeTranslations.config.ignored_paths
