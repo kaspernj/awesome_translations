@@ -37,8 +37,8 @@ describe AwesomeTranslations::Translation do
     end
 
     it "doesnt use fallbacks" do
-      expect(I18n).to receive(:t).with("test.key", default: nil, fallback: false)
-      I18n.t("test.key", default: nil, fallback: false)
+      expect(I18n).to receive(:t).with("time.am", default: nil, fallback: false).and_call_original
+      am_translation.value
     end
   end
 
