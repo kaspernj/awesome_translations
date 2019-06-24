@@ -35,6 +35,11 @@ describe AwesomeTranslations::Translation do
     it "returns correct value for normal translations" do
       expect(am_translation.value(locale: "en")).to eq "am"
     end
+
+    it "doesnt use fallbacks" do
+      expect(I18n).to receive(:t).with("test.key", default: nil, fallback: false)
+      I18n.t("test.key", default: nil, fallback: false)
+    end
   end
 
   describe "#value_for?" do
