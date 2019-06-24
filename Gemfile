@@ -28,6 +28,7 @@ group :development, :test do
   gem "rubocop", "0.52.1"
   # gem "scss_lint", "0.47.1"
   gem "sqlite3", "1.3.13", platform: :ruby
+  gem "tzinfo-data"
 end
 
 # Declare any dependencies that are still in development here instead of in
