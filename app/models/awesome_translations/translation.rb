@@ -94,9 +94,9 @@ class AwesomeTranslations::Translation
     return nil unless value_for?(locale)
 
     if array_translation?
-      I18n.with_locale(locale) { I18n.t(array_key)[array_no] }
+      I18n.with_locale(locale) { I18n.t(array_key, default: [])[array_no] }
     else
-      I18n.with_locale(locale) { I18n.t(@key) }
+      I18n.with_locale(locale) { I18n.t(@key, default: nil, fallback: false) }
     end
   end
 
