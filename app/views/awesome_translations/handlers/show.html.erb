@@ -14,20 +14,43 @@
     </div>
   </div>
   <div class="panel-body">
-    <%= simple_search_form_for @ransack, url: @handler do |f| %>
+    <form method="get">
       <div class="row">
         <div class="col-md-4">
-          <%= f.input :name_cont, autofocus: true %>
+          <div class="form-group">
+            <label for="q_name_cont">
+              Name contains
+            </label>
+            <input class="form-control" id="q_name_cont" name="q[name_cont]" type="text" value="<%= params.dig(:q, :name_cont) %>" />
+          </div>
         </div>
         <div class="col-md-4">
-          <%= f.input :with_translations, label: "With translations", collection: with_translations_collection %>
+          <div class="form-group">
+            <label for="q_with_translations">
+              With translations
+            </label>
+            <select class="form-control" id="q_with_translations" name="q[with_translations]">
+              <option />
+              <%= options_for_select(with_translations_collection, params.dig(:q, :with_translations)) %>
+            </select>
+          </div>
         </div>
         <div class="col-md-4">
-          <%= f.input :with_missing_translations, label: "Missing translations", collection: with_missing_translations_collection %>
+          <div class="form-group">
+            <label for="q_with_missing_translations">
+              Missing translations
+            </label>
+
+            <select class="form-control" name="q[with_missing_translations]" id="q_with_missing_translations">
+              <option />
+              <%= options_for_select(with_missing_translations_collection, params.dig(:q, :with_missing_translations)) %>
+            </select>
+          </div>
         </div>
       </div>
-      <%= f.button :submit, "Filter", class: ["btn", "btn-primary"] %>
-    <% end %>
+
+      <input class="btn btn-primary" value="Filter" type="submit" />
+    </form>
   </div>
 </div>
 
