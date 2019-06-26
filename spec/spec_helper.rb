@@ -10,6 +10,8 @@ require "capybara-webkit"
 require "factory_bot"
 require "forgery"
 require "globalize"
+require "sass-rails"
+require "simple_form"
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.

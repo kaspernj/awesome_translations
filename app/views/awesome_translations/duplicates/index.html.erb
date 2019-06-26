@@ -1,6 +1,6 @@
 <% content_for(:header_title) { "Duplicates" } %>
 
-<%= simple_form_for :duplicates do |f| %>
+<%= form_tag do %>
   <% count = 0 %>
 
   <div class="panel panel-default">
@@ -46,7 +46,7 @@
   <% if count > 0 %>
     <div class="panel panel-default">
       <div class="panel-body">
-        <%= f.button :submit, "Delete duplicates" %>
+        <input class="btn btn-primary" type="submit" value="Delete duplicates" />
       </div>
     </div>
   <% end %>

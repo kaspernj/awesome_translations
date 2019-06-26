@@ -7,12 +7,27 @@
     </div>
   </div>
   <div class="panel-body">
-    <%= simple_search_form_for @ransack do |f| %>
-      <%= f.input :translation_key_key_cont, label: "Key", autofocus: true %>
-      <%= f.input :handler_name_cont %>
-      <%= f.input :group_name_cont %>
-      <%= f.button :submit, "Filter", class: ["btn", "btn-primary"] %>
-    <% end %>
+    <form method="get">
+      <div class="form-group">
+        <label for="q_translation_key_key_cont">
+          Key contains
+        </label>
+        <input class="form-control" id="q_translation_key_key_cont" name="q[translation_key_key_cont]" value="<%= params.dig(:q, :translation_key_key_cont) %>" />
+      </div>
+      <div class="form-group">
+        <label for="q_handler_name_cont">
+          Handler name contains
+        </label>
+        <input class="form-control" id="q_handler_name_cont" name="q[handler_name_cont]" value="<%= params.dig(:q, :handler_name_cont) %>" />
+      </div>
+      <div class="form-group">
+        <label for="q_group_name_cont">
+          Group name contains
+        </label>
+        <input class="form-control" id="q_group_name_cont" name="q[group_name_cont]" value="<%= params.dig(:q, :group_name_cont) %>" />
+      </div>
+      <input class="btn btn-primary" type="submit" value="Filter" />
+    </form>
   </div>
 </div>
 
