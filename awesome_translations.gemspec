@@ -27,5 +27,4 @@ Gem::Specification.new do |s|
   s.add_dependency "string-cases", ">= 0.0.3"
 
   s.add_development_dependency "simple_form", ">= 0"
-  s.add_development_dependency "simple_form_ransack", ">= 0.0.18"
 end
