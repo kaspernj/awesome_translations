@@ -5,9 +5,9 @@ source "https://rubygems.org"
 # development dependencies will be added by default to the :development group.
 gemspec
 
-# gem "baza", path: "/home/kaspernj/Dev/Ruby/baza"
-# gem "baza_models", path: "/Users/kaspernj/Dev/Ruby/baza_models" # github: "kaspernj/baza_models"
-# gem "baza_migrations", path: "/home/kaspernj/Dev/Ruby/baza_migrations"
+# gem "baza", path: "/home/dev/Development/baza"
+# gem "baza_models", path: "/home/dev/Development/baza_models" # github: "kaspernj/baza_models"
+# gem "baza_migrations", path: "/home/dev/Development/baza_migrations"
 
 # gem "simple_form_ransack", path: "/Users/kaspernj/Dev/Rails/simple_form_ransack"
 

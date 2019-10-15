@@ -1,7 +1,7 @@
 class AwesomeTranslations::Group
   attr_reader :handler, :id, :data
 
-  def self.find_by_handler_and_id(handler, id)
+  def self.find_by(handler:, id:)
     handler.groups.each do |group|
       return group if group.id == id.to_s
     end
