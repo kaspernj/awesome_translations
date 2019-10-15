@@ -5,7 +5,7 @@ describe AwesomeTranslations::ModelInspector do
   let(:model_classes) { AwesomeTranslations::ModelInspector.model_classes.map(&:clazz).reject { |clazz| clazz.name.end_with?("::Translation") } }
 
   it "#model_classes" do
-    expect(model_classes.to_a.sort_by(&:name)).to eq [Role, User]
+    expect(model_classes.to_a.sort_by(&:name)).to eq [ApplicationRecord, Role, User]
   end
 
   it "#engines" do
