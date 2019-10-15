@@ -1,28 +1,13 @@
 class AwesomeTranslations::GlobalTranslator
-  RUBY_2 = RUBY_VERSION.starts_with?("2")
-
   def self.call_information(caller_number)
-    if RUBY_2
-      # This is much faster than the other solution
-      call = caller_locations(caller_number + 2, caller_number + 2).first
+    # This is much faster than the other solution
+    call = caller_locations(caller_number + 2, caller_number + 2).first
 
-      {
-        method: call.label,
-        path: call.absolute_path,
-        line_no: call.lineno
-      }
-    else
-      call = caller[caller_number + 1]
-      file_info = call.match(/\A(.+):(\d+):in `(.+?)'/)
-
-      raise "Could not get previous file name from: #{caller[0]}" if file_info[1].blank?
-
-      {
-        method: file_info[3],
-        path: file_info[1],
-        line_no: file_info[2]
-      }
-    end
+    {
+      method: call.label,
+      path: call.absolute_path,
+      line_no: call.lineno
+    }
   end
 
   def self.translate(key, args, &blk)

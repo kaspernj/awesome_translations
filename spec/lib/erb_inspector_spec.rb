@@ -11,7 +11,7 @@ describe AwesomeTranslations::ErbInspector do
   let(:file_paths) { files.map(&:file_path) }
 
   describe "#files" do
-    it "finds haml-files" do
+    it "finds the right amount of haml-files" do
       expect(files.length).to eq 34
     end
 

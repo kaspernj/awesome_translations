@@ -1,3 +1,5 @@
+inherit_from: .rubocop_todo.yml
+
 AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
@@ -40,8 +42,8 @@ Layout/MultilineOperationIndentation:
 Layout/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
 
-Metrics/AbcSize:
-  Max: 25
+# Metrics/AbcSize:
+#   Max: 25
 
 Metrics/BlockLength:
   Enabled: false
@@ -49,17 +51,17 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   Max: 250
 
-Metrics/CyclomaticComplexity:
-  Max: 10
+# Metrics/CyclomaticComplexity:
+#   Max: 10
 
-Metrics/LineLength:
-  Max: 160
+# Metrics/LineLength:
+#   Max: 160
 
 Metrics/MethodLength:
   Max: 50
 
-Metrics/PerceivedComplexity:
-  Max: 10
+# Metrics/PerceivedComplexity:
+#   Max: 10
 
 # .find_each is not the same as .each
 Rails/FindEach:
@@ -78,6 +80,9 @@ RSpec/DescribedClass:
   Enabled: false
 
 RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/FilePath:
   Enabled: false
 
 RSpec/LetSetup:
@@ -102,6 +107,9 @@ Style/ConditionalAssignment:
   Enabled: false
 
 Style/Documentation:
+  Enabled: false
+
+Style/FormatStringToken:
   Enabled: false
 
 Style/FrozenStringLiteralComment:

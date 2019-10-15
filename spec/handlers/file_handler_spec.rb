@@ -36,7 +36,7 @@ describe AwesomeTranslations::Handlers::FileHandler do
 
     it "sets the correct translation path" do
       danish_translation = layout_translations.find { |t| t.key == "layouts.application.danish" }
-      expect(danish_translation.dir).to eq "#{Rails.root}/config/locales/awesome_translations/layouts/application"
+      expect(danish_translation.dir).to eq Rails.root.join("config", "locales", "awesome_translations", "layouts", "application").to_s
     end
   end
 
@@ -93,7 +93,7 @@ describe AwesomeTranslations::Handlers::FileHandler do
     end
 
     it "sets the correct translation path" do
-      expect(yes_translation.dir).to eq "#{Rails.root}/config/locales/awesome_translations"
+      expect(yes_translation.dir).to eq Rails.root.join("config", "locales", "awesome_translations").to_s
     end
 
     it "detects absolute existing direct translations" do
