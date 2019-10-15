@@ -9,7 +9,7 @@ describe AwesomeTranslations::Handlers::ModelHandler do
   let(:role_translation_keys) { role_group.translations.map(&:key).to_a }
 
   it "#groups" do
-    expect(groups.length).to eq 4
+    expect(groups.length).to eq 5
   end
 
   describe "#translations_for_group" do
