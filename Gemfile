@@ -24,7 +24,7 @@ group :development, :test do
   gem "pry-rails", "0.3.6"
   gem "rails-controller-testing", "1.0.2"
   gem "rails_best_practices", "1.19.0"
-  gem "rspec-rails", "3.7.2"
+  gem "rspec-rails", "3.9.0"
   gem "rubocop", "0.52.1"
   # gem "scss_lint", "0.47.1"
   gem "sqlite3", "1.4.1", platform: :ruby
