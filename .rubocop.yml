@@ -1,5 +1,3 @@
-inherit_from: .rubocop_todo.yml
-
 AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
@@ -7,17 +5,31 @@ AllCops:
     - db/schema.rb
     - spec/dummy/db/schema.rb
 
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
+
 Layout/AccessModifierIndentation:
   EnforcedStyle: outdent
 
 Layout/AlignParameters:
   EnforcedStyle: with_fixed_indentation
 
+Layout/AlignArguments:
+  EnforcedStyle: with_fixed_indentation
+
+Layout/CaseIndentation:
+  EnforcedStyle: end
+
 Layout/EmptyLines:
   Enabled: false
 
 Layout/EmptyLinesAroundArguments:
   Enabled: false
+
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: variable
 
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
@@ -28,29 +40,59 @@ Layout/MultilineOperationIndentation:
 Layout/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
 
-Lint/EndAlignment:
-  EnforcedStyleAlignWith: variable
+Metrics/AbcSize:
+  Max: 25
 
 Metrics/BlockLength:
   Enabled: false
 
-# Metrics/CyclomaticComplexity:
-#   Max: 10
+Metrics/ClassLength:
+  Max: 250
 
-# Metrics/LineLength:
-#   Max: 160
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Metrics/LineLength:
+  Max: 160
 
 Metrics/MethodLength:
   Max: 50
 
-# Metrics/AbcSize:
-#   Max: 25
-
-Metrics/ClassLength:
-  Max: 250
+Metrics/PerceivedComplexity:
+  Max: 10
 
 # .find_each is not the same as .each
 Rails/FindEach:
+  Enabled: false
+
+RSpec/AnyInstance:
+  Enabled: false
+
+RSpec/ContextWording:
+  Enabled: false
+
+RSpec/DescribeClass:
+  Enabled: false
+
+RSpec/DescribedClass:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/LetSetup:
+  Enabled: false
+
+RSpec/MessageSpies:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/NamedSubject:
+  Enabled: false
+
+RSpec/NestedGroups:
   Enabled: false
 
 Style/ClassAndModuleChildren:
@@ -69,7 +111,13 @@ Style/FrozenStringLiteralComment:
 Style/GuardClause:
   Enabled: false
 
+Style/Lambda:
+  Enabled: false
+
 Style/LambdaCall:
+  Enabled: false
+
+Style/MultipleComparison:
   Enabled: false
 
 Style/RegexpLiteral:
@@ -93,3 +141,6 @@ Style/SymbolArray:
 Style/TrivialAccessors:
   ExactNameMatch: true
   Enabled: true
+
+Style/WordArray:
+  Enabled: false
