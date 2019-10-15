@@ -27,7 +27,7 @@ group :development, :test do
   gem "rspec-rails", "3.7.2"
   gem "rubocop", "0.52.1"
   # gem "scss_lint", "0.47.1"
-  gem "sqlite3", "1.3.13", platform: :ruby
+  gem "sqlite3", "1.4.1", platform: :ruby
   gem "tzinfo-data"
 end
 
