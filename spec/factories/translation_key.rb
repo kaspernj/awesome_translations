@@ -3,6 +3,6 @@ FactoryBot.define do
     handler
     group
 
-    key "some.key"
+    key { "some.key" }
   end
 end

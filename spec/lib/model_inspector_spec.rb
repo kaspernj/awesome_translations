@@ -2,15 +2,15 @@ require "spec_helper"
 
 describe AwesomeTranslations::ModelInspector do
   let(:user_inspector) { AwesomeTranslations::ModelInspector.model_classes.find { |model_inspector| model_inspector.clazz == User } }
-  let(:model_classes) { AwesomeTranslations::ModelInspector.model_classes.map(&:clazz).select { |clazz| !clazz.name.end_with?("::Translation") } }
+  let(:model_classes) { AwesomeTranslations::ModelInspector.model_classes.map(&:clazz).reject { |clazz| clazz.name.end_with?("::Translation") } }
 
   it "#model_classes" do
-    expect(model_classes.to_a.sort { |class1, class2| class1.name <=> class2.name }).to eq [Role, User]
+    expect(model_classes.to_a.sort_by(&:name)).to eq [Role, User]
   end
 
   it "#engines" do
     expected = [ActionView::Railtie, AwesomeTranslations::Engine, MoneyRails::Engine]
-    expect(AwesomeTranslations::ModelInspector.engines.map(&:class).sort { |class1, class2| class1.name <=> class2.name }).to eq expected
+    expect(AwesomeTranslations::ModelInspector.engines.map(&:class).sort_by(&:name)).to eq expected
   end
 
   it "#class_key" do
@@ -34,6 +34,6 @@ describe AwesomeTranslations::ModelInspector do
   end
 
   it "#attributes" do
-    expect(user_inspector.attributes.map(&:name).to_a).to eq %w(id email password age)
+    expect(user_inspector.attributes.map(&:name).to_a).to eq %w[id email password age]
   end
 end

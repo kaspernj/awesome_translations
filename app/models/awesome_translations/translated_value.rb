@@ -17,17 +17,20 @@ class AwesomeTranslations::TranslatedValue
   alias inspect to_s
 
   def array_translation?
-    return true if @key =~ /\[(\d+)\]\Z/
+    return true if /\[(\d+)\]\Z/.match?(@key)
+
     false
   end
 
   def array_key
     return unless (match = @key.match(/\A(.+)\[(\d+)\]\Z/))
+
     match[1]
   end
 
   def array_no
     return unless (match = @key.match(/\A(.+)\[(\d+)\]\Z/))
+
     match[2].to_i
   end
 

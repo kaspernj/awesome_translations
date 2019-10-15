@@ -4,10 +4,10 @@ FactoryBot.define do
     translation_key
     group
 
-    key_show "some.key"
-    file_path nil
-    line_no nil
-    full_path nil
-    dir "#{Rails.root}/config/locales/awesome_translations/some/key"
+    key_show { "some.key" }
+    file_path { nil }
+    line_no { nil }
+    full_path { nil }
+    dir { "#{Rails.root}/config/locales/awesome_translations/some/key" }
   end
 end

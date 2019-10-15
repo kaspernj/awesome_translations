@@ -99,6 +99,7 @@ private
         root = engine.root.to_s
 
         next unless @_previous_file.starts_with?(root)
+
         @_previous_file = @_previous_file.gsub(/\A#{Regexp.escape(root)}\//, "")
         break
       end

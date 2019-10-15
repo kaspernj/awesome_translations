@@ -11,6 +11,6 @@ module AwesomeTranslations
   end
 
   def self.load_object_extensions
-    ::Object.__send__(:include, AwesomeTranslations::ObjectExtensions)
+    ::Object.include AwesomeTranslations::ObjectExtensions
   end
 end

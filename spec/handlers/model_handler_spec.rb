@@ -13,7 +13,7 @@ describe AwesomeTranslations::Handlers::ModelHandler do
   end
 
   describe "#translations_for_group" do
-    it "should find the right number of translations" do
+    it "finds the right number of translations" do
       expect(user_group.translations.to_a.length).to eq 7
     end
 

@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :group, class: "AwesomeTranslations::CacheDatabaseGenerator::Group" do
     handler
 
-    identifier "tests"
-    name "Tests"
+    identifier { "tests" }
+    name { "Tests" }
   end
 end

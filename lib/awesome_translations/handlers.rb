@@ -11,6 +11,7 @@ class AwesomeTranslations::Handlers
 
         const_name_snake = "#{match[1]}_handler"
         next if const_name_snake == "base_handler"
+
         const_name_camel = StringCases.snake_to_camel(const_name_snake)
 
         handler = AwesomeTranslations::Handler.new(

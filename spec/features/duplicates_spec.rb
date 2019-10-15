@@ -40,7 +40,7 @@ describe AwesomeTranslations::DuplicatesController do
       visit duplicates_path
 
       expect(page).to have_http_status(:success)
-      expect(current_path).to eq duplicates_path
+      expect(page).to have_current_path duplicates_path, ignore_query: true
 
       find("input[type=checkbox][name='d[#{translation_value_duplicate.id}]']")
 

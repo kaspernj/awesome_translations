@@ -22,7 +22,7 @@ describe AwesomeTranslations::GroupsController do
 
   describe "#update" do
     it "updates translations" do
-      expect(I18n.load_path).to_not include model_locales_path
+      expect(I18n.load_path).not_to include model_locales_path
 
       put :update, params: {handler_id: "model_handler", id: "User", t: {
         "activerecord.attributes.user.password" => {"da" => "Adgangskode", "de" => "Kenwort", "en" => "Password"}
@@ -47,10 +47,10 @@ describe AwesomeTranslations::GroupsController do
         .joins(:translation_key)
         .find_by(translation_keys: {key: key_to_update}, locale: "de")
 
-      expect(da_translation_value).to_not eq nil
+      expect(da_translation_value).not_to eq nil
       expect(da_translation_value.value).to eq "Rolle"
 
-      expect(de_translation_value).to_not eq nil
+      expect(de_translation_value).not_to eq nil
       expect(de_translation_value.value).to eq "Die type"
 
       expect(I18n.load_path).to include role_yml_path

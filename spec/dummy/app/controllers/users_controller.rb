@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   def edit; end
 
   def update
-    if @user.update_attributes(user_params)
+    if @user.update(user_params)
       flash[:notice] = controller_t(".user_was_updated")
       redirect_to user_path(@user)
     else
