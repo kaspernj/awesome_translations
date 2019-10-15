@@ -7,7 +7,7 @@ describe AwesomeTranslations::CleanUpsController do
     create :translation_value,
       translation_key: translation_key,
       locale: "da",
-      file_path: "#{Rails.root}/config/locales/awesome_translations/some_file.yml"
+      file_path: Rails.root.join("config", "locales", "awesome_translations", "some_file.yml")
   end
   let(:content) do
     {
