@@ -34,6 +34,7 @@ private
 
     Dir.foreach(full_path) do |file|
       next if file == "." || file == ".."
+
       file_path = path.clone
       file_path << "/" unless file_path.empty?
       file_path << file

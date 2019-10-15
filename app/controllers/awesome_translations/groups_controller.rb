@@ -14,6 +14,7 @@ class AwesomeTranslations::GroupsController < AwesomeTranslations::ApplicationCo
     @group.handler_translations.each do |translation|
       values = values_from_translation(translation)
       next unless values
+
       save_values(translation, values)
     end
 

@@ -1,4 +1,4 @@
-class Role < ActiveRecord::Base
+class Role < ApplicationRecord
   translates :name
 
   belongs_to :user

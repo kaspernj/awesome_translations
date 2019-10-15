@@ -1,4 +1,4 @@
-require File.expand_path("../boot", __FILE__)
+require File.expand_path("boot", __dir__)
 
 # Pick the frameworks you want:
 require "active_record/railtie"
@@ -27,4 +27,9 @@ class Dummy::Application < Rails::Application
   config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}").to_s]
   config.i18n.available_locales = [:da, :de, :en]
   config.i18n.default_locale = :en
+
+  config.assets.precompile += %w[
+    awesome_translations/application.css
+    awesome_translations/application.js
+  ]
 end

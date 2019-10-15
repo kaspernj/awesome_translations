@@ -36,7 +36,7 @@ describe AwesomeTranslations::Handlers::FileHandler do
 
     it "sets the correct translation path" do
       danish_translation = layout_translations.find { |t| t.key == "layouts.application.danish" }
-      expect(danish_translation.dir).to eq "#{Rails.root}/config/locales/awesome_translations/layouts/application"
+      expect(danish_translation.dir).to eq Rails.root.join("config", "locales", "awesome_translations", "layouts", "application").to_s
     end
   end
 
@@ -51,7 +51,7 @@ describe AwesomeTranslations::Handlers::FileHandler do
     let(:update_saved_translation) { users_controller_handler.translations.find { |translation| translation.key == "users.user_was_updated" } }
 
     it "finds translations made with the t method" do
-      expect(admin_translation).to_not eq nil
+      expect(admin_translation).not_to eq nil
       expect(admin_translation.key).to eq "models.role.administrator"
       expect(admin_translation.dir).to end_with "spec/dummy/config/locales/awesome_translations/models/role"
     end
@@ -64,8 +64,8 @@ describe AwesomeTranslations::Handlers::FileHandler do
       moderator_translation = group.translations.find { |translation| translation.key == "models.role.moderator" }
       user_translation = group.translations.find { |translation| translation.key == "models.role.user" }
 
-      expect(moderator_translation).to_not eq nil
-      expect(user_translation).to_not eq nil
+      expect(moderator_translation).not_to eq nil
+      expect(user_translation).not_to eq nil
     end
 
     it "finds helpers translations using helper_t" do
@@ -73,7 +73,7 @@ describe AwesomeTranslations::Handlers::FileHandler do
     end
 
     it "finds translations with the controller_t-method" do
-      expect(update_saved_translation).to_not eq nil
+      expect(update_saved_translation).not_to eq nil
       expect(update_saved_translation.key).to eq "users.user_was_updated"
       expect(update_saved_translation.dir).to end_with "spec/dummy/config/locales/awesome_translations/users"
     end
@@ -93,7 +93,7 @@ describe AwesomeTranslations::Handlers::FileHandler do
     end
 
     it "sets the correct translation path" do
-      expect(yes_translation.dir).to eq "#{Rails.root}/config/locales/awesome_translations"
+      expect(yes_translation.dir).to eq Rails.root.join("config", "locales", "awesome_translations").to_s
     end
 
     it "detects absolute existing direct translations" do

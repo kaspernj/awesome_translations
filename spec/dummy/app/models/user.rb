@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   validates :email, presence: true
   validates :email, uniqueness: true
   validates :email, length: {in: 2..255}, format: {with: /\A.+@.+\Z/}

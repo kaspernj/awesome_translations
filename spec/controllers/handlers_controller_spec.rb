@@ -31,7 +31,7 @@ describe AwesomeTranslations::HandlersController do
       groups = assigns(:groups)
 
       expect(all_groups.length).to be > groups.length
-      expect(groups.length).to eq 4
+      expect(groups.length).to eq 5
       expect(response).to be_success
     end
   end

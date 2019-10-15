@@ -1,7 +1,7 @@
 class AwesomeTranslations::Group
   attr_reader :handler, :id, :data
 
-  def self.find_by_handler_and_id(handler, id)
+  def self.find_by(handler:, id:)
     handler.groups.each do |group|
       return group if group.id == id.to_s
     end
@@ -13,7 +13,7 @@ class AwesomeTranslations::Group
     @handler = args.fetch(:handler)
     @id = args.fetch(:id)
     @data = args[:data] || {}
-    raise "Invalid ID: #{@id}" unless @id.present?
+    raise "Invalid ID: #{@id}" if @id.blank?
   end
 
   def translations(args = {})

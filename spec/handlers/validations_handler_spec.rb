@@ -6,7 +6,7 @@ describe AwesomeTranslations::Handlers::ValidationsHandler do
   let(:blank_email_translation) { user_group.translations.find { |translation| translation.key.include? "email.blank" } }
 
   it "#groups" do
-    expect(validations_handler.groups.to_a.length).to eq 4
+    expect(validations_handler.groups.to_a.length).to eq 5
   end
 
   describe "#translations_for_group" do
@@ -19,12 +19,12 @@ describe AwesomeTranslations::Handlers::ValidationsHandler do
     end
 
     it "finds the right directory" do
-      expect(blank_email_translation.dir).to eq "#{Rails.root}/config/locales/awesome_translations/models/user"
+      expect(blank_email_translation.dir).to eq Rails.root.join("config", "locales", "awesome_translations", "models", "user").to_s
     end
 
     it "finds confirmation translations" do
       confirmation_translation = user_group.translations.find { |translation| translation.key.include? "email_confirmation" }
-      expect(confirmation_translation).to_not be_blank
+      expect(confirmation_translation).not_to be_blank
       expect(confirmation_translation.key).to eq "activerecord.errors.models.user.attributes.email_confirmation.confirmation"
     end
   end

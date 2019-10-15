@@ -16,6 +16,7 @@ class AwesomeTranslations::HandlersController < AwesomeTranslations::Application
     generator = AwesomeTranslations::CacheDatabaseGenerator.current
     generator.update_handlers do |handler_model|
       next unless handler_model.identifier == @handler.identifier
+
       generator.update_groups_for_handler(handler_model)
     end
 

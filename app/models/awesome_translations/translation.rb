@@ -11,7 +11,7 @@ class AwesomeTranslations::Translation
     @key_show = data[:key_show]
     @default = data[:default]
 
-    raise "Dir wasn't valid: '#{@dir}'." unless @dir.present?
+    raise "Dir wasn't valid: '#{@dir}'." if @dir.blank?
   end
 
   def last_key
@@ -23,17 +23,20 @@ class AwesomeTranslations::Translation
   end
 
   def array_translation?
-    return true if @key =~ /\[(\d+)\]\Z/
+    return true if /\[(\d+)\]\Z/.match?(@key)
+
     false
   end
 
   def array_key
     return unless (match = @key.match(/\A(.+)\[(\d+)\]\Z/))
+
     match[1]
   end
 
   def array_no
     return unless (match = @key.match(/\A(.+)\[(\d+)\]\Z/))
+
     match[2].to_i
   end
 
@@ -65,6 +68,7 @@ class AwesomeTranslations::Translation
   def finished?
     I18n.available_locales.each do |locale|
       next if value_for?(locale)
+
       return false
     end
 
@@ -102,6 +106,7 @@ class AwesomeTranslations::Translation
 
   def file_line_content?
     return true if @full_path && @line_no && File.exist?(@full_path)
+
     false
   end
 

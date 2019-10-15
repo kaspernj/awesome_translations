@@ -39,7 +39,7 @@ describe AwesomeTranslations::MovalsController do
       visit movals_path
 
       expect(page).to have_http_status(:success)
-      expect(current_path).to eq movals_path
+      expect(page).to have_current_path movals_path, ignore_query: true
 
       find("input[type=checkbox][value='#{handler_translation.id}']") # Expect to find
 

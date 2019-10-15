@@ -27,6 +27,7 @@ class AwesomeTranslations::Handlers::FileHandler < AwesomeTranslations::Handlers
       file = erb_inspector.file(group.data.fetch(:root_path), group.data.fetch(:file_path))
       file.translations.each do |translation|
         next if translations_found.key?(translation.full_key)
+
         translations_found[translation.full_key] = true
         yielder << translation.model
       end

@@ -5,29 +5,32 @@ source "https://rubygems.org"
 # development dependencies will be added by default to the :development group.
 gemspec
 
-# gem "baza", path: "/home/kaspernj/Dev/Ruby/baza"
-# gem "baza_models", path: "/Users/kaspernj/Dev/Ruby/baza_models" # github: "kaspernj/baza_models"
-# gem "baza_migrations", path: "/home/kaspernj/Dev/Ruby/baza_migrations"
+# gem "baza", path: "/home/dev/Development/baza"
+# gem "baza_models", path: "/home/dev/Development/baza_models" # github: "kaspernj/baza_models"
+# gem "baza_migrations", path: "/home/dev/Development/baza_migrations"
 
 # gem "simple_form_ransack", path: "/Users/kaspernj/Dev/Rails/simple_form_ransack"
 
 group :development, :test do
   gem "activerecord-jdbcsqlite3-adapter", platform: :jruby
-  gem "best_practice_project", "0.0.10"
-  gem "capybara", "2.13.0"
-  gem "capybara-webkit", "1.15.1"
-  gem "database_cleaner", "1.6.2"
-  gem "factory_bot_rails", "4.8.2"
-  gem "forgery", "0.7.0"
+  gem "best_practice_project"
+  gem "capybara"
+  gem "capybara-webkit"
+  gem "database_cleaner"
+  gem "factory_bot_rails"
+  gem "forgery"
   gem "globalize", git: "https://github.com/globalize/globalize.git"
-  gem "money-rails", "1.9.0"
-  gem "pry-rails", "0.3.6"
-  gem "rails-controller-testing", "1.0.2"
-  gem "rails_best_practices", "1.19.0"
-  gem "rspec-rails", "3.9.0"
-  gem "rubocop", "0.52.1"
+  gem "money-rails"
+  gem "pry-rails"
+  gem "rails-controller-testing"
+  gem "rails_best_practices"
+  gem "rspec-rails"
+  gem "rubocop"
+  gem "rubocop-performance"
+  gem "rubocop-rails"
+  gem "rubocop-rspec"
   # gem "scss_lint", "0.47.1"
-  gem "sqlite3", "1.4.1", platform: :ruby
+  gem "sqlite3", platform: :ruby
   gem "tzinfo-data"
 end
 

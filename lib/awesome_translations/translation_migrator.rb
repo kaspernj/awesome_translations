@@ -44,7 +44,7 @@ class AwesomeTranslations::TranslationMigrator
       File.open(@old_path, "w") { |fp| fp.write(YAML.dump(translations_hash)) }
     end
 
-    @translation_value.update_attributes!(file_path: @new_path) if @new_path
+    @translation_value.update!(file_path: @new_path) if @new_path
   end
 
 private

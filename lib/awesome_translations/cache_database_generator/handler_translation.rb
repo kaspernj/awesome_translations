@@ -34,11 +34,13 @@ class AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation < BazaMode
 
   def array_key
     return unless (match = key.match(/\A(.+)\[(\d+)\]\Z/))
+
     match[1]
   end
 
   def array_no
     return unless (match = key.match(/\A(.+)\[(\d+)\]\Z/))
+
     match[2].to_i
   end
 end

@@ -11,19 +11,19 @@ describe AwesomeTranslations::ErbInspector do
   let(:file_paths) { files.map(&:file_path) }
 
   describe "#files" do
-    it "should find haml-files" do
-      expect(files.length).to eq 32
+    it "finds the right amount of haml-files" do
+      expect(files.length).to eq 34
     end
 
-    it "should find haml-files" do
+    it "finds haml-files" do
       expect(file_paths).to include "app/views/users/index.html.haml"
     end
 
-    it "should find js-files" do
+    it "finds js-files" do
       expect(file_paths).to include "app/assets/javascripts/translations.js"
     end
 
-    it "should find erb-files" do
+    it "finds erb-files" do
       expect(file_paths).to include "app/views/users/show.html.erb"
     end
   end

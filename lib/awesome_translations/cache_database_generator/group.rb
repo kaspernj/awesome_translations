@@ -13,7 +13,7 @@ class AwesomeTranslations::CacheDatabaseGenerator::Group < BazaModels::Model
   end
 
   def at_group
-    @at_group ||= AwesomeTranslations::Group.find_by_handler_and_id(at_handler, identifier)
+    @at_group ||= AwesomeTranslations::Group.find_by(handler: at_handler, id: identifier)
   end
 
   def to_param
