@@ -15,7 +15,7 @@ group :development, :test do
   gem "activerecord-jdbcsqlite3-adapter", platform: :jruby
   gem "best_practice_project", "0.0.10"
   gem "capybara", "2.13.0"
-  gem "capybara-webkit", "1.14.0"
+  gem "capybara-webkit", "1.15.1"
   gem "database_cleaner", "1.6.2"
   gem "factory_bot_rails", "4.8.2"
   gem "forgery", "0.7.0"
