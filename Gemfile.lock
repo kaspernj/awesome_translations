@@ -14,9 +14,9 @@ PATH
       active-record-transactioner (>= 0.0.7)
       array_enumerator (~> 0.0.10)
       auto_autoloader (>= 0.0.4)
-      baza (>= 0.0.29, <= 0.0.33)
+      baza (>= 0.0.29, <= 0.0.37)
       baza_migrations (>= 0.0.1)
-      baza_models (>= 0.0.10)
+      baza_models (>= 0.0.13)
       rails (>= 5.0.0)
       sass-rails (>= 4.0.5)
       string-cases (>= 0.0.3)
@@ -74,7 +74,7 @@ GEM
     ast (2.4.0)
     auto_autoloader (0.0.5)
       string-cases
-    baza (0.0.33)
+    baza (0.0.36)
       array_enumerator (~> 0.0.10)
       auto_autoloader (~> 0.0.5)
       datet (~> 0.0.25)
@@ -86,13 +86,13 @@ GEM
       auto_autoloader
       baza (~> 0.0.20)
       string-cases (~> 0.0.1)
-    baza_models (0.0.12)
-      array_enumerator (>= 0.0.10)
-      auto_autoloader (>= 0.0.1)
-      baza (~> 0.0.31)
-      html_gen (>= 0.0.12)
-      simple_delegate (>= 0.0.2)
-      string-cases (>= 0.0.3)
+    baza_models (0.0.13)
+      array_enumerator
+      auto_autoloader
+      baza
+      html_gen
+      simple_delegate
+      string-cases
     best_practice_project (0.0.10)
       auto_autoloader (>= 0.0.5)
     builder (3.2.3)
