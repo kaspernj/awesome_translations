@@ -15,7 +15,7 @@ require "simple_form"
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
-Dir[Rails.root.join("spec", "support", "**", "*.rb")].each { |f| require f }
+Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -69,11 +69,11 @@ RSpec.configure do |config|
     generator = AwesomeTranslations::CacheDatabaseGenerator.current
     generator.close
 
-    translation_file = Rails.root.join("config", "locales", "translations.yml").to_s
+    translation_file = Rails.root.join("config/locales/translations.yml").to_s
     File.unlink(translation_file) if File.exist?(translation_file)
 
-    at_dir = Rails.root.join("config", "locales", "awesome_translations").to_s
+    at_dir = Rails.root.join("config/locales/awesome_translations").to_s
     FileUtils.rm_rf(at_dir) if File.exist?(at_dir)
-    FileUtils.touch(Rails.root.join("config", "locales", ".keep").to_s)
+    FileUtils.touch(Rails.root.join("config/locales/.keep").to_s)
   end
 end

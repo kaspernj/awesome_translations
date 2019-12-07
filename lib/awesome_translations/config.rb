@@ -4,10 +4,10 @@ class AwesomeTranslations::Config
   def initialize
     @ignored_paths = [
       Rails.root.join(".git").to_s,
-      Rails.root.join("config", "locales").to_s,
+      Rails.root.join("config/locales").to_s,
       Rails.root.join("log").to_s,
-      Rails.root.join("public", "packs-test").to_s,
-      Rails.root.join("public", "packs").to_s,
+      Rails.root.join("public/packs-test").to_s,
+      Rails.root.join("public/packs").to_s,
       Rails.root.join("node_modules").to_s,
       Rails.root.join("tmp").to_s,
       Rails.root.join("storage").to_s,

@@ -3,10 +3,10 @@ require "spec_helper"
 describe AwesomeTranslations::GroupsController do
   routes { AwesomeTranslations::Engine.routes }
 
-  let(:model_locales_path) { Rails.root.join("config", "locales", "awesome_translations", "models").to_s }
+  let(:model_locales_path) { Rails.root.join("config/locales/awesome_translations/models").to_s }
   let(:user_yml_path) { "#{model_locales_path}/user/da.yml" }
   let(:role_yml_path) { "#{model_locales_path}/role/da.yml" }
-  let(:date_time_path) { Rails.root.join("config", "locales", "awesome_translations", "date_time", "da.yml").to_s }
+  let(:date_time_path) { Rails.root.join("config/locales/awesome_translations/date_time/da.yml").to_s }
 
   before do
     AwesomeTranslations::CacheDatabaseGenerator.current.cache_translations

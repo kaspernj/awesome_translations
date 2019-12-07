@@ -24,7 +24,7 @@ describe AwesomeTranslations::ErbInspector::TranslationInspector do
   end
 
   it "#full_path" do
-    expect(hello_world_translation.full_path).to eq Rails.root.join("app", "views", "users", "index.html.haml").to_s
+    expect(hello_world_translation.full_path).to eq Rails.root.join("app/views/users/index.html.haml").to_s
   end
 
   it "#dir" do

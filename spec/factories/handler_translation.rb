@@ -8,6 +8,6 @@ FactoryBot.define do
     file_path { nil }
     line_no { nil }
     full_path { nil }
-    dir { Rails.root.join("config", "locales", "awesome_translations", "some", "key") }
+    dir { Rails.root.join("config/locales/awesome_translations/some/key") }
   end
 end

@@ -5,7 +5,7 @@
 
 namespace :awesome_translations do
   task "install" => :environment do
-    yml_root = Rails.root.join("config", "locales", "awesome_translations")
+    yml_root = Rails.root.join("config/locales/awesome_translations")
 
     dirs = [
       yml_root,

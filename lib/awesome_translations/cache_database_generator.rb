@@ -74,7 +74,7 @@ class AwesomeTranslations::CacheDatabaseGenerator
   end
 
   def cache_yml_translations
-    cache_translations_in_dir(Rails.root.join("config", "locales"))
+    cache_translations_in_dir(Rails.root.join("config/locales"))
   end
 
   def cache_handler_translations
@@ -86,7 +86,7 @@ class AwesomeTranslations::CacheDatabaseGenerator
   end
 
   def self.database_path
-    @database_path ||= Rails.root.join("db", "awesome_translations.sqlite3").to_s
+    @database_path ||= Rails.root.join("db/awesome_translations.sqlite3").to_s
   end
 
   def database_path

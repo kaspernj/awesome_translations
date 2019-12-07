@@ -4,13 +4,13 @@ describe AwesomeTranslations::MovalsController do
   let!(:handler_translation) do
     create :handler_translation,
       translation_key: translation_key,
-      dir: Rails.root.join("config", "locales", "some", "right", "path")
+      dir: Rails.root.join("config/locales/some/right/path")
   end
   let!(:translation_key) { create :translation_key, key: "some.key" }
   let!(:translation_value) do
     create :translation_value,
       translation_key: translation_key,
-      file_path: Rails.root.join("config", "locales", "some", "wrong", "path", "en.yml")
+      file_path: Rails.root.join("config/locales/some/wrong/path/en.yml")
   end
 
   let!(:handler_translation_right_path) { create :handler_translation, translation_key: translation_key_right_path, dir: "/some/path" }
@@ -56,7 +56,7 @@ describe AwesomeTranslations::MovalsController do
       find("input[type=submit]").click
       translation_value.reload
 
-      expect(translation_value.file_path).to eq Rails.root.join("config", "locales", "some", "right", "path", "en.yml").to_s
+      expect(translation_value.file_path).to eq Rails.root.join("config/locales/some/right/path/en.yml").to_s
     end
   end
 end
