@@ -6,7 +6,7 @@ describe AwesomeTranslations::CacheDatabaseGenerator do
   let(:db) { cache_database_generator.db }
 
   before do
-    locales_path = Rails.root.join("config", "locales")
+    locales_path = Rails.root.join("config/locales")
     FileUtils.rm_rf(locales_path)
     Dir.mkdir(locales_path)
 

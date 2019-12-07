@@ -4,18 +4,18 @@ describe AwesomeTranslations::DuplicatesController do
   let!(:handler_translation) do
     create :handler_translation,
       translation_key: translation_key,
-      dir: Rails.root.join("config", "locales", "some", "right", "path")
+      dir: Rails.root.join("config/locales/some/right/path")
   end
   let!(:translation_key) { create :translation_key, key: "some.key" }
   let!(:translation_value) do
     create :translation_value,
       translation_key: translation_key,
-      file_path: Rails.root.join("config", "locales", "some", "right", "path", "en.yml")
+      file_path: Rails.root.join("config/locales/some/right/path/en.yml")
   end
   let!(:translation_value_duplicate) do
     create :translation_value,
       translation_key: translation_key,
-      file_path: Rails.root.join("config", "locales", "some", "wrong", "path", "en.yml")
+      file_path: Rails.root.join("config/locales/some/wrong/path/en.yml")
   end
 
   before do

@@ -3,14 +3,14 @@ require "spec_helper"
 describe AwesomeTranslations::Translation do
   let(:day_names_monday_translation) do
     AwesomeTranslations::Translation.new(
-      dir: Rails.root.join("config", "locales", "awesome_translations", "date_time"),
+      dir: Rails.root.join("config/locales/awesome_translations/date_time"),
       key: "date.day_names[1]"
     )
   end
 
   let(:am_translation) do
     AwesomeTranslations::Translation.new(
-      dir: Rails.root.join("config", "locales", "awesome_translations", "date_time"),
+      dir: Rails.root.join("config/locales/awesome_translations/date_time"),
       key: "time.am"
     )
   end
