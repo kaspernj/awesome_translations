@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/globalize/globalize.git
-  revision: a2bfc9c49b41ecd5b6548d990d09b40c535694fc
+  revision: 6207a3b49d9705120ceed460af0d0af78c8bfaf3
   specs:
     globalize (5.3.0)
       activemodel (>= 4.2, < 6.1)
@@ -214,7 +214,7 @@ GEM
     rainbow (3.0.0)
     rake (13.0.0)
     regexp_parser (1.6.0)
-    request_store (1.4.1)
+    request_store (1.5.0)
       rack (>= 1.4)
     require_all (2.0.0)
     rspec-core (3.9.0)
@@ -279,7 +279,7 @@ GEM
     thread_safe (0.3.6)
     thread_safe (0.3.6-java)
     tilt (2.0.10)
-    tzinfo (1.2.5)
+    tzinfo (1.2.6)
       thread_safe (~> 0.1)
     tzinfo-data (1.2019.3)
       tzinfo (>= 1.0.0)
