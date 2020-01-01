@@ -124,7 +124,7 @@ class AwesomeTranslations::ModelInspector
 
   # Loads models for the given app-directory (Rails-root or engine).
   def self.load_models_for(root)
-    Dir.glob("#{root}/app/models/**/*.rb") do |model_path|
+    Dir.glob("#{root}/app/models/**/*.rb").sort.each do |model_path|
       next if active_storage_path?(model_path)
 
       begin
