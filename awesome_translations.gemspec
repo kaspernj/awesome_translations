@@ -17,9 +17,9 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "active-record-transactioner", ">= 0.0.7"
-  s.add_dependency "array_enumerator", "~> 0.0.10"
+  s.add_dependency "array_enumerator", ">= 0.0.10"
   s.add_dependency "auto_autoloader", ">= 0.0.4"
-  s.add_dependency "baza", ">= 0.0.29", "<= 0.0.37"
+  s.add_dependency "baza", ">= 0.0.37"
   s.add_dependency "baza_migrations", ">= 0.0.1"
   s.add_dependency "baza_models", ">= 0.0.13"
   s.add_dependency "rails", ">= 5.0.0"
