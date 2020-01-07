@@ -10,7 +10,7 @@ GIT
 PATH
   remote: .
   specs:
-    awesome_translations (0.0.58)
+    awesome_translations (0.0.59)
       active-record-transactioner (>= 0.0.7)
       array_enumerator (>= 0.0.10)
       auto_autoloader (>= 0.0.4)
@@ -156,6 +156,7 @@ GEM
       money (~> 6.13.2)
       railties (>= 3.0)
     nio4r (2.5.2)
+    nio4r (2.5.2-java)
     nokogiri (1.10.7)
       mini_portile2 (~> 2.4.0)
     nokogiri (1.10.7-java)
@@ -284,6 +285,8 @@ GEM
       tzinfo (>= 1.0.0)
     unicode-display_width (1.6.0)
     websocket-driver (0.6.5)
+      websocket-extensions (>= 0.1.0)
+    websocket-driver (0.6.5-java)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
     wref (0.0.8)
