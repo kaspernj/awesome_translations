@@ -2,6 +2,7 @@ class AwesomeTranslations::ModelInspector
   autoload :Attribute, "#{File.dirname(__FILE__)}/model_inspector/attribute"
 
   attr_reader :clazz
+
   cattr_accessor :models_loaded
 
   # Yields a model-inspector for each model found in the application.
