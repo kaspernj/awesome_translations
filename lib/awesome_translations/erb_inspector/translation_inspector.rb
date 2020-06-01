@@ -49,16 +49,16 @@ private
         is_mailer = true
       elsif @full_key.start_with?("app/views/")
         # Remove "app/views" from view-translations since that doesn't get used in keys.
-        @full_key.gsub!(/\Aapp\/views\//, "")
+        @full_key.delete_prefix!("app/views/")
       elsif @full_key.start_with?("app/controllers")
         # Remove "app/controllers" from controller-translations since that doesn't get used in keys.
         @full_key.gsub!(/\Aapp\/controllers(\/?)/, "")
         is_controller = true
       elsif @full_key.start_with?("app/cells")
-        @full_key.gsub!(/\Aapp\/cells\//, "")
+        @full_key.delete_prefix!("app/cells/")
       elsif @full_key.start_with?("app/")
         # Remove "app" from controller- and helper-translations since that doesn't get used.
-        @full_key.gsub!(/\Aapp\//, "")
+        @full_key.delete_prefix!("app/")
       end
 
       @full_key.tr!("/", ".")
@@ -66,7 +66,7 @@ private
       @full_key << file_key(@file_path)
       @full_key << ".#{@last_method}" if (is_mailer || is_controller) && @last_method && @method != "controller_t"
       @full_key << "."
-      @full_key << @key.gsub(/\A\./, "")
+      @full_key << @key.delete_prefix(".")
     elsif @method == "I18n-js.t" || @method == "t" || @method == "helper_t" || @method == "controller_t"
       @full_key = @key
     else
@@ -81,10 +81,10 @@ private
     key = key.match(/\A(.+?)\./)[1]
 
     # Remove leading "_" from partials
-    key = key.gsub(/\A_/, "")
+    key.delete_prefix!("_")
 
     # Remove '_controller' from controllers
-    key = key.gsub(/_controller\Z/, "")
+    key.delete_suffix!("_controller")
 
     key
   end

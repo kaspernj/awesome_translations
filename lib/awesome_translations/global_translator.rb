@@ -45,8 +45,8 @@ private
   def dir
     if @_dir.nil?
       @_dir = File.dirname(previous_file)
-      @_dir = @_dir.gsub(/\A#{Regexp.escape(Rails.root.to_s)}\//, "")
-      @_dir = @_dir.gsub(/\Aspec\/dummy\//, "")
+      @_dir.delete_prefix!("#{Rails.root}/") # rubocop:disable Rails/FilePath
+      @_dir.delete_prefix!("spec/dummy/")
 
       if @_dir.starts_with?("app/controllers")
         @_dir = @_dir.gsub(/\Aapp\/controllers(\/?)/, "")
@@ -54,7 +54,7 @@ private
       elsif @_dir.starts_with?("app/views")
         @_dir = @_dir.gsub(/\Aapp\/views(\/?)/, "")
       elsif @_dir.starts_with?("app/")
-        @_dir = @_dir.gsub(/\Aapp\//, "")
+        @_dir.delete_prefix!("app/")
       end
     end
 
@@ -95,7 +95,7 @@ private
 
   def translation_key
     translation_key = dir
-    translation_key = translation_key.gsub(/\Aapp\//, "")
+    translation_key = translation_key.delete_prefix("app/")
     translation_key << "/#{file}"
 
     key_parts = translation_key.split("/")
