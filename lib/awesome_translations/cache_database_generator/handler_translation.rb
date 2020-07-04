@@ -1,7 +1,15 @@
 class AwesomeTranslations::CacheDatabaseGenerator::HandlerTranslation < BazaModels::Model
-  belongs_to :group, foreign_key: "group_id", class_name: "AwesomeTranslations::CacheDatabaseGenerator::Group"
-  belongs_to :handler, foreign_key: "handler_id", class_name: "AwesomeTranslations::CacheDatabaseGenerator::Handler"
-  belongs_to :translation_key, foreign_key: "translation_key_id", class_name: "AwesomeTranslations::CacheDatabaseGenerator::TranslationKey"
+  belongs_to :group,
+    foreign_key: "group_id", # rubocop:disable Rails/RedundantForeignKey
+    class_name: "AwesomeTranslations::CacheDatabaseGenerator::Group"
+
+  belongs_to :handler,
+    foreign_key: "handler_id", # rubocop:disable Rails/RedundantForeignKey
+    class_name: "AwesomeTranslations::CacheDatabaseGenerator::Handler"
+
+  belongs_to :translation_key,
+    foreign_key: "translation_key_id", # rubocop:disable Rails/RedundantForeignKey
+    class_name: "AwesomeTranslations::CacheDatabaseGenerator::TranslationKey"
 
   validates_presence_of :handler, :translation_key
 

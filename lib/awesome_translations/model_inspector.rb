@@ -139,6 +139,6 @@ class AwesomeTranslations::ModelInspector
   end
 
   def self.active_storage_path?(model_path)
-    model_path.match?(/\/gems\/activestorage-([\d\.]+)\//)
+    model_path.match?(/\/gems\/activestorage-([\d.]+)\//)
   end
 end
