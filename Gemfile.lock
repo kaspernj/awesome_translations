@@ -125,7 +125,7 @@ GEM
       railties (>= 5.0.0)
     ffi (1.11.1)
     ffi (1.11.1-java)
-    forgery (0.7.0)
+    forgery (0.8.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     html_gen (0.0.16)
