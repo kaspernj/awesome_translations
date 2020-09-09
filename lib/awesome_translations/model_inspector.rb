@@ -35,12 +35,10 @@ class AwesomeTranslations::ModelInspector
     end
   end
 
-  def paperclip_attachments
+  def paperclip_attachments(&blk)
     return unless ::Kernel.const_defined?("Paperclip")
 
-    Paperclip::AttachmentRegistry.names_for(@clazz).each do |name|
-      yield name
-    end
+    Paperclip::AttachmentRegistry.names_for(@clazz, &blk)
   end
 
   def money_attributes
@@ -76,10 +74,8 @@ class AwesomeTranslations::ModelInspector
   end
 
   # TODO: Maybe this should yield a ModelInspector::Relationship instead?
-  def relationships
-    @clazz.reflections.each do |key, reflection|
-      yield key, reflection
-    end
+  def relationships(&blk)
+    @clazz.reflections.each(&blk)
   end
 
   def attribute_key(attribute_name)

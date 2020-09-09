@@ -5,13 +5,14 @@ require "awesome_translations/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "awesome_translations"
-  s.version     = AwesomeTranslations::VERSION
-  s.authors     = ["Kasper Johansen"]
-  s.email       = ["k@spernj.org"]
-  s.homepage    = "https://www.github.com/kaspernj/awesome_translations"
-  s.summary     = "Semi-automatic maintenance of most translations in a Rails app."
+  s.name = "awesome_translations"
+  s.version = AwesomeTranslations::VERSION
+  s.authors = ["Kasper Johansen"]
+  s.email = ["kaspernj@gmail.com"]
+  s.homepage = "https://www.github.com/kaspernj/awesome_translations"
+  s.summary = "Semi-automatic maintenance of most translations in a Rails app."
   s.description = "Semi-automatic maintenance of most translations in a Rails app."
+  s.required_ruby_version = ">= 2.5"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["spec/**/*"]
