@@ -3,7 +3,7 @@ require "spec_helper"
 describe AwesomeTranslations::Handlers::FileHandler do
   let(:handler) { AwesomeTranslations::Handlers::FileHandler.new }
 
-  describe "erb stuff" do
+  describe "erb stuff" do # rubocop:disable RSpec/MultipleMemoizedHelpers
     let(:users_index_group) { handler.groups.find { |group| group.name == "app/views/users/index.html.haml" } }
     let(:users_index_translations) { users_index_group.translations }
     let(:users_partial_test_translations) { handler.groups.find { |group| group.name == "app/views/users/_partial_test.html.erb" }.translations }
@@ -40,7 +40,7 @@ describe AwesomeTranslations::Handlers::FileHandler do
     end
   end
 
-  describe "library stuff" do
+  describe "library stuff" do # rubocop:disable RSpec/MultipleMemoizedHelpers
     let(:group) { handler.groups.find { |group| group.name == "app/models/role.rb" } }
     let(:mailer_group) { handler.groups.find { |group| group.name == "app/mailers/my_mailer.rb" } }
     let(:subject_translation) { mailer_group.translations.find { |translation| translation.key == "my_mailer.mailer_action.custom_subject" } }
