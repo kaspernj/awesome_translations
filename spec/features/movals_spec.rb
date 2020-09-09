@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe AwesomeTranslations::MovalsController do
+describe AwesomeTranslations::MovalsController do # rubocop:disable RSpec/MultipleMemoizedHelpers
   let!(:handler_translation) do
     create :handler_translation,
       translation_key: translation_key,
@@ -34,7 +34,7 @@ describe AwesomeTranslations::MovalsController do
     end
   end
 
-  describe "#index" do
+  describe "#index" do # rubocop:disable RSpec/MultipleMemoizedHelpers
     it "renders the page and shows the correct results" do
       visit movals_path
 
@@ -49,7 +49,7 @@ describe AwesomeTranslations::MovalsController do
     end
   end
 
-  describe "#create" do
+  describe "#create" do # rubocop:disable RSpec/MultipleMemoizedHelpers
     it "moves the checked translations to the right path" do
       visit movals_path
 

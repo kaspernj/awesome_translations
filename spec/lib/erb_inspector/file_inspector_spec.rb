@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe AwesomeTranslations::ErbInspector::FileInspector do
+describe AwesomeTranslations::ErbInspector::FileInspector do # rubocop:disable RSpec/MultipleMemoizedHelpers
   let(:erb_inspector) do
     AwesomeTranslations::ErbInspector.new(
       dirs: [Rails.root.to_s]
@@ -15,7 +15,7 @@ describe AwesomeTranslations::ErbInspector::FileInspector do
   let(:user_index_translations) { user_index_inspector.translations.to_a }
   let(:hello_world_translation) { user_index_translations.find { |translation| translation.key == ".hello_world" } }
 
-  describe "#translations" do
+  describe "#translations" do # rubocop:disable RSpec/MultipleMemoizedHelpers
     it "finds the right number of translations" do
       expect(user_index_translations.length).to eq 3
     end
