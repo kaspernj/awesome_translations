@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe AwesomeTranslations::Handlers::ModelHandler do
+describe AwesomeTranslations::Handlers::ModelHandler do # rubocop:disable RSpec/MultipleMemoizedHelpers
   let(:model_handler) { AwesomeTranslations::Handlers::ModelHandler.new }
   let(:groups) { model_handler.groups.to_a }
   let(:user_group) { model_handler.groups.detect { |group| group.name == "User" } }
@@ -12,7 +12,7 @@ describe AwesomeTranslations::Handlers::ModelHandler do
     expect(groups.length).to eq 5
   end
 
-  describe "#translations_for_group" do
+  describe "#translations_for_group" do # rubocop:disable RSpec/MultipleMemoizedHelpers
     it "finds the right number of translations" do
       expect(user_group.translations.to_a.length).to eq 7
     end

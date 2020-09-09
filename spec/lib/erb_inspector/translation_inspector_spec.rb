@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe AwesomeTranslations::ErbInspector::TranslationInspector do
+describe AwesomeTranslations::ErbInspector::TranslationInspector do # rubocop:disable RSpec/MultipleMemoizedHelpers
   let(:erb_inspector) do
     AwesomeTranslations::ErbInspector.new(
       dirs: [Rails.root.to_s]
