@@ -23,11 +23,11 @@ class AwesomeTranslations::Handlers::ValidationsHandler < AwesomeTranslations::H
             translations_for_format_validator(validator, model_inspector, attribute_name, yielder)
           elsif validator.is_a?(ActiveRecord::Validations::UniquenessValidator)
             translations_for_uniqueness_validator(validator, model_inspector, attribute_name, yielder)
-          elsif validator.class.name == "ActiveRecord::Validations::PresenceValidator"
+          elsif validator.class.name == "ActiveRecord::Validations::PresenceValidator" # rubocop:disable Style/ClassEqualityComparison:
             translations_for_presence_validator(validator, model_inspector, attribute_name, yielder)
-          elsif validator.class.name == "EmailValidator"
+          elsif validator.class.name == "EmailValidator" # rubocop:disable Style/ClassEqualityComparison:
             translations_for_email_validator(validator, model_inspector, attribute_name, yielder)
-          elsif validator.class.name == "ActiveModel::Validations::ConfirmationValidator"
+          elsif validator.class.name == "ActiveModel::Validations::ConfirmationValidator" # rubocop:disable Style/ClassEqualityComparison:
             translations_for_confirmation_validator(validator, model_inspector, attribute_name, yielder)
           else
             Rails.logger.error "Unhandeled validator: #{validator.class.name}"
