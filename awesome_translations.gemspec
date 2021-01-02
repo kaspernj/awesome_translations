@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency "auto_autoloader", ">= 0.0.4"
   s.add_dependency "baza", ">= 0.0.37"
   s.add_dependency "baza_migrations", ">= 0.0.1"
-  s.add_dependency "baza_models", ">= 0.0.13"
+  s.add_dependency "baza_models", ">= 0.0.14"
   s.add_dependency "rails", ">= 5.0.0"
   s.add_dependency "sass-rails", ">= 4.0.5"
   s.add_dependency "string-cases", ">= 0.0.3"
