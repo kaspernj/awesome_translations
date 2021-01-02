@@ -26,7 +26,7 @@ private
       .joins(:translation_key)
       .includes(:translation_key)
       .joins("LEFT JOIN handler_translations ON handler_translations.translation_key_id = translation_keys.id")
-      .where("handler_translations.id IS NULL")
+      .where(handler_translations: {id: nil})
       .where("translation_values.file_path LIKE '%/config/locales/awesome_translations/%'")
   end
 end
