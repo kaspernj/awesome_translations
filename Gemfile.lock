@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/globalize/globalize.git
-  revision: 256763ab17266cc247de281ec232ed0ceefd00dd
+  revision: 76b808b13d15c2b7158c0f61ff000b05de47afe6
   specs:
-    globalize (6.0.0)
+    globalize (6.0.1)
       activemodel (>= 4.2, < 7.0)
       activerecord (>= 4.2, < 7.0)
       request_store (~> 1.0)
@@ -110,7 +110,7 @@ GEM
     code_analyzer (0.5.1)
       sexp_processor
     coderay (1.1.2)
-    concurrent-ruby (1.1.8)
+    concurrent-ruby (1.1.9)
     crass (1.0.6)
     database_cleaner (2.0.1)
       database_cleaner-active_record (~> 2.0.0)
