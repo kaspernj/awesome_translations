@@ -138,8 +138,8 @@ GEM
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     jdbc-sqlite3 (3.20.1)
-    json (2.5.1)
-    json (2.5.1-java)
+    json (2.6.1)
+    json (2.6.1-java)
     loofah (2.12.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -204,7 +204,7 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.4.2)
       loofah (~> 2.3)
-    rails_best_practices (1.21.0)
+    rails_best_practices (1.22.1)
       activesupport
       code_analyzer (>= 0.5.2)
       erubis
@@ -274,7 +274,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    sexp_processor (4.15.3)
+    sexp_processor (4.16.0)
     simple_delegate (0.0.2)
     simple_form (5.0.3)
       actionpack (>= 5.0)
