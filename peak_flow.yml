@@ -9,13 +9,13 @@ builds:
     name: Ruby 2.7.4
     script:
       - bundle exec rspec
-  build_1:
+  build_2:
     environment:
       RUBY_VERSION: 3.0.3
     name: Ruby 3.0.3
     script:
       - bundle exec rspec
-  build_2:
+  build_3:
     name: Linters
     script:
       - bundle exec rubocop
