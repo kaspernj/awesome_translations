@@ -29,9 +29,7 @@ describe AwesomeTranslations::MovalsController do # rubocop:disable RSpec/Multip
       }
     }
 
-    File.open(translation_value.file_path, "w") do |fp|
-      fp.write(YAML.dump(translation_yaml))
-    end
+    File.write(translation_value.file_path, YAML.dump(translation_yaml))
   end
 
   describe "#index" do # rubocop:disable RSpec/MultipleMemoizedHelpers

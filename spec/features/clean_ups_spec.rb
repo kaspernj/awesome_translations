@@ -21,10 +21,7 @@ describe AwesomeTranslations::CleanUpsController do
 
   before do
     FileUtils.mkdir_p(File.dirname(translation_value.file_path))
-
-    File.open(translation_value.file_path, "w") do |fp|
-      fp.write(YAML.dump(content))
-    end
+    File.write(translation_value.file_path, YAML.dump(content))
   end
 
   it "works" do

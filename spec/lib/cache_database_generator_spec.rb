@@ -25,7 +25,7 @@ describe AwesomeTranslations::CacheDatabaseGenerator do
       }
     }
 
-    File.open(fake_path, "w") { |fp| fp.write(YAML.dump(translations)) }
+    File.write(fake_path, YAML.dump(translations))
   end
 
   it "#init_database" do

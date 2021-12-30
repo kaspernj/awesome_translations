@@ -17,7 +17,7 @@ describe AwesomeTranslations::TranslationMigrator do
 
   before do
     File.unlink(translation_value.file_path) if File.exist?(translation_value.file_path)
-    File.open(translation_value.file_path, "w") { |fp| fp.write(YAML.dump(content)) }
+    File.write(translation_value.file_path, YAML.dump(content))
   end
 
   after do

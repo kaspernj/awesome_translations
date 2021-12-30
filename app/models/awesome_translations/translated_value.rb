@@ -37,7 +37,7 @@ class AwesomeTranslations::TranslatedValue
   def save!
     dir = File.dirname(@file)
     FileUtils.mkdir_p(dir) unless File.exist?(dir)
-    File.open(@file, "w") { |fp| fp.write("#{@locale}:\n") } unless File.exist?(@file)
+    File.write(@file, "#{@locale}:\n") unless File.exist?(@file)
 
     translations = YAML.safe_load(File.read(@file))
     translations ||= {}
@@ -48,7 +48,7 @@ class AwesomeTranslations::TranslatedValue
     update_models
 
     I18n.load_path << file unless I18n.load_path.include?(file)
-    File.open(file, "w") { |fp| fp.write(YAML.dump(translations)) }
+    File.write(file, YAML.dump(translations))
   end
 
 private

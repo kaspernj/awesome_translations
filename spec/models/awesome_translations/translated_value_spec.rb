@@ -26,9 +26,7 @@ describe AwesomeTranslations::TranslatedValue do
       }
     }
 
-    File.open(test_file_path, "w") do |fp|
-      fp.write(YAML.dump(test_translations))
-    end
+    File.write(test_file_path, YAML.dump(test_translations))
   end
 
   it "#save!" do

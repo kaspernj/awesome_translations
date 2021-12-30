@@ -5,8 +5,10 @@ describe UsersController do
 
   render_views
 
-  before do
-    I18n.locale = :en
+  around do |example|
+    I18n.with_locale(:en) do
+      example.call
+    end
   end
 
   it "#update" do
