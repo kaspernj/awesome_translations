@@ -12,7 +12,8 @@ Gem::Specification.new do |s|
   s.homepage = "https://www.github.com/kaspernj/awesome_translations"
   s.summary = "Semi-automatic maintenance of most translations in a Rails app."
   s.description = "Semi-automatic maintenance of most translations in a Rails app."
-  s.required_ruby_version = ">= 3.0"
+  s.required_ruby_version = ">= 2.7"
+  s.metadata = {"rubygems_mfa_required" => "true"}
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["spec/**/*"]
