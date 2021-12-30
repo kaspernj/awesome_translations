@@ -34,14 +34,14 @@ class AwesomeTranslations::TranslationMigrator
 
     if @new_path
       FileUtils.mkdir_p(File.dirname(@new_path))
-      File.open(@new_path, "w") { |fp| fp.write(YAML.dump(new_translations_hash)) }
+      File.write(@new_path, YAML.dump(new_translations_hash))
     end
 
     if translations_hash.empty?
       I18n.load_path.delete(@old_path)
       File.unlink(@old_path)
     else
-      File.open(@old_path, "w") { |fp| fp.write(YAML.dump(translations_hash)) }
+      File.write(@old_path, YAML.dump(translations_hash))
     end
 
     @translation_value.update!(file_path: @new_path) if @new_path
