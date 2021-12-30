@@ -6,11 +6,9 @@ require "rspec/rails"
 require "baza_models"
 require "database_cleaner"
 require "capybara"
-require "capybara-webkit"
 require "factory_bot"
 require "forgery"
 require "globalize"
-require "sass-rails"
 require "simple_form"
 
 # Requires supporting ruby files with custom matchers and macros, etc,
@@ -27,7 +25,6 @@ FactoryBot.find_definitions
 AwesomeTranslations.load_object_extensions
 
 Capybara.app = AwesomeTranslations::Engine
-Capybara.javascript_driver = :webkit
 
 RSpec.configure do |config|
   config.include AwesomeTranslations::Engine.routes.url_helpers
