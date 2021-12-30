@@ -5,15 +5,11 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_action :set_locale
+  around_action :with_locale
 
 private
 
-  def set_locale
-    if session[:locale]
-      I18n.locale = session[:locale]
-    else
-      I18n.locale = :en
-    end
+  def with_locale(&blk)
+    I18n.with_locale(session[:locale] || :en, &blk)
   end
 end
