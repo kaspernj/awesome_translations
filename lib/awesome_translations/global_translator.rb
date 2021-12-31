@@ -22,22 +22,22 @@ class AwesomeTranslations::GlobalTranslator
     new(key: key, args: args, blk: blk, call: call).translation
   end
 
-  attr_reader :key, :args, :blk, :call
+  attr_reader :args, :blk, :call, :key, :translation_args, :translation_opts
 
-  def initialize(init_args)
-    @key = init_args.fetch(:key)
-    @args = init_args.fetch(:args)
-    @blk = init_args.fetch(:blk)
-    @call = init_args.fetch(:call)
+  def initialize(args:, blk:, call:, key:)
+    @args = args
+    @blk = blk
+    @call = call
+    @key = key
+    @translation_args = args[:translation_args] || []
+    @translation_opts = args[:translation_opts] || {}
   end
 
   def translation
-    if @key.is_a?(String) && @key.start_with?(".")
-      # Change key to full path.
-      @key = translation_key
-    end
+    # Change key to full path.
+    @key = translation_key if @key.is_a?(String) && @key.start_with?(".")
 
-    I18n.t(@key, *args[:translation_args], **args[:translation_opts], &blk)
+    I18n.t(@key, *translation_args, **translation_opts, &blk)
   end
 
 private
