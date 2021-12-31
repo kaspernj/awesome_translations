@@ -7,8 +7,8 @@ module AwesomeTranslations::TranslateFunctionality
   end
 
   module Methods
-    def t(key, args = {}, &blk)
-      AwesomeTranslations::GlobalTranslator.translate(key, translation_args: [args], caller_number: 1, &blk)
+    def t(key, *args, **opts, &blk)
+      AwesomeTranslations::GlobalTranslator.translate(key, caller_number: 1, translation_args: args, translation_opts: opts, &blk)
     end
   end
 end
