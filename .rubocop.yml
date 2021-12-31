@@ -7,12 +7,15 @@ AllCops:
     - db/schema.rb
     - spec/dummy/db/schema.rb
   NewCops: enable
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 2.7
 
 require:
   - rubocop-performance
   - rubocop-rails
   - rubocop-rspec
+
+Gemspec/RequiredRubyVersion:
+  Enabled: false
 
 Layout/AccessModifierIndentation:
   EnforcedStyle: outdent

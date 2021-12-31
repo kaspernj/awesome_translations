@@ -37,7 +37,7 @@ class AwesomeTranslations::GlobalTranslator
       @key = translation_key
     end
 
-    I18n.t(@key, *args[:translation_args], &blk)
+    I18n.t(@key, *args[:translation_args], **args[:translation_opts], &blk)
   end
 
 private

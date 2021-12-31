@@ -92,7 +92,7 @@ private
   def generate_dir
     parts = %w[config locales awesome_translations]
 
-    key_parts = @full_key.split(".").reject(&:blank?)
+    key_parts = @full_key.split(".").compact_blank
     key_parts.pop
 
     @dir = Rails.root.join(*(parts + key_parts)).to_s

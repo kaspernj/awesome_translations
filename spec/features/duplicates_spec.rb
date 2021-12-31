@@ -30,9 +30,7 @@ describe AwesomeTranslations::DuplicatesController do
       }
     }
 
-    File.open(translation_value_duplicate.file_path, "w") do |fp|
-      fp.write(YAML.dump(translation_yaml))
-    end
+    File.write(translation_value_duplicate.file_path, YAML.dump(translation_yaml))
   end
 
   describe "#index" do

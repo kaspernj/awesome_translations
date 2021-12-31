@@ -7,8 +7,8 @@ module AwesomeTranslations::ControllerTranslateFunctionality
   end
 
   module Methods
-    def controller_t(key, args = {}, &blk)
-      AwesomeTranslations::GlobalTranslator.translate(key, translation_args: [args], caller_number: 1, action_in_key: false, &blk)
+    def controller_t(key, *args, **opts, &blk)
+      AwesomeTranslations::GlobalTranslator.translate(key, action_in_key: false, caller_number: 1, translation_args: args, translation_opts: opts, &blk)
     end
   end
 end

@@ -12,7 +12,7 @@ describe AwesomeTranslations::HandlersController do
   describe "#index" do
     it "renders the page" do
       get :index
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
@@ -20,7 +20,7 @@ describe AwesomeTranslations::HandlersController do
     it "renders the page" do
       AwesomeTranslations::CacheDatabaseGenerator.current.cache_translations
       get :show, params: {id: "model_handler"}
-      expect(response).to be_success
+      expect(response).to be_successful
     end
 
     it "filters with missing translations" do
@@ -32,7 +32,7 @@ describe AwesomeTranslations::HandlersController do
 
       expect(all_groups.length).to be > groups.length
       expect(groups.length).to eq 5
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 

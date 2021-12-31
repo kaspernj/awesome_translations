@@ -22,7 +22,4 @@ namespace :awesome_translations do
       end
     end
   end
-
-  task "update" => :environment do
-  end
 end

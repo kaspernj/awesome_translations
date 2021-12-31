@@ -36,13 +36,13 @@ class AwesomeTranslations::ModelInspector
   end
 
   def paperclip_attachments(&blk)
-    return unless ::Kernel.const_defined?("Paperclip")
+    return unless ::Kernel.const_defined?(:Paperclip)
 
     Paperclip::AttachmentRegistry.names_for(@clazz, &blk)
   end
 
   def money_attributes
-    return if !::Kernel.const_defined?("Money") || !@clazz.respond_to?(:monetized_attributes)
+    return if !::Kernel.const_defined?(:Money) || !@clazz.respond_to?(:monetized_attributes)
 
     @clazz.monetized_attributes.each do |attribute|
       yield attribute[0].to_s
@@ -50,7 +50,7 @@ class AwesomeTranslations::ModelInspector
   end
 
   def globalize_attributes
-    return if !::Kernel.const_defined?("Globalize") || !@clazz.respond_to?(:translated_attribute_names)
+    return if !::Kernel.const_defined?(:Globalize) || !@clazz.respond_to?(:translated_attribute_names)
 
     @clazz.translated_attribute_names.each do |attribute|
       yield attribute.to_s
@@ -96,7 +96,7 @@ class AwesomeTranslations::ModelInspector
     @scanned[clazz.name] = true
 
     clazz.subclasses.each do |subclass|
-      blk.call ::AwesomeTranslations::ModelInspector.new(subclass)
+      yield ::AwesomeTranslations::ModelInspector.new(subclass)
       find_subclasses(subclass, &blk)
     end
   end

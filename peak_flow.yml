@@ -1,9 +1,24 @@
 rvm: true
-script:
+before_script:
   - cd spec/dummy; bundle exec rails db:environment:set RAILS_ENV=test
   - bundle exec rails db:schema:load
-  - bundle exec rspec
-  - bundle exec rubocop
-  - gem install scss_lint
-  - scss-lint app/assets/stylesheets spec/dummy/app/assets/stylesheets
-  - bundle exec rails_best_practices
+builds:
+  build_1:
+    environment:
+      RUBY_VERSION: 2.7.4
+    name: Ruby 2.7.4
+    script:
+      - bundle exec rspec
+  build_2:
+    environment:
+      RUBY_VERSION: 3.0.3
+    name: Ruby 3.0.3
+    script:
+      - bundle exec rspec
+  build_3:
+    name: Linters
+    script:
+      - bundle exec rubocop
+      - gem install scss_lint
+      - scss-lint app/assets/stylesheets spec/dummy/app/assets/stylesheets
+      - bundle exec rails_best_practices
