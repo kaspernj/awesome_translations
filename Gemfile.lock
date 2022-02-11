@@ -1,10 +1,10 @@
 GIT
   remote: https://github.com/globalize/globalize.git
-  revision: 76b808b13d15c2b7158c0f61ff000b05de47afe6
+  revision: 484ed7ffec8931bf694004fa6486ed5c2a4a12f8
   specs:
     globalize (6.0.1)
-      activemodel (>= 4.2, < 7.0)
-      activerecord (>= 4.2, < 7.0)
+      activemodel (>= 4.2, < 7.1)
+      activerecord (>= 4.2, < 7.1)
       request_store (~> 1.0)
 
 PATH
@@ -244,7 +244,7 @@ GEM
     rainbow (3.1.1)
     rake (13.0.6)
     regexp_parser (2.2.0)
-    request_store (1.5.0)
+    request_store (1.5.1)
       rack (>= 1.4)
     require_all (3.0.0)
     rexml (3.2.5)
