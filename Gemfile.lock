@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/globalize/globalize.git
-  revision: 484ed7ffec8931bf694004fa6486ed5c2a4a12f8
+  revision: 6d89e816fa0b340a85650a871ac34d2ad7ebf5c6
   specs:
-    globalize (6.0.1)
+    globalize (6.1.0)
       activemodel (>= 4.2, < 7.1)
       activerecord (>= 4.2, < 7.1)
       request_store (~> 1.0)
@@ -153,7 +153,7 @@ GEM
       activesupport (>= 5.0)
     html_gen (0.0.16)
       string-cases
-    i18n (1.9.1)
+    i18n (1.10.0)
       concurrent-ruby (~> 1.0)
     jdbc-sqlite3 (3.28.0)
     json (2.6.1)
