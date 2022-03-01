@@ -20,7 +20,7 @@ describe AwesomeTranslations::Translation do
   end
 
   it "#array_translation?" do
-    expect(day_names_monday_translation.array_translation?).to eq true
+    expect(day_names_monday_translation.array_translation?).to be true
   end
 
   it "#array_no" do
@@ -44,11 +44,11 @@ describe AwesomeTranslations::Translation do
 
   describe "#value_for?" do
     it "returns correct value when it is an array translation" do
-      expect(day_names_monday_translation.value_for?("en")).to eq true
+      expect(day_names_monday_translation.value_for?("en")).to be true
     end
 
     it "returns correct value for normal translations" do
-      expect(am_translation.value_for?("en")).to eq true
+      expect(am_translation.value_for?("en")).to be true
     end
   end
 end

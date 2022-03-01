@@ -47,10 +47,10 @@ describe AwesomeTranslations::GroupsController do
         .joins(:translation_key)
         .find_by(translation_keys: {key: key_to_update}, locale: "de")
 
-      expect(da_translation_value).not_to eq nil
+      expect(da_translation_value).not_to be_nil
       expect(da_translation_value.value).to eq "Rolle"
 
-      expect(de_translation_value).not_to eq nil
+      expect(de_translation_value).not_to be_nil
       expect(de_translation_value.value).to eq "Die type"
 
       expect(I18n.load_path).to include role_yml_path

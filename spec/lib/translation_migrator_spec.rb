@@ -27,7 +27,7 @@ describe AwesomeTranslations::TranslationMigrator do
   it "moves the translation from one file to another and deletes the old file" do
     old_path = translation_value.file_path
 
-    expect(old_path).not_to eq nil
+    expect(old_path).not_to be_nil
     expect(translation_value.file_path).not_to eq handler_translation.file_path
     expect(translation_value.key).to eq handler_translation.key
 
@@ -41,6 +41,6 @@ describe AwesomeTranslations::TranslationMigrator do
 
     expect(translation_value.file_path).to eq expected_path
     expect(YAML.load_file(expected_path)).to eq content
-    expect(File.exist?(old_path)).to eq false
+    expect(File.exist?(old_path)).to be false
   end
 end

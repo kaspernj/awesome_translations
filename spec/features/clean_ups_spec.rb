@@ -33,6 +33,6 @@ describe AwesomeTranslations::CleanUpsController do
     find("input[type=submit]").click
 
     expect { translation_value.reload }.to raise_error(BazaModels::Errors::RecordNotFound)
-    expect(File.exist?(original_file_path)).to eq false
+    expect(File.exist?(original_file_path)).to be false
   end
 end
