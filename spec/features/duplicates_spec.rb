@@ -54,7 +54,7 @@ describe AwesomeTranslations::DuplicatesController do
 
       find("input[type=submit]").click
 
-      expect(File.exist?(translation_value_duplicate.file_path)).to eq false
+      expect(File.exist?(translation_value_duplicate.file_path)).to be false
       expect { translation_value_duplicate.reload }.to raise_error(BazaModels::Errors::RecordNotFound)
     end
   end

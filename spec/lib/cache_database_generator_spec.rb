@@ -41,7 +41,7 @@ describe AwesomeTranslations::CacheDatabaseGenerator do
         .where(translation_keys: {key: "activerecord.attributes.user.id"})
         .first
 
-      expect(translation).not_to eq nil
+      expect(translation).not_to be_nil
     end
 
     it "#cache_handler_translations" do
@@ -53,7 +53,7 @@ describe AwesomeTranslations::CacheDatabaseGenerator do
         .where(translation_keys: {key: "activerecord.attributes.user.id"})
         .first
 
-      expect(translation).not_to eq nil
+      expect(translation).not_to be_nil
     end
   end
 end
