@@ -10,7 +10,7 @@ class AwesomeTranslations::CachesController < AwesomeTranslations::ApplicationCo
       cache_db_generator.cache_translations
     end
 
-    flash[:notice] = "The cache was updated"
+    flash[:notice] = t("awesome_translations.the_cache_was_updated")
     redirect_to caches_path
   end
 end
