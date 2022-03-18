@@ -307,7 +307,7 @@ GEM
     thor (1.2.1)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
-    tzinfo-data (1.2021.5)
+    tzinfo-data (1.2022.1)
       tzinfo (>= 1.0.0)
     unicode-display_width (2.1.0)
     websocket-driver (0.7.5)
