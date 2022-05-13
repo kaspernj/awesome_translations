@@ -16,6 +16,12 @@ builds:
     script:
       - bundle exec rspec
   build_3:
+    environment:
+      RUBY_VERSION: 3.1.2
+    name: Ruby 3.1.2
+    script:
+      - bundle exec rspec
+  build_4:
     name: Linters
     script:
       - bundle exec rubocop
