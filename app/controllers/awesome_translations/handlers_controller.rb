@@ -24,13 +24,9 @@ class AwesomeTranslations::HandlersController < AwesomeTranslations::Application
   end
 
   def show
-    if params[:q]
-      @ransack_values = params[:q]
-    else
-      @ransack_values = {
-        with_translations: "only_with"
-      }
-    end
+    @ransack_values = params[:q] || {
+      with_translations: "only_with"
+    }
 
     @ransack = @handler
       .groups
