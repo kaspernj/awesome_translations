@@ -196,15 +196,17 @@ private
     debug "Looking for translations in #{dir_path}"
     @translation_values_found ||= {}
 
-    Dir.foreach(dir_path) do |file|
-      next if file == "." || file == ".."
+    if File.exist?(dir_path)
+      Dir.foreach(dir_path) do |file|
+        next if file == "." || file == ".."
 
-      full_path = "#{dir_path}/#{file}"
+        full_path = "#{dir_path}/#{file}"
 
-      if File.directory?(full_path)
-        cache_translations_in_dir(full_path)
-      elsif File.extname(full_path) == ".yml"
-        cache_translations_in_file(full_path)
+        if File.directory?(full_path)
+          cache_translations_in_dir(full_path)
+        elsif File.extname(full_path) == ".yml"
+          cache_translations_in_file(full_path)
+        end
       end
     end
   end

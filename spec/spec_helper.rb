@@ -66,11 +66,15 @@ RSpec.configure do |config|
     generator = AwesomeTranslations::CacheDatabaseGenerator.current
     generator.close
 
+    locales_dir = Rails.root.join("config/locales").to_s
+
     translation_file = Rails.root.join("config/locales/translations.yml").to_s
     File.unlink(translation_file) if File.exist?(translation_file)
 
     at_dir = Rails.root.join("config/locales/awesome_translations").to_s
     FileUtils.rm_rf(at_dir) if File.exist?(at_dir)
-    FileUtils.touch(Rails.root.join("config/locales/.keep").to_s)
+
+    keep_file = Rails.root.join("config/locales/.keep").to_s
+    FileUtils.touch(keep_file) if File.exist?(locales_dir)
   end
 end
