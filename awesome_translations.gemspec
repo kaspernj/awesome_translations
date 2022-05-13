@@ -29,4 +29,5 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "sassc"
   s.add_development_dependency "simple_form", ">= 0"
+  s.add_development_dependency "net-smtp"
 end
