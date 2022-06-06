@@ -16,7 +16,6 @@ Gem::Specification.new do |s|
   s.metadata = {"rubygems_mfa_required" => "true"}
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
-  s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "active-record-transactioner", ">= 0.0.7"
   s.add_dependency "array_enumerator", ">= 0.0.10"
