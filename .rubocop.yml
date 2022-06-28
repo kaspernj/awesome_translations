@@ -65,6 +65,9 @@ Lint/DeprecatedOpenSSLConstant:
 Lint/MixedRegexpCaptureTypes:
   Enabled: true
 
+Lint/NonAtomicFileOperation:
+  Enabled: false
+
 Lint/RaiseException:
   Enabled: true
 
