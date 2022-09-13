@@ -11,10 +11,10 @@ class UsersController < ApplicationController
 
   def create
     if @user.save
-      flash[:notice] = t(".user_was_created")
+      flash.now[:notice] = t(".user_was_created")
       redirect_to user_path(@user)
     else
-      flash[:error] = @user.errors.full_messages.join(". ")
+      flash.now[:error] = @user.errors.full_messages.join(". ")
       render :new
     end
   end
@@ -23,10 +23,10 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      flash[:notice] = controller_t(".user_was_updated")
+      flash.now[:notice] = controller_t(".user_was_updated")
       redirect_to user_path(@user)
     else
-      flash[:error] = @user.errors.full_messages.join(". ")
+      flash.now[:error] = @user.errors.full_messages.join(". ")
       render :edit
     end
   end
