@@ -235,7 +235,7 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.4.3)
       loofah (~> 2.3)
-    rails_best_practices (1.23.1)
+    rails_best_practices (1.23.2)
       activesupport
       code_analyzer (~> 0.5.5)
       erubis
@@ -297,7 +297,7 @@ GEM
     ruby-progressbar (1.11.0)
     sassc (2.4.0)
       ffi (~> 1.9)
-    sexp_processor (4.16.0)
+    sexp_processor (4.16.1)
     simple_delegate (0.0.2)
     simple_form (5.1.0)
       actionpack (>= 5.2)
