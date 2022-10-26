@@ -135,6 +135,9 @@ RSpec/DescribedClass:
 RSpec/ExampleLength:
   Enabled: false
 
+RSpec/FactoryBot/ConsistentParenthesesStyle:
+  Enabled: false
+
 RSpec/FilePath:
   Enabled: false
 
