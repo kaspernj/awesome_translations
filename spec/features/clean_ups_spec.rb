@@ -24,7 +24,7 @@ describe AwesomeTranslations::CleanUpsController do
     File.write(translation_value.file_path, YAML.dump(content))
   end
 
-  it "works" do
+  it "cleans up old translations" do
     visit new_clean_up_path
     expect(page).to have_http_status(:success)
 
