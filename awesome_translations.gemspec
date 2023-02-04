@@ -25,8 +25,4 @@ Gem::Specification.new do |s|
   s.add_dependency "baza_models", ">= 0.0.14"
   s.add_dependency "rails", ">= 6.0.0"
   s.add_dependency "string-cases", ">= 0.0.3"
-
-  s.add_development_dependency "net-smtp"
-  s.add_development_dependency "sassc"
-  s.add_development_dependency "simple_form", ">= 0"
 end
