@@ -20,6 +20,7 @@ group :development, :test do
   gem "forgery"
   gem "globalize", git: "https://github.com/globalize/globalize.git"
   gem "money-rails"
+  gem "net-smtp"
   gem "pry-rails"
   gem "rails_best_practices"
   gem "rails-controller-testing"
@@ -28,6 +29,8 @@ group :development, :test do
   gem "rubocop-performance"
   gem "rubocop-rails"
   gem "rubocop-rspec"
+  gem "sassc"
+  gem "simple_form", ">= 0"
   # gem "scss_lint", "0.47.1"
   gem "sqlite3", platform: :ruby
   gem "tzinfo-data"
