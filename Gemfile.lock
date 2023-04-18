@@ -257,7 +257,7 @@ GEM
       thor (~> 1.0)
     rainbow (3.1.1)
     rake (13.0.6)
-    regexp_parser (2.7.0)
+    regexp_parser (2.8.0)
     request_store (1.5.1)
       rack (>= 1.4)
     require_all (3.0.0)
@@ -279,7 +279,7 @@ GEM
       rspec-mocks (~> 3.11)
       rspec-support (~> 3.11)
     rspec-support (3.11.1)
-    rubocop (1.49.0)
+    rubocop (1.50.2)
       json (~> 2.3)
       parallel (~> 1.10)
       parser (>= 3.2.0.0)
@@ -360,6 +360,7 @@ DEPENDENCIES
   rails_best_practices
   rspec-rails
   rubocop
+  rubocop-capybara
   rubocop-performance
   rubocop-rails
   rubocop-rspec
