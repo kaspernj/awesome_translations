@@ -10,6 +10,7 @@ AllCops:
   TargetRubyVersion: 2.7
 
 require:
+  - rubocop-capybara
   - rubocop-performance
   - rubocop-rails
   - rubocop-rspec

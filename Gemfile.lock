@@ -360,6 +360,7 @@ DEPENDENCIES
   rails_best_practices
   rspec-rails
   rubocop
+  rubocop-capybara
   rubocop-performance
   rubocop-rails
   rubocop-rspec
