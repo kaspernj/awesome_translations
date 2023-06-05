@@ -124,6 +124,6 @@ private
   end
 
   def translation_with_key_exists?(translations_found, translation_full_key)
-    translations_found.select { |t| t.full_key == translation_full_key }.any?
+    translations_found.any? { |t| t.full_key == translation_full_key }
   end
 end
