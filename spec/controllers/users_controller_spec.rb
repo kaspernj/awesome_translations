@@ -16,6 +16,6 @@ describe UsersController do
     expect(response).to redirect_to user_url(user)
 
     # Ensure correct key
-    expect(flash[:notice]).to eq "translation missing: en.users.user_was_updated"
+    expect(flash[:notice]).to eq "Translation missing: en.users.user_was_updated"
   end
 end
