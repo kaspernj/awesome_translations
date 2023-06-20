@@ -19,7 +19,7 @@ describe AwesomeTranslations::Handlers::ValidationsHandler do
     end
 
     it "finds the right directory" do
-      expect(blank_email_translation.dir).to eq Rails.root.join("config/locales/awesome_translations/models/user").to_s
+      expect(blank_email_translation.dir).to eq Rails.root.join("config/locales/awesome_translations/models/user")
     end
 
     it "finds confirmation translations" do
