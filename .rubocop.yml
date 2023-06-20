@@ -19,6 +19,9 @@ require:
 Gemspec/RequiredRubyVersion:
   Enabled: false
 
+FactoryBot/ConsistentParenthesesStyle:
+  Enabled: false
+
 Layout/AccessModifierIndentation:
   EnforcedStyle: outdent
 
@@ -135,9 +138,6 @@ RSpec/DescribedClass:
   Enabled: false
 
 RSpec/ExampleLength:
-  Enabled: false
-
-RSpec/FactoryBot/ConsistentParenthesesStyle:
   Enabled: false
 
 RSpec/FilePath:
