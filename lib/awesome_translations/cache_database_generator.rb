@@ -220,7 +220,7 @@ private
     debug "Hash: #{i18n_hash}"
 
     i18n_hash.each do |locale, translations|
-      cache_translations_in_hash(file_path, locale, translations)
+      cache_translations_in_hash(file_path, locale, translations) if locale && translations
     end
 
     debug "Done caching translations in #{file_path}"
