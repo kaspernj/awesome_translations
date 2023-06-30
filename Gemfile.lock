@@ -10,7 +10,7 @@ GIT
 PATH
   remote: .
   specs:
-    awesome_translations (0.0.62)
+    awesome_translations (0.0.63)
       active-record-transactioner (>= 0.0.7)
       array_enumerator (>= 0.0.10)
       auto_autoloader (>= 0.0.4)
@@ -314,7 +314,7 @@ GEM
     sassc (2.4.0)
       ffi (~> 1.9)
     sexp_processor (4.16.1)
-    simple_delegate (0.0.2)
+    simple_delegate (0.0.4)
     simple_form (5.2.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
