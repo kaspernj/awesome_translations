@@ -50,7 +50,7 @@ RSpec.configure do |config|
     BazaModels::TestDatabaseCleaner.clean
   end
 
-  config.before(:each, js: true) do
+  config.before(:each, :js) do
     DatabaseCleaner.strategy = :truncation
   end
 

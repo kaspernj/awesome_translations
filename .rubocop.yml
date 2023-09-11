@@ -140,7 +140,7 @@ RSpec/DescribedClass:
 RSpec/ExampleLength:
   Enabled: false
 
-RSpec/FilePath:
+RSpec/SpecFilePathFormat:
   Enabled: false
 
 RSpec/LetSetup:
