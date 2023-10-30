@@ -5,20 +5,26 @@ before_script:
 builds:
   build_1:
     environment:
-      RUBY_VERSION: 2.7.4
-    name: Ruby 2.7.4
+      RUBY_VERSION: 2.7.7
+    name: Ruby 2.7.7
     script:
       - bundle exec rspec
   build_2:
     environment:
-      RUBY_VERSION: 3.0.3
-    name: Ruby 3.0.3
+      RUBY_VERSION: 3.0.6
+    name: Ruby 3.0.6
     script:
       - bundle exec rspec
   build_3:
     environment:
-      RUBY_VERSION: 3.1.2
-    name: Ruby 3.1.2
+      RUBY_VERSION: 3.1.4
+    name: Ruby 3.1.4
+    script:
+      - bundle exec rspec
+  build_3:
+    environment:
+      RUBY_VERSION: 3.2.2
+    name: Ruby 3.2.2
     script:
       - bundle exec rspec
   build_4:
