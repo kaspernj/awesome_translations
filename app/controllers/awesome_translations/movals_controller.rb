@@ -11,7 +11,7 @@ class AwesomeTranslations::MovalsController < AwesomeTranslations::ApplicationCo
   end
 
   def create
-    params[:m].each do |translation_value_id, _handler_translation_id|
+    params[:m].each_key do |translation_value_id|
       translation_value = AwesomeTranslations::CacheDatabaseGenerator::TranslationValue.find(translation_value_id)
       translation_value.migrate_to_awesome_translations_namespace!
     end
