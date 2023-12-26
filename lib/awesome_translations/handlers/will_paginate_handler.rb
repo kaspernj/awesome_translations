@@ -22,7 +22,7 @@ class AwesomeTranslations::Handlers::WillPaginateHandler < AwesomeTranslations::
   def translations_for_group(group)
     ArrayEnumerator.new do |yielder|
       dir = Rails.root.join("config", "locales", "awesome_translations", group.id).to_s
-      __send__("translations_for_#{group.id}", dir, group, yielder)
+      __send__(:"translations_for_#{group.id}", dir, group, yielder)
     end
   end
 
