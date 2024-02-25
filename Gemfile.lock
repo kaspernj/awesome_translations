@@ -10,7 +10,7 @@ GIT
 PATH
   remote: .
   specs:
-    awesome_translations (0.0.63)
+    awesome_translations (0.0.64)
       active-record-transactioner (>= 0.0.7)
       array_enumerator (>= 0.0.10)
       auto_autoloader (>= 0.0.4)
@@ -136,8 +136,8 @@ GEM
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0.0)
     database_cleaner-core (2.0.1)
-    date (3.3.3)
-    date (3.3.3-java)
+    date (3.3.4)
+    date (3.3.4-java)
     datet (0.0.25)
     diff-lcs (1.5.0)
     erubi (1.12.0)
@@ -151,8 +151,8 @@ GEM
     ffi (1.15.4)
     ffi (1.15.4-java)
     forgery (0.8.1)
-    globalid (1.1.0)
-      activesupport (>= 5.0)
+    globalid (1.2.1)
+      activesupport (>= 6.1)
     html_gen (0.0.16)
       string-cases
     i18n (1.14.1)
@@ -184,7 +184,7 @@ GEM
       monetize (~> 1.9)
       money (~> 6.13)
       railties (>= 3.0)
-    net-imap (0.3.7)
+    net-imap (0.4.10)
       date
       net-protocol
     net-pop (0.1.2)
@@ -193,8 +193,8 @@ GEM
       timeout
     net-smtp (0.4.0)
       net-protocol
-    nio4r (2.5.9)
-    nio4r (2.5.9-java)
+    nio4r (2.7.0)
+    nio4r (2.7.0-java)
     nokogiri (1.15.5)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
@@ -261,6 +261,7 @@ GEM
       thor (~> 1.0)
     rainbow (3.1.1)
     rake (13.1.0)
+    ref (2.0.0)
     regexp_parser (2.8.3)
     request_store (1.5.1)
       rack (>= 1.4)
@@ -322,7 +323,7 @@ GEM
       activemodel (>= 5.2)
     spoon (0.0.6)
       ffi
-    sprockets (4.2.0)
+    sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
     sprockets-rails (3.4.2)
@@ -339,12 +340,15 @@ GEM
     tzinfo-data (1.2023.4)
       tzinfo (>= 1.0.0)
     unicode-display_width (2.5.0)
+    weakling (0.0.3)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-driver (0.7.6-java)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    wref (0.0.8)
+    wref (0.0.9)
+      ref
+      weakling
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.6.12)
