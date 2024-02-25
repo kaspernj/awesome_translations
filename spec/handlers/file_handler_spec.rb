@@ -9,6 +9,7 @@ describe AwesomeTranslations::Handlers::FileHandler do
     let(:users_partial_test_translations) { handler.groups.find { |group| group.name == "app/views/users/_partial_test.html.erb" }.translations }
     let(:layout_group) { handler.groups.find { |group| group.name == "app/views/layouts/application.html.erb" } }
     let(:layout_translations) { layout_group.translations }
+    let(:use_i18n_group) { handler.groups.find { |group| group.name == "app/assets/javascripts/use-i18n.js" } }
 
     it "finds translations made with the t method" do
       hello_world_translations = users_index_translations.select { |t| t.key == "users.index.hello_world" }.to_a
@@ -37,6 +38,11 @@ describe AwesomeTranslations::Handlers::FileHandler do
     it "sets the correct translation path" do
       danish_translation = layout_translations.find { |t| t.key == "layouts.application.danish" }
       expect(danish_translation.dir).to eq Rails.root.join("config/locales/awesome_translations/layouts/application").to_s
+    end
+
+    it "finds translations made with the t method and useI18n" do
+      hello_world_translations = use_i18n_group.translations.select { |t| t.key == "test.component.hello_world" }.to_a
+      expect(hello_world_translations.length).to eq 1
     end
   end
 

@@ -1,7 +1,8 @@
 class AwesomeTranslations::ErbInspector::FileInspector
-  JS_FILE_EXTS = [".coffee", ".coffee.erb", ".es6", ".es6.erb", ".js", ".js.erb", ".jsx"].freeze
+  JS_FILE_EXTS = [".cjs", ".coffee", ".coffee.erb", ".es6", ".es6.erb", ".js", ".js.erb", ".jsx", ".mjs"].freeze
   METHOD_NAMES = %w[t controller_t helper_t].freeze
   VALID_BEGINNING = '(^|\s+|\(|\{|\[|<%=\s*|I18n\.)'.freeze
+  VALID_BEGINNING_JS = '(^|\s+|\(|\[|I18n\.)'.freeze
 
   attr_reader :root_path, :file_path
 
@@ -18,6 +19,7 @@ class AwesomeTranslations::ErbInspector::FileInspector
         extname = File.extname(full_path)
         translations_found = []
         line_no = 0
+        @namespace = nil
 
         fp.each_line do |line|
           line_no += 1
@@ -68,12 +70,16 @@ private
   end
 
   def parse_content_js(line_no, line, translations_found, yielder)
-    line.scan(/I18n\.t\('(.+?)'\s*(\)|,)/) do |match|
-      add_translation(line_no, "I18n-js.t", match[0], translations_found, yielder)
+    line.scan(/useI18n\(\s*\{\s*namespace:\s*"(.+)"/) do |match|
+      @namespace = match[0]
     end
 
-    line.scan(/I18n\.t\("(.+?)"\s*(\)|,)/) do |match|
-      add_translation(line_no, "I18n-js.t", match[0], translations_found, yielder)
+    line.scan(/#{VALID_BEGINNING_JS}t\('(.+?)'\s*(\)|,)/) do |match|
+      add_translation(line_no, "I18n-js.t", match[1], translations_found, yielder)
+    end
+
+    line.scan(/#{VALID_BEGINNING_JS}t\("(.+?)"\s*(\)|,)/) do |match|
+      add_translation(line_no, "I18n-js.t", match[1], translations_found, yielder)
     end
   end
 
@@ -103,6 +109,8 @@ private
   end
 
   def add_translation(line_no, method, key, translations_found, yielder)
+    key = "#{@namespace}#{key}" if key.start_with?(".") && @namespace
+
     translation_inspector = AwesomeTranslations::ErbInspector::TranslationInspector.new(
       last_method: @last_method,
       root_path: @root_path,
