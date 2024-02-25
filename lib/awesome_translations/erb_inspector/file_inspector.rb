@@ -74,11 +74,11 @@ private
       @namespace = match[0]
     end
 
-    line.scan(/#{VALID_BEGINNING_JS}t\('(.+?)'\s*(\)|,)/) do |match|
+    line.scan(/#{VALID_BEGINNING_JS}t\('(.+?)'\s*(\)|,)/o) do |match|
       add_translation(line_no, "I18n-js.t", match[1], translations_found, yielder)
     end
 
-    line.scan(/#{VALID_BEGINNING_JS}t\("(.+?)"\s*(\)|,)/) do |match|
+    line.scan(/#{VALID_BEGINNING_JS}t\("(.+?)"\s*(\)|,)/o) do |match|
       add_translation(line_no, "I18n-js.t", match[1], translations_found, yielder)
     end
   end
