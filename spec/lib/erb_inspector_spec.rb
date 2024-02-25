@@ -12,7 +12,7 @@ describe AwesomeTranslations::ErbInspector do
 
   describe "#files" do
     it "finds the right amount of haml-files" do
-      expect(files.length).to eq 36
+      expect(files.length).to eq 37
     end
 
     it "finds haml-files" do

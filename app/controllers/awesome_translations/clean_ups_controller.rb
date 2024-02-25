@@ -22,7 +22,7 @@ private
 
   helper_method :translations_to_clean_up
   def translations_to_clean_up
-    @translations_to_migrate ||= AwesomeTranslations::CacheDatabaseGenerator::TranslationValue
+    @translations_to_clean_up ||= AwesomeTranslations::CacheDatabaseGenerator::TranslationValue
       .joins(:translation_key)
       .includes(:translation_key)
       .joins("LEFT JOIN handler_translations ON handler_translations.translation_key_id = translation_keys.id")
