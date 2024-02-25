@@ -7,8 +7,8 @@ require "awesome_translations/version"
 Gem::Specification.new do |s|
   s.name = "awesome_translations"
   s.version = AwesomeTranslations::VERSION
-  s.authors = ["Kasper Johansen"]
-  s.email = ["kaspernj@gmail.com"]
+  s.authors = ["Kasper Stöckel"]
+  s.email = ["k@spernj.org"]
   s.homepage = "https://www.github.com/kaspernj/awesome_translations"
   s.summary = "Semi-automatic maintenance of most translations in a Rails app."
   s.description = "Semi-automatic maintenance of most translations in a Rails app."
