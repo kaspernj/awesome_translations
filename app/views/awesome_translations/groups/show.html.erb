@@ -53,7 +53,7 @@
               </td>
               <% I18n.available_locales.each do |locale| %>
                 <td class="translation">
-                  <%= text_field "t", "#{translation.key}[#{locale}]", class: "translation-input", lang: locale, value: translation.translation_value(locale: locale) %>
+                  <%= text_field "t", "#{translation.key}[#{locale}]", class: "translation-input", lang: locale, name: "t[#{translation.key}][#{locale}]", value: translation.translation_value(locale: locale) %>
                 </td>
               <% end %>
             </tr>
