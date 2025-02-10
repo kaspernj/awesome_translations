@@ -12,7 +12,7 @@ class AwesomeTranslations::TranslationMigrator
     @locale = @translation_value.locale
 
     @old_path = @translation_value.file_path
-    @new_path = "#{@handler_translation.dir}/#{@translation_value.locale}.yml" if @handler_translation
+    @new_path = "#{@handler_translation.dir}/#{@translation_value.locale}.#{AwesomeTranslations.config.format}" if @handler_translation
   end
 
   def execute

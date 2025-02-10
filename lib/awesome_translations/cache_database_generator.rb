@@ -204,6 +204,8 @@ private
 
         if File.directory?(full_path)
           cache_translations_in_dir(full_path)
+        elsif File.extname(full_path) == ".json"
+          cache_translations_in_file_from_json(full_path)
         elsif File.extname(full_path) == ".yml"
           cache_translations_in_file(full_path)
         end
@@ -217,6 +219,21 @@ private
     debug "Cache translations in #{file_path}"
 
     i18n_hash = YAML.load_file(file_path)
+    debug "Hash: #{i18n_hash}"
+
+    i18n_hash.each do |locale, translations|
+      cache_translations_in_hash(file_path, locale, translations) if locale && translations
+    end
+
+    debug "Done caching translations in #{file_path}"
+  end
+
+  def cache_translations_in_file_from_json(file_path)
+    @translation_keys_found ||= {}
+
+    debug "Cache translations in #{file_path}"
+
+    i18n_hash = JSON.parse(File.read(file_path))
     debug "Hash: #{i18n_hash}"
 
     i18n_hash.each do |locale, translations|

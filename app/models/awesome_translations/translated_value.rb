@@ -34,10 +34,23 @@ class AwesomeTranslations::TranslatedValue
     match[2].to_i
   end
 
+  def file_extension
+    @file_extension ||= File.extname(@file)
+  end
+
   def save!
     dir = File.dirname(@file)
     FileUtils.mkdir_p(dir) unless File.exist?(dir)
-    File.write(@file, "#{@locale}:\n") unless File.exist?(@file)
+
+    unless File.exist?(@file)
+      if file_extension == ".yml"
+        File.write(@file, JSON.pretty_generate(@locale.to_s => {}))
+      elsif file_extension == ".json"
+        File.write(file, YAML.dump(@locale.to_s => {}))
+      else
+        raise "Unhandled file extension: #{file_extension}"
+      end
+    end
 
     translations = YAML.safe_load(File.read(@file))
     translations ||= {}
@@ -48,7 +61,14 @@ class AwesomeTranslations::TranslatedValue
     update_models
 
     I18n.load_path << file unless I18n.load_path.include?(file)
-    File.write(file, YAML.dump(translations))
+
+    if file_extension == ".yml"
+      File.write(file, YAML.dump(translations))
+    elsif file_extension == ".json"
+      File.write(file, JSON.pretty_generate(translations))
+    else
+      raise "Unhandled file extension: #{file_extension}"
+    end
   end
 
 private
