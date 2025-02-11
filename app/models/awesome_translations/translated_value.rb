@@ -39,39 +39,61 @@ class AwesomeTranslations::TranslatedValue
   end
 
   def save! # rubocop:disable Metrics/AbcSize
-    dir = File.dirname(@file)
-    FileUtils.mkdir_p(dir) unless File.exist?(dir)
-
-    unless File.exist?(@file)
-      if file_extension == ".yml"
-        File.write(@file, JSON.pretty_generate(@locale.to_s => {}))
-      elsif file_extension == ".json"
-        File.write(file, YAML.dump(@locale.to_s => {}))
-      else
-        raise "Unhandled file extension: #{file_extension}"
-      end
+    if file_extension == ".yml"
+      translations = YAML.safe_load(File.read(file)) if File.exist?(file)
+    elsif file_extension == ".json"
+      translations = JSON.parse(File.read(file)) if File.exist?(file)
+    else
+      raise "Unhandled file extension: #{file_extension}"
     end
 
-    translations = YAML.safe_load(File.read(@file))
     translations ||= {}
     translations[@locale.to_s] ||= {}
 
     insert_translation_into_hash(translations)
+    number_of_translactions = count_translations(translations)
 
     update_models
 
-    I18n.load_path << file unless I18n.load_path.include?(file)
+    if number_of_translactions.positive?
+      dir = File.dirname(file)
+      FileUtils.mkdir_p(dir) unless File.exist?(dir)
 
-    if file_extension == ".yml"
-      File.write(file, YAML.dump(translations))
-    elsif file_extension == ".json"
-      File.write(file, JSON.pretty_generate(translations))
+      if file_extension == ".yml"
+        File.write(file, YAML.dump(translations))
+      elsif file_extension == ".json"
+        File.write(file, JSON.pretty_generate(translations))
+      else
+        raise "Unhandled file extension: #{file_extension}"
+      end
+
+      I18n.load_path << file unless I18n.load_path.include?(file)
     else
-      raise "Unhandled file extension: #{file_extension}"
+      File.unlink(file) if File.exist?(file)
+
+      I18n.load_path.select! do |load_path_value|
+        load_path_value != file
+      end
     end
   end
 
 private
+
+  def count_translations(translations)
+    count = 0
+
+    translations.each do |key, value|
+      if value.is_a?(Hash)
+        count += count_translations(value)
+      elsif value.is_a?(Array)
+        count += value.length
+      else
+        count += 1
+      end
+    end
+
+    count
+  end
 
   def insert_translation_into_hash(translations)
     current = translations[@locale.to_s]
