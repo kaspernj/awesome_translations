@@ -38,7 +38,7 @@ class AwesomeTranslations::TranslatedValue
     @file_extension ||= File.extname(@file)
   end
 
-  def save!
+  def save! # rubocop:disable Metrics/AbcSize
     dir = File.dirname(@file)
     FileUtils.mkdir_p(dir) unless File.exist?(dir)
 
