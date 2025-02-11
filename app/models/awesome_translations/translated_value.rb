@@ -71,8 +71,8 @@ class AwesomeTranslations::TranslatedValue
     else
       File.unlink(file) if File.exist?(file)
 
-      I18n.load_path.select! do |load_path_value|
-        load_path_value != file
+      I18n.load_path.reject! do |load_path_value|
+        load_path_value == file
       end
     end
   end
@@ -82,7 +82,7 @@ private
   def count_translations(translations)
     count = 0
 
-    translations.each do |key, value|
+    translations.each_value do |value|
       if value.is_a?(Hash)
         count += count_translations(value)
       elsif value.is_a?(Array)
