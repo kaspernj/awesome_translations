@@ -1,7 +1,8 @@
 class AwesomeTranslations::Config
-  attr_accessor :ignored_paths, :paths_to_translate
+  attr_accessor :format, :ignored_paths, :paths_to_translate
 
   def initialize
+    @format = "yml"
     @ignored_paths = [
       Rails.root.join(".git").to_s,
       Rails.root.join("config/locales").to_s,

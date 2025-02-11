@@ -55,7 +55,7 @@ class AwesomeTranslations::Translation
       next unless value_for?(locale)
 
       result << AwesomeTranslations::TranslatedValue.new(
-        file: "#{dir}/#{locale}.yml",
+        file: "#{dir}/#{locale}.#{AwesomeTranslations.config.format}",
         key: @key,
         locale: locale,
         value: value(locale: locale)
@@ -77,7 +77,7 @@ class AwesomeTranslations::Translation
 
   def translated_value_for_locale(locale)
     AwesomeTranslations::TranslatedValue.new(
-      file: "#{dir}/#{locale}.yml",
+      file: "#{dir}/#{locale}.#{AwesomeTranslations.config.format}",
       key: @key,
       locale: locale,
       value: value_for?(locale) ? value(locale: locale) : ""

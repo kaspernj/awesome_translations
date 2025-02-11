@@ -34,24 +34,66 @@ class AwesomeTranslations::TranslatedValue
     match[2].to_i
   end
 
-  def save!
-    dir = File.dirname(@file)
-    FileUtils.mkdir_p(dir) unless File.exist?(dir)
-    File.write(@file, "#{@locale}:\n") unless File.exist?(@file)
+  def file_extension
+    @file_extension ||= File.extname(@file)
+  end
 
-    translations = YAML.safe_load(File.read(@file))
+  def save! # rubocop:disable Metrics/AbcSize
+    if file_extension == ".yml"
+      translations = YAML.safe_load(File.read(file)) if File.exist?(file)
+    elsif file_extension == ".json"
+      translations = JSON.parse(File.read(file)) if File.exist?(file)
+    else
+      raise "Unhandled file extension: #{file_extension}"
+    end
+
     translations ||= {}
     translations[@locale.to_s] ||= {}
 
     insert_translation_into_hash(translations)
+    number_of_translactions = count_translations(translations)
 
     update_models
 
-    I18n.load_path << file unless I18n.load_path.include?(file)
-    File.write(file, YAML.dump(translations))
+    if number_of_translactions.positive?
+      dir = File.dirname(file)
+      FileUtils.mkdir_p(dir) unless File.exist?(dir)
+
+      if file_extension == ".yml"
+        File.write(file, YAML.dump(translations))
+      elsif file_extension == ".json"
+        File.write(file, JSON.pretty_generate(translations))
+      else
+        raise "Unhandled file extension: #{file_extension}"
+      end
+
+      I18n.load_path << file unless I18n.load_path.include?(file)
+    else
+      File.unlink(file) if File.exist?(file)
+
+      I18n.load_path.reject! do |load_path_value|
+        load_path_value == file
+      end
+    end
   end
 
 private
+
+  def count_translations(translations)
+    count = 0
+
+    translations.each_value do |value|
+      if value.is_a?(Hash)
+        count += count_translations(value)
+      elsif value.is_a?(Array)
+        count += value.length
+      else
+        count += 1
+      end
+    end
+
+    count
+  end
 
   def insert_translation_into_hash(translations)
     current = translations[@locale.to_s]

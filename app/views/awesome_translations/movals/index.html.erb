@@ -29,7 +29,7 @@
                 <%= path_without_root_or_locales moval.file_path %>
               </td>
               <td>
-                <%= path_without_root_or_locales "#{handler_translation.dir}/#{moval.locale}.yml" %>
+                <%= path_without_root_or_locales "#{handler_translation.dir}/#{moval.locale}.#{AwesomeTranslations.config.format}" %>
               </td>
             </tr>
           <% end %>
