@@ -10,7 +10,7 @@ GIT
 PATH
   remote: .
   specs:
-    awesome_translations (0.0.66)
+    awesome_translations (0.0.67)
       active-record-transactioner (>= 0.0.7)
       array_enumerator (>= 0.0.10)
       auto_autoloader (>= 0.0.4)
@@ -94,14 +94,15 @@ GEM
     ast (2.4.2)
     auto_autoloader (0.0.5)
       string-cases
-    baza (0.0.38)
-      array_enumerator (~> 0.0.10)
-      auto_autoloader (~> 0.0.5)
-      datet (~> 0.0.25)
-      event_handler (~> 0.0.0)
-      simple_delegate (~> 0.0.2)
-      string-cases (~> 0.0.4)
-      wref (~> 0.0.8)
+    base64 (0.2.0)
+    baza (0.0.39)
+      array_enumerator (>= 0.0.10)
+      auto_autoloader (>= 0.0.5)
+      datet (>= 0.0.25)
+      event_handler
+      simple_delegate (>= 0.0.2)
+      string-cases (>= 0.0.4)
+      wref (>= 0.0.11)
     baza_migrations (0.0.2)
       auto_autoloader
       baza (~> 0.0.20)
@@ -136,8 +137,8 @@ GEM
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0.0)
     database_cleaner-core (2.0.1)
-    date (3.3.4)
-    date (3.3.4-java)
+    date (3.4.1)
+    date (3.4.1-java)
     datet (0.0.25)
     diff-lcs (1.5.0)
     erubi (1.12.0)
@@ -184,7 +185,7 @@ GEM
       monetize (~> 1.9)
       money (~> 6.13)
       railties (>= 3.0)
-    net-imap (0.4.12)
+    net-imap (0.5.6)
       date
       net-protocol
     net-pop (0.1.2)
@@ -193,8 +194,8 @@ GEM
       timeout
     net-smtp (0.4.0)
       net-protocol
-    nio4r (2.7.3)
-    nio4r (2.7.3-java)
+    nio4r (2.7.4)
+    nio4r (2.7.4-java)
     nokogiri (1.15.5)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
@@ -326,7 +327,7 @@ GEM
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
-    sprockets-rails (3.5.1)
+    sprockets-rails (3.5.2)
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
@@ -340,15 +341,15 @@ GEM
     tzinfo-data (1.2023.4)
       tzinfo (>= 1.0.0)
     unicode-display_width (2.5.0)
-    weakling (0.0.3)
-    websocket-driver (0.7.6)
+    websocket-driver (0.7.7)
+      base64
       websocket-extensions (>= 0.1.0)
-    websocket-driver (0.7.6-java)
+    websocket-driver (0.7.7-java)
+      base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    wref (0.0.9)
+    wref (0.0.11)
       ref
-      weakling
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.6.12)
