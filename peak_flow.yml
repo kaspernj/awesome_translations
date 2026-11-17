@@ -7,28 +7,103 @@ builds:
     environment:
       RUBY_VERSION: 2.7.7
     name: Ruby 2.7.7
+    paths:
+      - app/**
+      - config/**
+      - db/**
+      - lib/**
+      - spec/**
+      - .ruby-version
+      - .rubocop.yml
+      - .rubocop_todo.yml
+      - .scss-lint.yml
+      - Gemfile
+      - Gemfile.lock
+      - Rakefile
+      - awesome_translations.gemspec
+      - peak_flow.yml
     script:
       - bundle exec rspec
   build_2:
     environment:
       RUBY_VERSION: 3.0.6
     name: Ruby 3.0.6
+    paths:
+      - app/**
+      - config/**
+      - db/**
+      - lib/**
+      - spec/**
+      - .ruby-version
+      - .rubocop.yml
+      - .rubocop_todo.yml
+      - .scss-lint.yml
+      - Gemfile
+      - Gemfile.lock
+      - Rakefile
+      - awesome_translations.gemspec
+      - peak_flow.yml
     script:
       - bundle exec rspec
   build_3:
     environment:
       RUBY_VERSION: 3.1.4
     name: Ruby 3.1.4
+    paths:
+      - app/**
+      - config/**
+      - db/**
+      - lib/**
+      - spec/**
+      - .ruby-version
+      - .rubocop.yml
+      - .rubocop_todo.yml
+      - .scss-lint.yml
+      - Gemfile
+      - Gemfile.lock
+      - Rakefile
+      - awesome_translations.gemspec
+      - peak_flow.yml
     script:
       - bundle exec rspec
   build_4:
     environment:
       RUBY_VERSION: 3.2.2
     name: Ruby 3.2.2
+    paths:
+      - app/**
+      - config/**
+      - db/**
+      - lib/**
+      - spec/**
+      - .ruby-version
+      - .rubocop.yml
+      - .rubocop_todo.yml
+      - .scss-lint.yml
+      - Gemfile
+      - Gemfile.lock
+      - Rakefile
+      - awesome_translations.gemspec
+      - peak_flow.yml
     script:
       - bundle exec rspec
   build_5:
     name: Linters
+    paths:
+      - app/**
+      - config/**
+      - db/**
+      - lib/**
+      - spec/**
+      - .ruby-version
+      - .rubocop.yml
+      - .rubocop_todo.yml
+      - .scss-lint.yml
+      - Gemfile
+      - Gemfile.lock
+      - Rakefile
+      - awesome_translations.gemspec
+      - peak_flow.yml
     script:
       - bundle exec rubocop
       - gem install scss_lint
