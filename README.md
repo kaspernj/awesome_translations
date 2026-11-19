@@ -86,6 +86,9 @@ end
 
 Start a Rails server for your project and go to the namespace called something like "http://localhost:3000/awesome_translations". Start translating your app through the webinterface.
 
+## Build path filtering
+
+Build lanes run for source, configuration, dependency, and test changes; documentation-only changes do not run the build lanes.
 
 # License
 
